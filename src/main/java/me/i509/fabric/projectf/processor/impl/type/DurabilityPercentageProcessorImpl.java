@@ -22,23 +22,23 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl;
+package me.i509.fabric.projectf.processor.impl.type;
 
 import me.i509.fabric.projectf.ProjectF;
-import me.i509.fabric.projectf.api.processor.type.ConstantProcessor;
+import me.i509.fabric.projectf.api.processor.type.DurabilityPercentageProcessor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
-public class ConstantProcessorImpl implements ConstantProcessor {
-	private long value;
+public class DurabilityPercentageProcessorImpl implements DurabilityPercentageProcessor {
+	private long full;
 
-	public ConstantProcessorImpl(long value) {
-		this.value = value;
+	public DurabilityPercentageProcessorImpl(long full) {
+		this.full = full;
 	}
 
 	@Override
-	public long getSingleValue() {
-		return this.value;
+	public long getFullDurabilityValue() {
+		return this.full;
 	}
 
 	@Override
@@ -48,11 +48,12 @@ public class ConstantProcessorImpl implements ConstantProcessor {
 
 	@Override
 	public long process(ItemStack stack) {
-		return this.value;
+		double percentage = (double) (stack.getMaxDamage() - stack.getDamage()) / (double) stack.getMaxDamage();
+		return (long) (this.full * percentage);
 	}
 
 	@Override
 	public Identifier getId() {
-		return ProjectF.id("constant");
+		return ProjectF.id("percentage_of");
 	}
 }

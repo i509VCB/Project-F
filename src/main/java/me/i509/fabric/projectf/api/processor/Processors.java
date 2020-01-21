@@ -25,16 +25,20 @@
 package me.i509.fabric.projectf.api.processor;
 
 import me.i509.fabric.projectf.ProjectF;
-import me.i509.fabric.projectf.api.processor.type.AddProcessor;
 import me.i509.fabric.projectf.api.processor.factory.AddProcessorFactory;
-import me.i509.fabric.projectf.api.processor.type.ConstantProcessor;
 import me.i509.fabric.projectf.api.processor.factory.ConstantProcessorFactory;
-import me.i509.fabric.projectf.api.processor.type.DurabilityPercentageProcessor;
 import me.i509.fabric.projectf.api.processor.factory.DurabilityPercentageProcessorFactory;
-import me.i509.fabric.projectf.api.processor.type.OfItemsProcessor;
+import me.i509.fabric.projectf.api.processor.factory.MaxProcessorFactory;
+import me.i509.fabric.projectf.api.processor.factory.MinProcessorFactory;
 import me.i509.fabric.projectf.api.processor.factory.OfItemsProcessorFactory;
-import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
 import me.i509.fabric.projectf.api.processor.factory.PercentageOfProcessorFactory;
+import me.i509.fabric.projectf.api.processor.type.AddProcessor;
+import me.i509.fabric.projectf.api.processor.type.ConstantProcessor;
+import me.i509.fabric.projectf.api.processor.type.DurabilityPercentageProcessor;
+import me.i509.fabric.projectf.api.processor.type.MaxProcessor;
+import me.i509.fabric.projectf.api.processor.type.MinProcessor;
+import me.i509.fabric.projectf.api.processor.type.OfItemsProcessor;
+import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
 import me.i509.fabric.projectf.api.processor.type.Processor;
 
 /**
@@ -62,6 +66,16 @@ public final class Processors {
 	 * <p>Note this processor will be ignored if it is detected to be recursive.</p>
 	 */
 	public static final OfItemsProcessorFactory OF_ITEMS = ProjectF.getInstance().getProcessorRegistry().get(OfItemsProcessor.class);
+
+	/**
+	 * Represents a {@link Processor} whose value is the maximum of two {@link Processor}s.
+	 */
+	public static final MaxProcessorFactory MAX = ProjectF.getInstance().getProcessorRegistry().get(MaxProcessor.class);
+
+	/**
+	 * Represents a {@link Processor} whose value is the minumum of two {@link Processor}s.
+	 */
+	public static final MinProcessorFactory MIN = ProjectF.getInstance().getProcessorRegistry().get(MinProcessor.class);
 
 	/**
 	 * Represents a {@link Processor} whoses result is a part of another {@link Processor}'s value.

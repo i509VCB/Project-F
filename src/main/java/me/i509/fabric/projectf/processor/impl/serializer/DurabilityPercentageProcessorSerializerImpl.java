@@ -22,13 +22,14 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl;
+package me.i509.fabric.projectf.processor.impl.serializer;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import me.i509.fabric.projectf.api.processor.type.DurabilityPercentageProcessor;
 import me.i509.fabric.projectf.api.processor.serializer.DurabilityPercentageProcessorSerializer;
+import me.i509.fabric.projectf.processor.impl.type.DurabilityPercentageProcessorImpl;
 import net.minecraft.util.PacketByteBuf;
 
 public class DurabilityPercentageProcessorSerializerImpl implements DurabilityPercentageProcessorSerializer {

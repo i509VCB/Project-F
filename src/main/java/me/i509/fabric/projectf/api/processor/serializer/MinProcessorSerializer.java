@@ -22,24 +22,10 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl;
+package me.i509.fabric.projectf.api.processor.serializer;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import me.i509.fabric.projectf.api.processor.type.ConstantProcessor;
-import me.i509.fabric.projectf.api.processor.factory.ConstantProcessorFactory;
+import me.i509.fabric.projectf.api.processor.factory.MinProcessorFactory;
+import me.i509.fabric.projectf.api.processor.type.MinProcessor;
 
-public class ConstantProcessorFactoryImpl implements ConstantProcessorFactory {
-	private long value;
-
-	@Override
-	public ConstantProcessorFactory value(long value) {
-		this.value = value;
-		return this;
-	}
-
-	@Override
-	public ConstantProcessor create() {
-		checkArgument(value >= 0, "Constant Processor value cannot be negative.");
-		return new ConstantProcessorImpl(this.value);
-	}
+public interface MinProcessorSerializer extends ProcessorSerializer<MinProcessor, MinProcessorFactory> {
 }

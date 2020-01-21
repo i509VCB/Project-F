@@ -22,61 +22,47 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl;
+package me.i509.fabric.projectf.processor.impl.type;
 
 import me.i509.fabric.projectf.ProjectF;
+import me.i509.fabric.projectf.api.processor.type.MaxProcessor;
 import me.i509.fabric.projectf.api.processor.type.Processor;
-import me.i509.fabric.projectf.api.processor.type.AddProcessor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
-public class AddProcessorImpl implements AddProcessor {
-	private final Processor first;
-	private final Processor second;
+public class MaxProcessorImpl implements MaxProcessor {
+	private final Processor<?> first;
+	private final Processor<?> second;
 
-	public AddProcessorImpl(Processor first, Processor second) {
+	public MaxProcessorImpl(Processor<?> first, Processor<?> second) {
 		this.first = first;
 		this.second = second;
 	}
 
 	@Override
-	public boolean isRecursive() {
-		if (this.first.equals(this) || this.second.equals(this)) {
-			return true;
-		}
-
-		boolean recursive = this.first.isRecursive();
-
-		if (recursive) {
-			return true;
-		}
-
-		recursive = this.second.isRecursive();
-
-		if (recursive) {
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
-	public long process(ItemStack stack) {
-		return first.process(stack) + second.process(stack);
-	}
-
-	@Override
-	public Identifier getId() {
-		return ProjectF.id("and");
-	}
-
-	@Override
-	public Processor getFirst() {
+	public Processor<?> first() {
 		return this.first;
 	}
 
 	@Override
-	public Processor getSecond() {
+	public Processor<?> second() {
 		return this.second;
+	}
+
+	@Override
+	public boolean isRecursive() {
+		return this.first().isRecursive() || this.second().isRecursive();
+	}
+
+	@Override
+	public long process(ItemStack stack) {
+		long first = this.first.process(stack);
+		long second = this.second.process(stack);
+		return Math.max(first, second);
+	}
+
+	@Override
+	public Identifier getId() {
+		return ProjectF.id("max");
 	}
 }

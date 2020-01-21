@@ -22,13 +22,14 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl;
+package me.i509.fabric.projectf.processor.impl.serializer;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import me.i509.fabric.projectf.api.processor.type.ConstantProcessor;
 import me.i509.fabric.projectf.api.processor.serializer.ConstantProcessorSerializer;
+import me.i509.fabric.projectf.processor.impl.type.ConstantProcessorImpl;
 import net.minecraft.util.PacketByteBuf;
 
 public class ConstantProcessorSerializerImpl implements ConstantProcessorSerializer {

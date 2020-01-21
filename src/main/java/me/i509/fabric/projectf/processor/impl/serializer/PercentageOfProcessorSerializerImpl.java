@@ -22,34 +22,32 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl;
+package me.i509.fabric.projectf.processor.impl.serializer;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-import me.i509.fabric.projectf.api.processor.type.Processor;
+import com.google.gson.JsonElement;
 import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
-import me.i509.fabric.projectf.api.processor.factory.PercentageOfProcessorFactory;
+import me.i509.fabric.projectf.api.processor.serializer.PercentageOfProcessorSerializer;
+import net.minecraft.util.PacketByteBuf;
 
-public class PercentageOfProcessorFactoryImpl implements PercentageOfProcessorFactory {
-	private Processor processor;
-	private long divisor;
-
+public class PercentageOfProcessorSerializerImpl implements PercentageOfProcessorSerializer {
 	@Override
-	public PercentageOfProcessorFactory processor(Processor processor) {
-		this.processor = processor;
-		return this;
+	public PercentageOfProcessor deserialize(JsonElement obj) {
+		// TODO
+		return null;
 	}
 
 	@Override
-	public PercentageOfProcessorFactory divisor(long divisor) {
-		this.divisor = divisor;
-		return this;
+	public JsonElement serialize(PercentageOfProcessor processor) {
+		return null;
 	}
 
 	@Override
-	public PercentageOfProcessor create() {
-		checkNotNull(processor, "Processor cannot be null");
-		checkArgument(divisor > 0, "Divisor must be greater than 0");
-		return new PercentageOfProcessorImpl(this.processor, this.divisor);
+	public PacketByteBuf toPacket(PercentageOfProcessor processor, PacketByteBuf buf) {
+		return null;
+	}
+
+	@Override
+	public PercentageOfProcessor fromPacket(PacketByteBuf buf) {
+		return null;
 	}
 }

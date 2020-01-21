@@ -22,22 +22,49 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.mixin.accessor;
+package me.i509.fabric.projectf.processor.impl.type;
 
-import com.google.common.collect.ImmutableSet;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.village.VillagerProfession;
-import net.minecraft.world.poi.PointOfInterestType;
-import org.checkerframework.checker.nullness.qual.Nullable;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Invoker;
+import me.i509.fabric.projectf.ProjectF;
+import me.i509.fabric.projectf.api.processor.type.Processor;
+import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 
-@Mixin(VillagerProfession.class)
-public interface VillagerProfessionAccessor {
-	@Invoker("<init>")
-	static VillagerProfession accessor$create(String id, PointOfInterestType type, ImmutableSet<Item> gatherableItems, ImmutableSet<Block> secondaryJobSites, @Nullable SoundEvent soundEvent) {
-		throw new AssertionError("Untransformed accessor!");
+public class PercentageOfProcessorImpl implements PercentageOfProcessor {
+	private final long divisor;
+	private final Processor processor;
+
+	public PercentageOfProcessorImpl(Processor processor, long divisor) {
+		this.processor = processor;
+		this.divisor = divisor;
+	}
+
+	@Override
+	public boolean isRecursive() {
+		if (this.processor.equals(this)) {
+			return true;
+		}
+
+		return this.processor.isRecursive();
+	}
+
+	@Override
+	public long process(ItemStack stack) {
+		return this.processor.process(stack) / this.divisor;
+	}
+
+	@Override
+	public Identifier getId() {
+		return ProjectF.id("percentage_of");
+	}
+
+	@Override
+	public Processor getProcessor() {
+		return this.processor;
+	}
+
+	@Override
+	public long getDivisor() {
+		return this.divisor;
 	}
 }

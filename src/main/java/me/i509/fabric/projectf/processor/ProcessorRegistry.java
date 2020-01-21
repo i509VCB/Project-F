@@ -25,32 +25,37 @@
 package me.i509.fabric.projectf.processor;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 import me.i509.fabric.projectf.ProjectF;
-import me.i509.fabric.projectf.api.processor.type.Processor;
+import me.i509.fabric.projectf.api.processor.FMCProcessorEntrypoint;
 import me.i509.fabric.projectf.api.processor.factory.ProcessorFactory;
 import me.i509.fabric.projectf.api.processor.serializer.ProcessorSerializer;
 import me.i509.fabric.projectf.api.processor.type.AddProcessor;
 import me.i509.fabric.projectf.api.processor.type.ConstantProcessor;
 import me.i509.fabric.projectf.api.processor.type.DurabilityPercentageProcessor;
+import me.i509.fabric.projectf.api.processor.type.MaxProcessor;
+import me.i509.fabric.projectf.api.processor.type.MinProcessor;
 import me.i509.fabric.projectf.api.processor.type.OfItemsProcessor;
 import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
-import me.i509.fabric.projectf.api.processor.FMCProcessorEntrypoint;
-import me.i509.fabric.projectf.processor.impl.AddProcessorFactoryImpl;
-import me.i509.fabric.projectf.processor.impl.AddProcessorSerializerImpl;
-import me.i509.fabric.projectf.processor.impl.ConstantProcessorFactoryImpl;
-import me.i509.fabric.projectf.processor.impl.ConstantProcessorSerializerImpl;
-import me.i509.fabric.projectf.processor.impl.DurabilityPercentageProcessorFactoryImpl;
-import me.i509.fabric.projectf.processor.impl.DurabilityPercentageProcessorSerializerImpl;
-import me.i509.fabric.projectf.processor.impl.OfItemsProcessorFactoryImpl;
-import me.i509.fabric.projectf.processor.impl.OfItemsProcessorSerializerImpl;
-import me.i509.fabric.projectf.processor.impl.PercentageOfProcessorFactoryImpl;
-import me.i509.fabric.projectf.processor.impl.PercentageOfProcessorSerializerImpl;
+import me.i509.fabric.projectf.api.processor.type.Processor;
+import me.i509.fabric.projectf.processor.impl.factory.AddProcessorFactoryImpl;
+import me.i509.fabric.projectf.processor.impl.factory.ConstantProcessorFactoryImpl;
+import me.i509.fabric.projectf.processor.impl.factory.DurabilityPercentageProcessorFactoryImpl;
+import me.i509.fabric.projectf.processor.impl.factory.MaxProcessorFactoryImpl;
+import me.i509.fabric.projectf.processor.impl.factory.MinProcessorFactoryImpl;
+import me.i509.fabric.projectf.processor.impl.factory.OfItemsProcessorFactoryImpl;
+import me.i509.fabric.projectf.processor.impl.factory.PercentageOfProcessorFactoryImpl;
+import me.i509.fabric.projectf.processor.impl.serializer.AddProcessorSerializerImpl;
+import me.i509.fabric.projectf.processor.impl.serializer.ConstantProcessorSerializerImpl;
+import me.i509.fabric.projectf.processor.impl.serializer.DurabilityPercentageProcessorSerializerImpl;
+import me.i509.fabric.projectf.processor.impl.serializer.MaxProcessorSerializerImpl;
+import me.i509.fabric.projectf.processor.impl.serializer.MinProcessorSerializerImpl;
+import me.i509.fabric.projectf.processor.impl.serializer.OfItemsProcessorSerializerImpl;
+import me.i509.fabric.projectf.processor.impl.serializer.PercentageOfProcessorSerializerImpl;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
 
@@ -63,6 +68,8 @@ public class ProcessorRegistry {
 		this.register(ProjectF.id("constant"), ConstantProcessor.class, ConstantProcessorFactoryImpl::new, new ConstantProcessorSerializerImpl());
 		this.register(ProjectF.id("durability_percentage"), DurabilityPercentageProcessor.class, DurabilityPercentageProcessorFactoryImpl::new, new DurabilityPercentageProcessorSerializerImpl());
 		this.register(ProjectF.id("of_items"), OfItemsProcessor.class, OfItemsProcessorFactoryImpl::new, new OfItemsProcessorSerializerImpl());
+		this.register(ProjectF.id("max"), MaxProcessor.class, MaxProcessorFactoryImpl::new, new MaxProcessorSerializerImpl());
+		this.register(ProjectF.id("min"), MinProcessor.class, MinProcessorFactoryImpl::new, new MinProcessorSerializerImpl());
 		this.register(ProjectF.id("percentage_of"), PercentageOfProcessor.class, PercentageOfProcessorFactoryImpl::new, new PercentageOfProcessorSerializerImpl());
 
 		List<FMCProcessorEntrypoint> entrypoints = FabricLoader.getInstance().getEntrypoints("fmc:processor", FMCProcessorEntrypoint.class);

@@ -22,32 +22,47 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl;
+package me.i509.fabric.projectf.processor.impl.type;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import me.i509.fabric.projectf.api.processor.type.OfItemsProcessor;
-import me.i509.fabric.projectf.api.processor.factory.OfItemsProcessorFactory;
-import net.minecraft.item.Item;
+import me.i509.fabric.projectf.ProjectF;
+import me.i509.fabric.projectf.api.processor.type.MinProcessor;
+import me.i509.fabric.projectf.api.processor.type.Processor;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 
-public class OfItemsProcessorFactoryImpl implements OfItemsProcessorFactory {
-	private List<Item> items = new ArrayList<>();
+public class MinProcessorImpl implements MinProcessor {
+	private final Processor<?> first;
+	private final Processor<?> second;
 
-	@Override
-	public OfItemsProcessorFactory of(Item... items) {
-		this.items.addAll(Arrays.asList(items));
-		return this;
+	public MinProcessorImpl(Processor<?> first, Processor<?> second) {
+		this.first = first;
+		this.second = second;
 	}
 
 	@Override
-	public OfItemsProcessorFactory of(Item item) {
-		this.items.add(item);
-		return this;
+	public Processor<?> first() {
+		return this.first;
 	}
 
 	@Override
-	public OfItemsProcessor create() {
-		return new OfItemsProcessorImpl(this.items);
+	public Processor<?> second() {
+		return this.second;
+	}
+
+	@Override
+	public boolean isRecursive() {
+		return this.first().isRecursive() || this.second().isRecursive();
+	}
+
+	@Override
+	public long process(ItemStack stack) {
+		long first = this.first.process(stack);
+		long second = this.second.process(stack);
+		return Math.max(first, second);
+	}
+
+	@Override
+	public Identifier getId() {
+		return ProjectF.id("min");
 	}
 }

@@ -22,66 +22,37 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl;
+package me.i509.fabric.projectf.processor.impl.type;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import me.i509.fabric.projectf.ProjectF;
-import me.i509.fabric.projectf.api.processor.type.Processor;
-import me.i509.fabric.projectf.api.processor.type.OfItemsProcessor;
-import net.minecraft.item.Item;
+import me.i509.fabric.projectf.api.processor.type.ConstantProcessor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
-public class OfItemsProcessorImpl implements OfItemsProcessor {
-	private final List<Item> items;
+public class ConstantProcessorImpl implements ConstantProcessor {
+	private long value;
 
-	public OfItemsProcessorImpl(List<Item> items) {
-		this.items = items;
+	public ConstantProcessorImpl(long value) {
+		this.value = value;
+	}
+
+	@Override
+	public long getSingleValue() {
+		return this.value;
 	}
 
 	@Override
 	public boolean isRecursive() {
-		boolean detectedRecursion = false;
-
-		for (Item item : items) {
-			Processor itemProc = ProjectF.getInstance().getFMCManager().getProcessor(item);
-
-			if (itemProc.equals(this)) { // If the processor of one of the dependant items, is ourself, we are recursive.
-				return true;
-			} else {
-				detectedRecursion = itemProc.isRecursive();
-			}
-
-			if (detectedRecursion) {
-				break;
-			}
-		}
-
-		return detectedRecursion;
-	}
-
-	@Override
-	public List<Item> getItems() {
-		return this.items;
+		return false; // Cannot be recursive.
 	}
 
 	@Override
 	public long process(ItemStack stack) {
-		List<Processor> processors = this.items.stream().map(ProjectF.getInstance().getFMCManager()::getProcessor).collect(Collectors.toList());
-		long fmcValue = 0;
-		int posTracker = 0;
-
-		for (Processor processor : processors) {
-			fmcValue += processor.process(new ItemStack(this.items.get(posTracker)));
-			posTracker++;
-		}
-
-		return fmcValue;
+		return this.value;
 	}
 
 	@Override
 	public Identifier getId() {
-		return ProjectF.id("of_items");
+		return ProjectF.id("constant");
 	}
 }

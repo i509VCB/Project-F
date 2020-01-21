@@ -22,32 +22,33 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl;
+package me.i509.fabric.projectf.processor.impl.factory;
 
-import com.google.gson.JsonElement;
-import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
-import me.i509.fabric.projectf.api.processor.serializer.PercentageOfProcessorSerializer;
-import net.minecraft.util.PacketByteBuf;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import me.i509.fabric.projectf.api.processor.type.OfItemsProcessor;
+import me.i509.fabric.projectf.api.processor.factory.OfItemsProcessorFactory;
+import me.i509.fabric.projectf.processor.impl.type.OfItemsProcessorImpl;
+import net.minecraft.item.Item;
 
-public class PercentageOfProcessorSerializerImpl implements PercentageOfProcessorSerializer {
+public class OfItemsProcessorFactoryImpl implements OfItemsProcessorFactory {
+	private List<Item> items = new ArrayList<>();
+
 	@Override
-	public PercentageOfProcessor deserialize(JsonElement obj) {
-		// TODO
-		return null;
+	public OfItemsProcessorFactory of(Item... items) {
+		this.items.addAll(Arrays.asList(items));
+		return this;
 	}
 
 	@Override
-	public JsonElement serialize(PercentageOfProcessor processor) {
-		return null;
+	public OfItemsProcessorFactory of(Item item) {
+		this.items.add(item);
+		return this;
 	}
 
 	@Override
-	public PacketByteBuf toPacket(PercentageOfProcessor processor, PacketByteBuf buf) {
-		return null;
-	}
-
-	@Override
-	public PercentageOfProcessor fromPacket(PacketByteBuf buf) {
-		return null;
+	public OfItemsProcessor create() {
+		return new OfItemsProcessorImpl(this.items);
 	}
 }

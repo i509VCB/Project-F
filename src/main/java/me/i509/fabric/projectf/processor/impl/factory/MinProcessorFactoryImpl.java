@@ -22,38 +22,31 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl;
+package me.i509.fabric.projectf.processor.impl.factory;
 
-import me.i509.fabric.projectf.ProjectF;
-import me.i509.fabric.projectf.api.processor.type.DurabilityPercentageProcessor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import me.i509.fabric.projectf.api.processor.factory.MinProcessorFactory;
+import me.i509.fabric.projectf.api.processor.type.MinProcessor;
+import me.i509.fabric.projectf.api.processor.type.Processor;
+import me.i509.fabric.projectf.processor.impl.type.MinProcessorImpl;
 
-public class DurabilityPercentageProcessorImpl implements DurabilityPercentageProcessor {
-	private long full;
+public class MinProcessorFactoryImpl implements MinProcessorFactory {
+	private Processor<?> first;
+	private Processor<?> second;
 
-	public DurabilityPercentageProcessorImpl(long full) {
-		this.full = full;
+	@Override
+	public MinProcessorFactory first(Processor<?> processor) {
+		this.first = processor;
+		return this;
 	}
 
 	@Override
-	public long getFullDurabilityValue() {
-		return this.full;
+	public MinProcessorFactory second(Processor<?> processor) {
+		this.second = processor;
+		return this;
 	}
 
 	@Override
-	public boolean isRecursive() {
-		return false; // Cannot be recursive.
-	}
-
-	@Override
-	public long process(ItemStack stack) {
-		double percentage = (double) (stack.getMaxDamage() - stack.getDamage()) / (double) stack.getMaxDamage();
-		return (long) (this.full * percentage);
-	}
-
-	@Override
-	public Identifier getId() {
-		return ProjectF.id("percentage_of");
+	public MinProcessor create() {
+		return new MinProcessorImpl(this.first, this.second);
 	}
 }

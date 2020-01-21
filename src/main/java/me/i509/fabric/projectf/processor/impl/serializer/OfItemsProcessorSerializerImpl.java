@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl;
+package me.i509.fabric.projectf.processor.impl.serializer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +32,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import me.i509.fabric.projectf.api.processor.type.OfItemsProcessor;
 import me.i509.fabric.projectf.api.processor.serializer.OfItemsProcessorSerializer;
+import me.i509.fabric.projectf.processor.impl.type.OfItemsProcessorImpl;
 import me.i509.fabric.projectf.util.gson.GsonUtils;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;

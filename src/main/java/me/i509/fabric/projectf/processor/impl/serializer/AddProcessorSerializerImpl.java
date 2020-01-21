@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl;
+package me.i509.fabric.projectf.processor.impl.serializer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +36,7 @@ import me.i509.fabric.projectf.api.processor.serializer.ProcessorSerializer;
 import me.i509.fabric.projectf.api.processor.type.AddProcessor;
 import me.i509.fabric.projectf.api.processor.serializer.AddProcessorSerializer;
 import me.i509.fabric.projectf.processor.ProcessorRegistry;
+import me.i509.fabric.projectf.processor.impl.type.AddProcessorImpl;
 import me.i509.fabric.projectf.util.gson.GsonUtils;
 import net.minecraft.util.PacketByteBuf;
 
@@ -45,7 +46,7 @@ public class AddProcessorSerializerImpl implements AddProcessorSerializer {
 		JsonObject obj = GsonUtils.asObjectOrThrow(element);
 
 		if (obj.entrySet().size() != 2) {
-			throw new JsonParseException("And Processor must have two entries");
+			throw new JsonParseException("Add Processor must have two entries");
 		}
 
 		List<Processor<?>> processors = new ArrayList<>();
@@ -56,7 +57,7 @@ public class AddProcessorSerializerImpl implements AddProcessorSerializer {
 		}
 
 		if (processors.size() != 2) {
-			throw new JsonParseException("And Processor must have two entries");
+			throw new JsonParseException("Add Processor must have two entries");
 		}
 
 		return new AddProcessorImpl(processors.get(0), processors.get(1));

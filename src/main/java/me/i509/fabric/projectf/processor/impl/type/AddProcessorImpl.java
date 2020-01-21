@@ -22,33 +22,61 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl;
+package me.i509.fabric.projectf.processor.impl.type;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import me.i509.fabric.projectf.ProjectF;
 import me.i509.fabric.projectf.api.processor.type.Processor;
 import me.i509.fabric.projectf.api.processor.type.AddProcessor;
-import me.i509.fabric.projectf.api.processor.factory.AddProcessorFactory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 
-public class AddProcessorFactoryImpl implements AddProcessorFactory {
-	private Processor first;
-	private Processor second;
+public class AddProcessorImpl implements AddProcessor {
+	private final Processor first;
+	private final Processor second;
 
-	@Override
-	public AddProcessorFactory first(Processor processor) {
-		this.first = processor;
-		return this;
+	public AddProcessorImpl(Processor first, Processor second) {
+		this.first = first;
+		this.second = second;
 	}
 
 	@Override
-	public AddProcessorFactory second(Processor processor) {
-		this.second = processor;
-		return this;
+	public boolean isRecursive() {
+		if (this.first.equals(this) || this.second.equals(this)) {
+			return true;
+		}
+
+		boolean recursive = this.first.isRecursive();
+
+		if (recursive) {
+			return true;
+		}
+
+		recursive = this.second.isRecursive();
+
+		if (recursive) {
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override
-	public AddProcessor create() {
-		checkNotNull(first, "First Processor cannot be null.");
-		checkNotNull(second, "Second Processor cannot be null.");
-		return new AddProcessorImpl(this.first, this.second);
+	public long process(ItemStack stack) {
+		return first.process(stack) + second.process(stack);
+	}
+
+	@Override
+	public Identifier getId() {
+		return ProjectF.id("and");
+	}
+
+	@Override
+	public Processor getFirst() {
+		return this.first;
+	}
+
+	@Override
+	public Processor getSecond() {
+		return this.second;
 	}
 }

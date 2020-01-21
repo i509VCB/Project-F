@@ -22,22 +22,31 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.mixin.accessor;
+package me.i509.fabric.projectf.processor.impl.factory;
 
-import com.google.common.collect.ImmutableSet;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.village.VillagerProfession;
-import net.minecraft.world.poi.PointOfInterestType;
-import org.checkerframework.checker.nullness.qual.Nullable;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Invoker;
+import me.i509.fabric.projectf.api.processor.factory.MaxProcessorFactory;
+import me.i509.fabric.projectf.api.processor.type.MaxProcessor;
+import me.i509.fabric.projectf.api.processor.type.Processor;
+import me.i509.fabric.projectf.processor.impl.type.MaxProcessorImpl;
 
-@Mixin(VillagerProfession.class)
-public interface VillagerProfessionAccessor {
-	@Invoker("<init>")
-	static VillagerProfession accessor$create(String id, PointOfInterestType type, ImmutableSet<Item> gatherableItems, ImmutableSet<Block> secondaryJobSites, @Nullable SoundEvent soundEvent) {
-		throw new AssertionError("Untransformed accessor!");
+public class MaxProcessorFactoryImpl implements MaxProcessorFactory {
+	private Processor<?> first;
+	private Processor<?> second;
+
+	@Override
+	public MaxProcessorFactory first(Processor<?> processor) {
+		this.first = processor;
+		return this;
+	}
+
+	@Override
+	public MaxProcessorFactory second(Processor<?> processor) {
+		this.second = processor;
+		return this;
+	}
+
+	@Override
+	public MaxProcessor create() {
+		return new MaxProcessorImpl(this.first, this.second);
 	}
 }
