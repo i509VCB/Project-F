@@ -1,0 +1,5 @@
+{
+  "entity.minecraft.villager.alchemist": "Alchemist",
+  "fmc.amount.each": "FMC Value: %d",
+  "fmc.amount.total": "FMC Value for %d items: %d"
+}

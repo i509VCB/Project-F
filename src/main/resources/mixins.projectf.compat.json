@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "me.i509.fabric.projectf.mixin.compat",
+  "compatibilityLevel": "JAVA_8",
+  "plugin": "me.i509.fabric.projectf.mixin.compat.CompatMixinPlugin",
+  "mixins": [
+    "trinkets.TrinketsCompatMixin",
+    "trinkets.ElytraItemMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

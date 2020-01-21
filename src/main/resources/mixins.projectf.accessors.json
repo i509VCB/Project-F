@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "me.i509.fabric.projectf.mixin.accessor",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "PointOfInterestTypeAccessor",
+    "VillagerProfessionAccessor"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

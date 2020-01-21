@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "me.i509.fabric.projectf.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "PlayerEntityMixin_AnimationTrackers"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

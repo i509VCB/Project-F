@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "projectf",
+  "version": "${version}",
+
+  "name": "Project F",
+  "description": "This is an example description! Tell everyone what your mod is about!",
+  "authors": [
+    ""
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": "MIT",
+  "icon": "assets/projf/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "me.i509.fabric.projectf.ProjectFMod"
+    ],
+    "client": [
+      "me.i509.fabric.projectf.client.ProjectFClient"
+    ]
+  },
+  "mixins": [
+    "mixins.projectf.accessors.json",
+    "mixins.projectf.client.json",
+    "mixins.projectf.compat.json",
+    "mixins.projectf.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.4.0",
+    "fabric": "*",
+    "minecraft": "1.15.x"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}

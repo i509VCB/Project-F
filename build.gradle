@@ -1,0 +1,140 @@
+plugins {
+    id 'fabric-loom' version '0.2.6-SNAPSHOT'
+    id 'maven-publish'
+    id 'checkstyle'
+    id 'net.minecrell.licenser' version '0.4.1'
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+archivesBaseName = project.archives_base_name
+version = project.mod_version
+group = project.maven_group
+
+license {
+    header = file('HEADER.txt')
+    include '**/*.java'
+    style.java = 'BLOCK_COMMENT'
+}
+
+repositories {
+    mavenCentral()
+    maven { url = "https://maven.fabricmc.net/io/github/prospector/modmenu/" }
+    maven { url = "https://minecraft.curseforge.com/api/maven/" }
+    maven { url = "http://maven.sargunv.s3-website-us-west-2.amazonaws.com/" }
+    maven { url = "http://server.bbkr.space:8081/artifactory/libs-release/" }
+    maven { url = "https://repo.spongepowered.org/maven" }
+    maven { url = "http://server.bbkr.space:8081/artifactory/libs-release" }
+    maven { url = "https://www.jitpack.io" }
+    maven { url = "https://maven.abusedmaster.xyz/" }
+    // Sad Maven Repo :(
+    maven {
+        name = "grondag"
+        url = "https://grondag-repo.appspot.com"
+        credentials {
+            username "guest"
+            password ""
+        }
+    }
+}
+
+logger.lifecycle("""
+	=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	Building ProjectF  
+
+	Version: ${project.mod_version}
+	Minecraft Version: ${project.minecraft_version}
+	Fabric-Loader Version: ${project.loader_version}
+	Fabric-API Version: ${project.fabric_version}
+    Fluidity Version: ${project.fluidity_version}
+	
+	Output files will be in /build/libs
+	=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+""")
+
+minecraft {
+}
+
+dependencies {
+    // Fabric Stuff.
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.minecraft_version}+${project.yarn_build}:v2"
+    modCompile "net.fabricmc:fabric-loader:${project.loader_version}"
+    modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    // Config
+    implementation "org.spongepowered:configurate-hocon:${project.configurate_version}"
+
+    // Fluidity
+    modImplementation ("grondag:fluidity-mc115:${project.fluidity_version}.+") { transitive = false }
+    include "grondag:fluidity-mc115:${project.fluidity_version}.+"
+
+    // Annotations
+    implementation "org.checkerframework:checker-qual:${project.qual_version}"
+
+    // Soft Compat Mod: Trinkets
+    modRuntime "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-base:2.0.3"
+    modRuntime "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-entity:2.0.3"
+    modImplementation("com.github.emilyploszaj:trinkets:${project.trinkets_version}") {
+        transitive = false
+    }
+
+    // Optional Mods - We have this for looking up items and verifying recipes.
+    modImplementation ("me.shedaniel:RoughlyEnoughItems:${project.rei_version}") {
+        exclude(group : "net.fabricmc.fabric-api")
+    }
+
+
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include "fabric.mod.json"
+        expand "version": project.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude "fabric.mod.json"
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = "sources"
+    from sourceSets.main.allSource
+}
+
+jar {
+    from "LICENSE"
+}
+
+checkstyle {
+    configFile = rootProject.file("checkstyle.xml")
+    toolVersion = '8.25'
+}
+
+// configure the maven publication
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            // add all the jars that should be included when publishing to maven
+            artifact(remapJar) {
+                builtBy remapJar
+            }
+            artifact(sourcesJar) {
+                builtBy remapSourcesJar
+            }
+        }
+    }
+
+    repositories {
+        // uncomment to publish to the local maven
+        // mavenLocal()
+    }
+}

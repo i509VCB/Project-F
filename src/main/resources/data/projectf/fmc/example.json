@@ -1,0 +1,24 @@
+{
+  "minecraft:dirt": {
+    "projectf:constant": 2
+  },
+  "minecraft:diamond": {
+    "projectf:constant": 16384
+  },
+  "minecraft:stick": {
+    "projectf:constant": 2
+  },
+  "minecraft:diamond_sword": {
+    "projectf:of_items": [
+      "minecraft:stick",
+      "minecraft:diamond",
+      "minecraft:diamond"
+    ]
+  },
+  "minecraft:wooden_pickaxe": {
+    "projectf:and": {
+      "projectf:durability_percentage": 20,
+      "projectf:constant": 1
+    }
+  }
+}
