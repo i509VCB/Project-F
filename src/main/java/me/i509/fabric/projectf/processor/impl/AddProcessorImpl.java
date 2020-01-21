@@ -26,15 +26,15 @@ package me.i509.fabric.projectf.processor.impl;
 
 import me.i509.fabric.projectf.ProjectF;
 import me.i509.fabric.projectf.api.processor.type.Processor;
-import me.i509.fabric.projectf.api.processor.type.AndProcessor;
+import me.i509.fabric.projectf.api.processor.type.AddProcessor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
-public class AndProcessorImpl implements AndProcessor {
+public class AddProcessorImpl implements AddProcessor {
 	private final Processor first;
 	private final Processor second;
 
-	public AndProcessorImpl(Processor first, Processor second) {
+	public AddProcessorImpl(Processor first, Processor second) {
 		this.first = first;
 		this.second = second;
 	}

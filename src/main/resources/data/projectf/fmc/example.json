@@ -16,7 +16,7 @@
     ]
   },
   "minecraft:wooden_pickaxe": {
-    "projectf:and": {
+    "projectf:add": {
       "projectf:durability_percentage": 20,
       "projectf:constant": 1
     }

@@ -22,10 +22,12 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.api.processor.serializer;
+package me.i509.fabric.projectf.api.processor.type;
 
-import me.i509.fabric.projectf.api.processor.factory.AndProcessorFactory;
-import me.i509.fabric.projectf.api.processor.type.AndProcessor;
+import me.i509.fabric.projectf.api.processor.factory.AddProcessorFactory;
 
-public interface AndProcessorSerializer extends ProcessorSerializer<AndProcessor, AndProcessorFactory> {
+public interface AddProcessor extends Processor<AddProcessorFactory> {
+	Processor getFirst();
+
+	Processor getSecond();
 }

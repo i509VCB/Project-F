@@ -35,14 +35,14 @@ import me.i509.fabric.projectf.ProjectF;
 import me.i509.fabric.projectf.api.processor.type.Processor;
 import me.i509.fabric.projectf.api.processor.factory.ProcessorFactory;
 import me.i509.fabric.projectf.api.processor.serializer.ProcessorSerializer;
-import me.i509.fabric.projectf.api.processor.type.AndProcessor;
+import me.i509.fabric.projectf.api.processor.type.AddProcessor;
 import me.i509.fabric.projectf.api.processor.type.ConstantProcessor;
 import me.i509.fabric.projectf.api.processor.type.DurabilityPercentageProcessor;
 import me.i509.fabric.projectf.api.processor.type.OfItemsProcessor;
 import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
 import me.i509.fabric.projectf.api.processor.FMCProcessorEntrypoint;
-import me.i509.fabric.projectf.processor.impl.AndProcessorFactoryImpl;
-import me.i509.fabric.projectf.processor.impl.AndProcessorSerializerImpl;
+import me.i509.fabric.projectf.processor.impl.AddProcessorFactoryImpl;
+import me.i509.fabric.projectf.processor.impl.AddProcessorSerializerImpl;
 import me.i509.fabric.projectf.processor.impl.ConstantProcessorFactoryImpl;
 import me.i509.fabric.projectf.processor.impl.ConstantProcessorSerializerImpl;
 import me.i509.fabric.projectf.processor.impl.DurabilityPercentageProcessorFactoryImpl;
@@ -59,7 +59,7 @@ public class ProcessorRegistry {
 	private Map<Class<? extends Processor>, Supplier<? extends ProcessorFactory<?>>> classToFactoryMap = new HashMap<>();
 
 	public ProcessorRegistry() {
-		this.register(ProjectF.id("and"), AndProcessor.class, AndProcessorFactoryImpl::new, new AndProcessorSerializerImpl());
+		this.register(ProjectF.id("add"), AddProcessor.class, AddProcessorFactoryImpl::new, new AddProcessorSerializerImpl());
 		this.register(ProjectF.id("constant"), ConstantProcessor.class, ConstantProcessorFactoryImpl::new, new ConstantProcessorSerializerImpl());
 		this.register(ProjectF.id("durability_percentage"), DurabilityPercentageProcessor.class, DurabilityPercentageProcessorFactoryImpl::new, new DurabilityPercentageProcessorSerializerImpl());
 		this.register(ProjectF.id("of_items"), OfItemsProcessor.class, OfItemsProcessorFactoryImpl::new, new OfItemsProcessorSerializerImpl());

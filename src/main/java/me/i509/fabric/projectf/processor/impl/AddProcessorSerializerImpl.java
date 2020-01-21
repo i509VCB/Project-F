@@ -33,15 +33,15 @@ import com.google.gson.JsonParseException;
 import me.i509.fabric.projectf.ProjectF;
 import me.i509.fabric.projectf.api.processor.type.Processor;
 import me.i509.fabric.projectf.api.processor.serializer.ProcessorSerializer;
-import me.i509.fabric.projectf.api.processor.type.AndProcessor;
-import me.i509.fabric.projectf.api.processor.serializer.AndProcessorSerializer;
+import me.i509.fabric.projectf.api.processor.type.AddProcessor;
+import me.i509.fabric.projectf.api.processor.serializer.AddProcessorSerializer;
 import me.i509.fabric.projectf.processor.ProcessorRegistry;
 import me.i509.fabric.projectf.util.gson.GsonUtils;
 import net.minecraft.util.PacketByteBuf;
 
-public class AndProcessorSerializerImpl implements AndProcessorSerializer {
+public class AddProcessorSerializerImpl implements AddProcessorSerializer {
 	@Override
-	public AndProcessor deserialize(JsonElement element) {
+	public AddProcessor deserialize(JsonElement element) {
 		JsonObject obj = GsonUtils.asObjectOrThrow(element);
 
 		if (obj.entrySet().size() != 2) {
@@ -59,16 +59,16 @@ public class AndProcessorSerializerImpl implements AndProcessorSerializer {
 			throw new JsonParseException("And Processor must have two entries");
 		}
 
-		return new AndProcessorImpl(processors.get(0), processors.get(1));
+		return new AddProcessorImpl(processors.get(0), processors.get(1));
 	}
 
 	@Override
-	public JsonElement serialize(AndProcessor processor) {
+	public JsonElement serialize(AddProcessor processor) {
 		return null;
 	}
 
 	@Override
-	public PacketByteBuf toPacket(AndProcessor processor, PacketByteBuf buf) {
+	public PacketByteBuf toPacket(AddProcessor processor, PacketByteBuf buf) {
 		ProcessorRegistry registry = ProjectF.getInstance().getProcessorRegistry();
 		buf.writeIdentifier(processor.getId());
 		ProcessorSerializer serializer1 = registry.getSerializer(processor.getFirst().getId().toString()).get();
@@ -79,7 +79,7 @@ public class AndProcessorSerializerImpl implements AndProcessorSerializer {
 	}
 
 	@Override
-	public AndProcessor fromPacket(PacketByteBuf buf) {
+	public AddProcessor fromPacket(PacketByteBuf buf) {
 		return null;
 	}
 }

@@ -25,8 +25,8 @@
 package me.i509.fabric.projectf.api.processor;
 
 import me.i509.fabric.projectf.ProjectF;
-import me.i509.fabric.projectf.api.processor.type.AndProcessor;
-import me.i509.fabric.projectf.api.processor.factory.AndProcessorFactory;
+import me.i509.fabric.projectf.api.processor.type.AddProcessor;
+import me.i509.fabric.projectf.api.processor.factory.AddProcessorFactory;
 import me.i509.fabric.projectf.api.processor.type.ConstantProcessor;
 import me.i509.fabric.projectf.api.processor.factory.ConstantProcessorFactory;
 import me.i509.fabric.projectf.api.processor.type.DurabilityPercentageProcessor;
@@ -44,7 +44,7 @@ public final class Processors {
 	/**
 	 * Represents a {@link Processor} whose value is a combination of two {@link Processor}s.
 	 */
-	public static final AndProcessorFactory AND = ProjectF.getInstance().getProcessorRegistry().get(AndProcessor.class);
+	public static final AddProcessorFactory ADD = ProjectF.getInstance().getProcessorRegistry().get(AddProcessor.class);
 
 	/**
 	 * Represents a {@link Processor} which has a constant value.

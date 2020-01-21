@@ -22,33 +22,13 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl;
+package me.i509.fabric.projectf.api.processor.factory;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import me.i509.fabric.projectf.api.processor.type.Processor;
-import me.i509.fabric.projectf.api.processor.type.AndProcessor;
-import me.i509.fabric.projectf.api.processor.factory.AndProcessorFactory;
+import me.i509.fabric.projectf.api.processor.type.AddProcessor;
 
-public class AndProcessorFactoryImpl implements AndProcessorFactory {
-	private Processor first;
-	private Processor second;
+public interface AddProcessorFactory extends ProcessorFactory<AddProcessor> {
+	AddProcessorFactory first(Processor processor);
 
-	@Override
-	public AndProcessorFactory first(Processor processor) {
-		this.first = processor;
-		return this;
-	}
-
-	@Override
-	public AndProcessorFactory second(Processor processor) {
-		this.second = processor;
-		return this;
-	}
-
-	@Override
-	public AndProcessor create() {
-		checkNotNull(first, "First Processor cannot be null.");
-		checkNotNull(second, "Second Processor cannot be null.");
-		return new AndProcessorImpl(this.first, this.second);
-	}
+	AddProcessorFactory second(Processor processor);
 }
