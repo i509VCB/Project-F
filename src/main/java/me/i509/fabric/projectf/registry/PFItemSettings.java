@@ -25,11 +25,14 @@
 package me.i509.fabric.projectf.registry;
 
 import net.minecraft.item.Item;
+import net.minecraft.util.Rarity;
 
 public final class PFItemSettings {
 	public static final Item.Settings BUCKET = new Item.Settings().maxCount(1).group(PFItemGroups.MAIN_GROUP);
 	public static final Item.Settings MAIN_GROUP = new Item.Settings().group(PFItemGroups.MAIN_GROUP);
 	public static final Item.Settings FMC_ITEM = new Item.Settings().maxCount(1).group(PFItemGroups.MAIN_GROUP);
+	public static final Item.Settings MATTER_STAR = new Item.Settings().maxCount(1).rarity(Rarity.UNCOMMON).group(PFItemGroups.MAIN_GROUP);
+	public static final Item.Settings ALCHEMICAL_BAG_SETTINGS = new Item.Settings().maxCount(1).rarity(Rarity.UNCOMMON).group(PFItemGroups.MAIN_GROUP);
 
 	public static void init() {
 		// NO-OP

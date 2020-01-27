@@ -22,28 +22,16 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.client;
+package me.i509.fabric.projectf.bridge;
 
-import me.i509.fabric.projectf.ProjectF;
-import me.i509.fabric.projectf.registry.client.PFScreens;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.resource.ResourceType;
+import me.i509.fabric.projectf.inventory.AlchemicalBagInventory;
+import net.minecraft.util.DyeColor;
 
-@Environment(EnvType.CLIENT)
-public class ProjectFClient implements ClientModInitializer {
-	@Override
-	public void onInitializeClient() {
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new FluidResourceListener());
-
-		ClientSpriteRegistryCallback.event(SpriteAtlasTexture.BLOCK_ATLAS_TEX).register((texture, registry) -> {
-			registry.register(ProjectF.id("block/liquid_fmc_still"));
-		});
-
-		PFScreens.init();
-	}
+public interface AlchemicalBagBridge_PlayerEntity {
+	/**
+	 * Gets the alchemical bag inventory from the player.
+	 * @param color The color of the bag to get the inventory from.
+	 * @return An alchemical bag inventory.
+	 */
+	AlchemicalBagInventory bridge$getInventory(DyeColor color);
 }

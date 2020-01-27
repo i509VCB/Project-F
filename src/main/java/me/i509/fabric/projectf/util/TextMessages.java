@@ -22,28 +22,22 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.client;
+package me.i509.fabric.projectf.util;
 
-import me.i509.fabric.projectf.ProjectF;
-import me.i509.fabric.projectf.registry.client.PFScreens;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.resource.ResourceType;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.DyeColor;
 
-@Environment(EnvType.CLIENT)
-public class ProjectFClient implements ClientModInitializer {
-	@Override
-	public void onInitializeClient() {
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new FluidResourceListener());
+public final class TextMessages {
+	public static Text createFMCItemTooltip(long currentValue, long maximum) {
+		return new TranslatableText("fmc.item.value", currentValue, maximum);
+	}
 
-		ClientSpriteRegistryCallback.event(SpriteAtlasTexture.BLOCK_ATLAS_TEX).register((texture, registry) -> {
-			registry.register(ProjectF.id("block/liquid_fmc_still"));
-		});
+	public static Text createAlchemicalBagText(DyeColor color) {
+		return new TranslatableText("item.projectf.alchemical_bag", TextMessages.getColor(color));
+	}
 
-		PFScreens.init();
+	public static Text getColor(DyeColor color) {
+		return new TranslatableText("projectf.color." + color.asString());
 	}
 }

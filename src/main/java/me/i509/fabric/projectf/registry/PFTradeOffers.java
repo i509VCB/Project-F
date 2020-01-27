@@ -27,15 +27,24 @@ package me.i509.fabric.projectf.registry;
 import com.google.common.collect.ImmutableMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import me.i509.fabric.projectf.util.PFUtils;
 import me.i509.fabric.projectf.villager.BuyForOneEmeraldFactory;
 import me.i509.fabric.projectf.villager.SellItemFactory;
+import net.minecraft.util.Unit;
 import net.minecraft.village.TradeOffers;
 
 public class PFTradeOffers {
+	private static final TradeOffers.Factory[] ALCHEMIST_LEVEL_1 = new TradeOffers.Factory[]{
+		new SellItemFactory(PFItems.MATTER_GUN, 64, 1, 1, 10)
+	};
+	private static final TradeOffers.Factory[] ALCHEMIST_LEVEL_2 = new TradeOffers.Factory[]{
+		new BuyForOneEmeraldFactory(PFItems.FMC_BUCKET, 2, 4, 1)
+	};
 	private static final ImmutableMap<Integer, TradeOffers.Factory[]> ALCHEMIST_TRADES = ImmutableMap.<Integer, TradeOffers.Factory[]>builder()
-			.put(1, new TradeOffers.Factory[]{new SellItemFactory(PFItems.MATTER_GUN, 64, 1, 1, 10)})
-			.put(2, new TradeOffers.Factory[]{new BuyForOneEmeraldFactory(PFItems.FMC_BUCKET, 2, 4, 1)})
+			.put(1, PFTradeOffers.ALCHEMIST_LEVEL_1)
+			.put(2, PFTradeOffers.ALCHEMIST_LEVEL_2)
 			.build();
+	private static final Unit ALCHEMIST_TRADES_DUMMY_REGISTER = PFUtils.dummyRegister(() -> TradeOffers.PROFESSION_TO_LEVELED_TRADE.put(PFVillagers.ALCHEMIST_PROFESSION, copyToFastUtilMap(PFTradeOffers.ALCHEMIST_TRADES)));
 
 	public static void init() {
 		// NO-OP
@@ -43,10 +52,6 @@ public class PFTradeOffers {
 
 	private static Int2ObjectMap<TradeOffers.Factory[]> copyToFastUtilMap(ImmutableMap<Integer, TradeOffers.Factory[]> immutableMap) {
 		return new Int2ObjectOpenHashMap<>(immutableMap);
-	}
-
-	static {
-		TradeOffers.PROFESSION_TO_LEVELED_TRADE.put(PFVillagers.ALCHEMIST_PROFESSION, copyToFastUtilMap(PFTradeOffers.ALCHEMIST_TRADES));
 	}
 
 	// Suppress default constructor to ensure non-instantiability.

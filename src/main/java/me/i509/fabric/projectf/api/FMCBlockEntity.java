@@ -22,28 +22,30 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.client;
+package me.i509.fabric.projectf.api;
 
-import me.i509.fabric.projectf.ProjectF;
-import me.i509.fabric.projectf.registry.client.PFScreens;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.resource.ResourceType;
+import java.util.Optional;
+import grondag.fluidity.base.storage.discrete.SingleArticleStore;
+import me.i509.fabric.projectf.api.article.FMCArticle;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
-@Environment(EnvType.CLIENT)
-public class ProjectFClient implements ClientModInitializer {
-	@Override
-	public void onInitializeClient() {
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new FluidResourceListener());
+/**
+ * Represents a BlockEntity which can hold an article of {@link FMCArticle}.
+ */
+public interface FMCBlockEntity {
+	SingleArticleStore getStore();
 
-		ClientSpriteRegistryCallback.event(SpriteAtlasTexture.BLOCK_ATLAS_TEX).register((texture, registry) -> {
-			registry.register(ProjectF.id("block/liquid_fmc_still"));
-		});
+	static Optional<SingleArticleStore> getStore(World world, BlockPos blockPos) {
+		@Nullable BlockEntity blockEntity = world.getBlockEntity(blockPos);
 
-		PFScreens.init();
+		if (blockEntity instanceof FMCBlockEntity) {
+			FMCBlockEntity fmcBlockEntity = (FMCBlockEntity) blockEntity;
+			return Optional.of(fmcBlockEntity.getStore());
+		}
+
+		return Optional.empty();
 	}
 }

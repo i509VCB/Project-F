@@ -32,9 +32,13 @@ import me.i509.fabric.projectf.registry.PFArticles;
  * Represents an Article of an amount of FMC.
  */
 public interface FMCArticle {
-	FMCArticle DUMMY = DummyFMCArticle.DUMMY;
+	FMCArticle ARTICLE = DummyFMCArticle.FMC_ARTICLE;
 
 	static Article getArticle() {
-		return Article.of(PFArticles.FMC, FMCArticle.DUMMY);
+		return Article.of(PFArticles.FMC, FMCArticle.ARTICLE);
+	}
+
+	static long bucketToFMC() {
+		return 16384L;
 	}
 }

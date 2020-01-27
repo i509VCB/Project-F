@@ -39,6 +39,7 @@ public final class PFRegistries {
 		PFPointOfInterestTypes.init();
 		PFVillagers.init();
 		PFTradeOffers.init();
+		PFContainers.init();
 	}
 
 	// Suppress default constructor to ensure non-instantiability.

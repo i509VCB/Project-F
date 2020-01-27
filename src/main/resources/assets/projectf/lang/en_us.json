@@ -1,5 +1,23 @@
 {
   "entity.minecraft.villager.alchemist": "Alchemist",
   "fmc.amount.each": "FMC Value: %d",
-  "fmc.amount.total": "FMC Value for %d items: %d"
+  "fmc.amount.total": "FMC Value for %d items: %d",
+  "fmc.item.value": "%d/%d FMC",
+  "item.projectf.alchemical_bag": "%d Alchemical Bag",
+  "projectf.color.white": "White",
+  "projectf.color.orange": "Orange",
+  "projectf.color.magenta": "Magenta",
+  "projectf.color.light_blue": "Light Blue",
+  "projectf.color.yellow": "Yellow",
+  "projectf.color.lime": "Lime",
+  "projectf.color.pink": "Pink",
+  "projectf.color.gray": "Gray",
+  "projectf.color.light_gray": "Light Gray",
+  "projectf.color.cyan": "Cyan",
+  "projectf.color.purple": "Purple",
+  "projectf.color.blue": "Blue",
+  "projectf.color.brown": "Brown",
+  "projectf.color.green": "Green",
+  "projectf.color.red": "Red",
+  "projectf.color.black": "Black"
 }

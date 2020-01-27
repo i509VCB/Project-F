@@ -22,39 +22,51 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.item;
+package me.i509.fabric.projectf.item.template;
 
+import java.util.List;
 import grondag.fluidity.api.storage.Store;
 import grondag.fluidity.base.storage.discrete.PortableSingleArticleStore;
 import grondag.fluidity.base.storage.discrete.SingleArticleStore;
 import me.i509.fabric.projectf.api.article.FMCArticle;
 import me.i509.fabric.projectf.api.article.FMCItemArticleProvider;
+import me.i509.fabric.projectf.api.item.FMCUsableItem;
 import me.i509.fabric.projectf.api.item.FMCDurabilityProvider;
-import net.minecraft.item.Item;
+import me.i509.fabric.projectf.util.TextMessages;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
 import net.minecraft.util.DefaultedList;
+import net.minecraft.world.World;
 
-public abstract class AbstractFMCItem extends Item implements FMCDurabilityProvider, FMCItemArticleProvider {
-	protected static final String KEY = "store";
+public abstract class AbstractFMCArmorItem extends ArmorItem implements FMCDurabilityProvider, FMCItemArticleProvider, FMCUsableItem {
 	private final long maxFMC;
 
-	public AbstractFMCItem(Settings settings, long maxFMC) {
-		super(settings.maxCount(1));
-		Store.STORAGE_COMPONENT.registerProvider(this::provide, this);
+	public AbstractFMCArmorItem(ArmorMaterial material, EquipmentSlot slot, Settings settings, long maxFMC) {
+		super(material, slot, settings.maxCount(1));
+		Store.STORAGE_COMPONENT.registerProvider(this::provideStoreFromContext, this);
 		this.maxFMC = maxFMC;
 	}
 
+	@Override
 	public long getMaxFMC() {
 		return this.maxFMC;
 	}
 
 	@Override
 	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
+		// Empty Stack
 		stacks.add(new ItemStack(this));
 
 		ItemStack full = new ItemStack(this);
 
+		// And the Full Stack
 		SingleArticleStore store = new SingleArticleStore(this.getMaxFMC());
 		store.getConsumer().apply(FMCArticle.getArticle(), this.getMaxFMC(), false);
 		full.getOrCreateTag();
@@ -62,15 +74,25 @@ public abstract class AbstractFMCItem extends Item implements FMCDurabilityProvi
 		stacks.add(full);
 	}
 
+	@Override
 	public double getDurability(ItemStack stack) {
 		return 1.0D - ((double) PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY) / (double) this.getMaxFMC());
 	}
 
+	@Override
 	public boolean showDurability(ItemStack stack) {
 		return true;
 	}
 
+	@Override
 	public int getDurabilityColor(ItemStack stack) {
 		return 0xA6A626;
+	}
+
+	@Environment(EnvType.CLIENT)
+	@Override
+	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
+		long value = PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY);
+		tooltip.add(TextMessages.createFMCItemTooltip(value, this.getMaxFMC()));
 	}
 }

@@ -25,6 +25,7 @@
 package me.i509.fabric.projectf.mixin;
 
 import java.util.Random;
+import me.i509.fabric.projectf.api.item.FMCUsableItem;
 import me.i509.fabric.projectf.api.item.FMCDurabilityProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -44,6 +45,10 @@ public abstract class ItemStackMixin_FMCItems {
 	public void pf_onDamaged(int damageTaken, Random random, ServerPlayerEntity serverPlayerEntity, CallbackInfoReturnable<Boolean> cir) {
 		if (this.getItem() instanceof FMCDurabilityProvider) {
 			cir.setReturnValue(false);
+
+			if (this.getItem() instanceof FMCUsableItem) {
+				((FMCUsableItem) this.getItem()).useFMC((ItemStack) (Object) this);
+			}
 		}
 	}
 }

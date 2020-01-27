@@ -22,28 +22,21 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.client;
+package me.i509.fabric.projectf.client.screen;
 
-import me.i509.fabric.projectf.ProjectF;
-import me.i509.fabric.projectf.registry.client.PFScreens;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.resource.ResourceType;
+import me.i509.fabric.projectf.container.AlchemicalBagContainer;
+import me.i509.fabric.projectf.util.TextMessages;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.util.DyeColor;
 
-@Environment(EnvType.CLIENT)
-public class ProjectFClient implements ClientModInitializer {
-	@Override
-	public void onInitializeClient() {
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new FluidResourceListener());
+public class AlchemicalBagScreen extends AbstractChestLikeScreen<AlchemicalBagContainer> {
+	public AlchemicalBagScreen(AlchemicalBagContainer container, PlayerInventory inventory, DyeColor color) {
+		super(container, inventory, TextMessages.createAlchemicalBagText(color));
+	}
 
-		ClientSpriteRegistryCallback.event(SpriteAtlasTexture.BLOCK_ATLAS_TEX).register((texture, registry) -> {
-			registry.register(ProjectF.id("block/liquid_fmc_still"));
-		});
-
-		PFScreens.init();
+	public static AbstractContainerScreen<AlchemicalBagContainer> create(AlchemicalBagContainer container) {
+		return new AlchemicalBagScreen(container, MinecraftClient.getInstance().player.inventory, container.getColor());
 	}
 }

@@ -24,9 +24,27 @@
 
 package me.i509.fabric.projectf.api.article;
 
+import grondag.fluidity.api.device.DeviceComponentAccess;
 import grondag.fluidity.api.device.ItemComponentContext;
+import grondag.fluidity.api.storage.Store;
 import grondag.fluidity.base.storage.discrete.DiscreteStore;
+import me.i509.fabric.projectf.util.Reference;
+import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 
+/**
+ * Represents an item which can contain an amount of FMC within a DiscreteStore.
+ *
+ * <p>It is recommended to use one of the abstract implementations instead of making an item from scratch.
+ */
 public interface FMCItemArticleProvider {
-	DiscreteStore provide(ItemComponentContext ctx);
+	DiscreteStore provideStoreFromContext(ItemComponentContext ctx);
+
+	long getMaxFMC();
+
+	// Reference<ItemStack> stackRef = new Reference<>(player.getStackInHand(hand));
+	// DeviceComponentAccess<Store> access = Store.STORAGE_COMPONENT.getAccessForHeldItem(() -> stackRef.get(), stackRef::set, (ServerPlayerEntity) player);
+	default DeviceComponentAccess<Store> getStore(Reference<ItemStack> stackReference, ServerPlayerEntity player) {
+		return Store.STORAGE_COMPONENT.getAccessForHeldItem(stackReference::get, stackReference::set, player);
+	}
 }

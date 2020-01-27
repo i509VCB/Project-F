@@ -24,7 +24,6 @@
 
 package me.i509.fabric.projectf.item;
 
-import java.util.List;
 import com.google.common.collect.Multimap;
 import grondag.fluidity.api.article.StoredArticleView;
 import grondag.fluidity.api.device.DeviceComponentAccess;
@@ -35,10 +34,8 @@ import grondag.fluidity.base.storage.discrete.DiscreteStore;
 import grondag.fluidity.base.storage.discrete.PortableSingleArticleStore;
 import me.i509.fabric.projectf.api.article.FMCArticle;
 import me.i509.fabric.projectf.entity.PlayerTrackedData;
+import me.i509.fabric.projectf.item.template.AbstractFMCItem;
 import me.i509.fabric.projectf.util.Reference;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -46,7 +43,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
@@ -56,13 +52,6 @@ public class MatterGunItem extends AbstractFMCItem {
 
 	public MatterGunItem(Settings settings) {
 		super(settings, 20000);
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
-		long value = PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY);
-		tooltip.add(new LiteralText(Long.toString(value) + "/" + this.getMaxFMC()));
 	}
 
 	@Override
@@ -106,7 +95,9 @@ public class MatterGunItem extends AbstractFMCItem {
 				transaction.enlistSelf(store);
 
 				if (store.getSupplier().apply(FMCArticle.getArticle(), 200, false) == 200) {
+					// TODO test code
 					player.addChatMessage(new LiteralText("yeet"), false);
+					// TODO test code
 					player.getDataTracker().set(PlayerTrackedData.MATTER_GUN_DELAY, 20);
 					transaction.commit();
 					return TypedActionResult.success(stackRef.get());
@@ -121,7 +112,7 @@ public class MatterGunItem extends AbstractFMCItem {
 	}
 
 	@Override
-	public DiscreteStore provide(ItemComponentContext ctx) {
+	public DiscreteStore provideStoreFromContext(ItemComponentContext ctx) {
 		PortableSingleArticleStore store = new PortableSingleArticleStore(this.getMaxFMC(), AbstractFMCItem.KEY, ctx);
 		return store;
 	}

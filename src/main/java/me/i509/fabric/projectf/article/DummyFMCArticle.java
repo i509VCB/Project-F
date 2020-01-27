@@ -30,14 +30,14 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.util.PacketByteBuf;
 
 public final class DummyFMCArticle implements FMCArticle {
-	public static final DummyFMCArticle DUMMY = new DummyFMCArticle();
+	public static final DummyFMCArticle FMC_ARTICLE = new DummyFMCArticle();
 
 	public static String getTranslationKey(FMCArticle fmcArticle) {
 		return "fmc.article";
 	}
 
 	public static FMCArticle read(Tag tag) {
-		return DummyFMCArticle.DUMMY;
+		return DummyFMCArticle.FMC_ARTICLE;
 	}
 
 	public static Tag write(FMCArticle fmcArticle) {
@@ -45,7 +45,7 @@ public final class DummyFMCArticle implements FMCArticle {
 	}
 
 	public static FMCArticle readPacket(PacketByteBuf byteBuf) {
-		return DummyFMCArticle.DUMMY;
+		return DummyFMCArticle.FMC_ARTICLE;
 	}
 
 	public static void writePacket(FMCArticle fmcArticle, PacketByteBuf byteBuf) {

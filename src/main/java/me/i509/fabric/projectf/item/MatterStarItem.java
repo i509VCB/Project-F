@@ -22,28 +22,29 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.client;
+package me.i509.fabric.projectf.item;
 
-import me.i509.fabric.projectf.ProjectF;
-import me.i509.fabric.projectf.registry.client.PFScreens;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.resource.ResourceType;
+import grondag.fluidity.api.device.ItemComponentContext;
+import grondag.fluidity.base.storage.discrete.DiscreteStore;
+import grondag.fluidity.base.storage.discrete.PortableSingleArticleStore;
+import me.i509.fabric.projectf.item.template.AbstractFMCItem;
 
-@Environment(EnvType.CLIENT)
-public class ProjectFClient implements ClientModInitializer {
+public class MatterStarItem extends AbstractFMCItem {
+	public static final long LEVEL_1 = 16384;
+	public static final long LEVEL_2 = 65536;
+	public static final long LEVEL_3 = 262144;
+	public static final long LEVEL_4 = 1048576;
+	public static final long LEVEL_5 = 4194304;
+	public static final long LEVEL_6 = 16777216;
+	public static final long LEVEL_7 = 150994944;
+
+	public MatterStarItem(Settings settings, long maxFMC) {
+		super(settings, maxFMC);
+	}
+
 	@Override
-	public void onInitializeClient() {
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new FluidResourceListener());
-
-		ClientSpriteRegistryCallback.event(SpriteAtlasTexture.BLOCK_ATLAS_TEX).register((texture, registry) -> {
-			registry.register(ProjectF.id("block/liquid_fmc_still"));
-		});
-
-		PFScreens.init();
+	public DiscreteStore provideStoreFromContext(ItemComponentContext ctx) {
+		PortableSingleArticleStore store = new PortableSingleArticleStore(this.getMaxFMC(), AbstractFMCItem.KEY, ctx);
+		return store;
 	}
 }

@@ -22,28 +22,25 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.client;
+package me.i509.fabric.projectf.registry;
 
 import me.i509.fabric.projectf.ProjectF;
-import me.i509.fabric.projectf.registry.client.PFScreens;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.resource.ResourceType;
+import me.i509.fabric.projectf.container.AlchemicalBagContainer;
+import me.i509.fabric.projectf.util.PFUtils;
+import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Unit;
 
-@Environment(EnvType.CLIENT)
-public class ProjectFClient implements ClientModInitializer {
-	@Override
-	public void onInitializeClient() {
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new FluidResourceListener());
+public final class PFContainers {
+	public static final Identifier ALCHEMICAL_BAG = ProjectF.id("alchemical_bag");
+	private static final Unit DUMMY_ALCHEMICAL_BAG_CONTAINER = PFUtils.dummyRegister(() -> ContainerProviderRegistry.INSTANCE.registerFactory(ALCHEMICAL_BAG, AlchemicalBagContainer::create));
 
-		ClientSpriteRegistryCallback.event(SpriteAtlasTexture.BLOCK_ATLAS_TEX).register((texture, registry) -> {
-			registry.register(ProjectF.id("block/liquid_fmc_still"));
-		});
+	public static void init() {
+		// NO-OP
+	}
 
-		PFScreens.init();
+	// Suppress default constructor to ensure non-instantiability.
+	private PFContainers() {
+		throw new AssertionError("You should not be attempting to instantiate this class.");
 	}
 }

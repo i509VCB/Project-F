@@ -51,7 +51,7 @@ public class CompatMixinPlugin implements IMixinConfigPlugin {
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
 		if (mixinClassName.startsWith(CompatMixinPlugin.TRINKETS_MIXIN_PACKAGE)) {
 			if (this.trinkets) {
-				ProjectF.getLogger().info("Loaded Trinkets Compat.");
+				ProjectF.getLogger().info("Loaded Trinkets Compat class:" + mixinClassName);
 				return true;
 			} else {
 				return false;

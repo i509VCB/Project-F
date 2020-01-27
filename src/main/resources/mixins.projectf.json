@@ -3,7 +3,9 @@
   "package": "me.i509.fabric.projectf.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "PlayerEntityMixin_AnimationTrackers"
+    "ItemStackMixin_FMCItems",
+    "PlayerEntityMixin_AnimationTrackers",
+    "inventory.PlayerEntityMixin_AlchemicalBag"
   ],
   "client": [
   ],
