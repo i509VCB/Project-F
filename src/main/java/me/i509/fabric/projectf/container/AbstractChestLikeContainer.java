@@ -70,14 +70,14 @@ public abstract class AbstractChestLikeContainer<I extends Inventory> extends Co
 	@Override
 	public ItemStack transferSlot(PlayerEntity player, int invSlot) {
 		ItemStack itemStack = ItemStack.EMPTY;
-		Slot slot = this.slotList.get(invSlot);
+		Slot slot = this.slots.get(invSlot);
 
 		if (slot != null && slot.hasStack()) {
 			ItemStack itemStack2 = slot.getStack();
 			itemStack = itemStack2.copy();
 
 			if (invSlot < this.rows * 9) {
-				if (!this.insertItem(itemStack2, this.rows * 9, this.slotList.size(), true)) {
+				if (!this.insertItem(itemStack2, this.rows * 9, this.slots.size(), true)) {
 					return ItemStack.EMPTY;
 				}
 			} else if (!this.insertItem(itemStack2, 0, this.rows * 9, false)) {

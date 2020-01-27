@@ -77,6 +77,7 @@ dependencies {
 
     // Annotations
     implementation "org.checkerframework:checker-qual:${project.qual_version}"
+    compileOnly "org.apiguardian:apiguardian-api:1.0.0"
 
     // Soft Compat Mod: Trinkets
     modRuntime "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-base:2.0.3"

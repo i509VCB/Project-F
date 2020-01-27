@@ -27,7 +27,7 @@ package me.i509.fabric.projectf.client.screen;
 import me.i509.fabric.projectf.container.AlchemicalBagContainer;
 import me.i509.fabric.projectf.util.TextMessages;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
+import net.minecraft.client.gui.screen.ingame.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.DyeColor;
 
@@ -36,7 +36,7 @@ public class AlchemicalBagScreen extends AbstractChestLikeScreen<AlchemicalBagCo
 		super(container, inventory, TextMessages.createAlchemicalBagText(color));
 	}
 
-	public static AbstractContainerScreen<AlchemicalBagContainer> create(AlchemicalBagContainer container) {
+	public static ContainerScreen<AlchemicalBagContainer> create(AlchemicalBagContainer container) {
 		return new AlchemicalBagScreen(container, MinecraftClient.getInstance().player.inventory, container.getColor());
 	}
 }

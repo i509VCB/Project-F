@@ -26,12 +26,12 @@ package me.i509.fabric.projectf.client.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.i509.fabric.projectf.container.AbstractChestLikeContainer;
-import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
+import net.minecraft.client.gui.screen.ingame.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public abstract class AbstractChestLikeScreen<T extends AbstractChestLikeContainer<?>> extends AbstractContainerScreen<T> {
+public abstract class AbstractChestLikeScreen<T extends AbstractChestLikeContainer<?>> extends ContainerScreen<T> {
 	private static final Identifier TEXTURE = new Identifier("textures/gui/container/generic_54.png");
 	private final int rows;
 
