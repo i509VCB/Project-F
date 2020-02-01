@@ -22,11 +22,30 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.api.item;
+package me.i509.fabric.projectf.item.armor.matter.dark;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
+import grondag.fluidity.base.storage.discrete.PortableSingleArticleStore;
+import me.i509.fabric.projectf.api.item.ContextualProtectionItem;
+import me.i509.fabric.projectf.item.template.AbstractFMCItem;
 
-public interface FMCUsableItem {
-	void useFMC(ServerPlayerEntity serverPlayerEntity, ItemStack stack);
+public interface DarkMatterProtectionContexts {
+	ContextualProtectionItem HELMET = (livingEntity, stack) -> {
+		long amount = PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY);
+		return amount > 0 ? 5 : 0;
+	};
+
+	ContextualProtectionItem CHEST = (livingEntity, stack) -> {
+		long amount = PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY);
+		return amount > 0 ? 9 : 0;
+	};
+
+	ContextualProtectionItem LEGS = (livingEntity, stack) -> {
+		long amount = PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY);
+		return amount > 0 ? 8 : 0;
+	};
+
+	ContextualProtectionItem BOOTS = (livingEntity, stack) -> {
+		long amount = PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY);
+		return amount > 0 ? 6 : 0;
+	};
 }

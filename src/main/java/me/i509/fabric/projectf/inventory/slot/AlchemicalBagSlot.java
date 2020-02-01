@@ -22,25 +22,20 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.block.entity;
+package me.i509.fabric.projectf.inventory.slot;
 
-import grondag.fluidity.base.storage.discrete.SingleArticleStore;
-import me.i509.fabric.projectf.api.FMCBlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.LockableContainerBlockEntity;
+import me.i509.fabric.projectf.item.AlchemicalBagItem;
+import net.minecraft.container.Slot;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.ItemStack;
 
-public abstract class AbstractLockableContainerFMCBlockEntity extends LockableContainerBlockEntity implements FMCBlockEntity {
-	private final long capacity;
-	protected final SingleArticleStore store;
-
-	protected AbstractLockableContainerFMCBlockEntity(BlockEntityType<? extends AbstractLockableContainerFMCBlockEntity> type, long capacity) {
-		super(type);
-		this.capacity = capacity;
-		store = new SingleArticleStore(this.capacity);
+public class AlchemicalBagSlot extends Slot {
+	public AlchemicalBagSlot(Inventory inventory, int invSlot, int xPosition, int yPosition) {
+		super(inventory, invSlot, xPosition, yPosition);
 	}
 
 	@Override
-	public SingleArticleStore getStore() {
-		return this.store;
+	public boolean canInsert(ItemStack stack) {
+		return !(stack.getItem() instanceof AlchemicalBagItem);
 	}
 }

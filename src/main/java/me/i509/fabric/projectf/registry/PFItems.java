@@ -28,14 +28,25 @@ import me.i509.fabric.projectf.ProjectF;
 import me.i509.fabric.projectf.item.AlchemicalBagItem;
 import me.i509.fabric.projectf.item.MatterStarItem;
 import me.i509.fabric.projectf.item.MatterGunItem;
+import me.i509.fabric.projectf.item.armor.matter.dark.DarkMatterProtectionContexts;
+import me.i509.fabric.projectf.item.armor.matter.dark.MatterArmorItem;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.WallStandingBlockItem;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.registry.Registry;
 
 public final class PFItems {
 	public static final BucketItem FMC_BUCKET = register("fmc_bucket", new BucketItem(PFFluids.STILL_FMC, PFItemSettings.BUCKET));
 	public static final MatterGunItem MATTER_GUN = register("matter_gun", new MatterGunItem(PFItemSettings.FMC_ITEM));
+
+	public static final MatterArmorItem DARK_MATTER_HELMET = register("dark_matter_helmet", new MatterArmorItem(EquipmentSlot.HEAD, 200000, DarkMatterProtectionContexts.HELMET, PFItemSettings.BUCKET));
+	public static final MatterArmorItem DARK_MATTER_CHESTPLATE = register("dark_matter_chestplate", new MatterArmorItem(EquipmentSlot.CHEST, 200000, DarkMatterProtectionContexts.CHEST, PFItemSettings.BUCKET));
+	public static final MatterArmorItem DARK_MATTER_LEGGINGS = register("dark_matter_leggings", new MatterArmorItem(EquipmentSlot.LEGS, 200000, DarkMatterProtectionContexts.LEGS, PFItemSettings.BUCKET));
+	public static final MatterArmorItem DARK_MATTER_BOOTS = register("dark_matter_boots", new MatterArmorItem(EquipmentSlot.FEET, 200000, DarkMatterProtectionContexts.BOOTS, PFItemSettings.BUCKET));
+
+	public static final WallStandingBlockItem ALCHEMICAL_TORCH = register("alchemical_toch", new WallStandingBlockItem(PFBlocks.ALCHEMICAL_TORCH, PFBlocks.ALCHEMICAL_WALL_TORCH, PFItemSettings.MAIN_GROUP));
 
 	// Matter Stars
 

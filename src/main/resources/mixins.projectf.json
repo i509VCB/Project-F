@@ -5,7 +5,10 @@
   "mixins": [
     "ItemStackMixin_FMCItems",
     "PlayerEntityMixin_AnimationTrackers",
-    "inventory.PlayerEntityMixin_AlchemicalBag"
+    "inventory.PlayerEntityMixin_AlchemicalBag",
+    "PlayerEntityMixin",
+    "LivingEntityMixin_Armor",
+    "MobEntityMixin_EquipmentSlots"
   ],
   "client": [
   ],

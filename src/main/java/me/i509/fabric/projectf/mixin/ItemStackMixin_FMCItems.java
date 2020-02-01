@@ -26,7 +26,6 @@ package me.i509.fabric.projectf.mixin;
 
 import java.util.Random;
 import me.i509.fabric.projectf.api.item.FMCUsableItem;
-import me.i509.fabric.projectf.api.item.FMCDurabilityProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -41,14 +40,10 @@ public abstract class ItemStackMixin_FMCItems {
 	@Shadow
 	public abstract Item getItem();
 
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getLevel(Lnet/minecraft/enchantment/Enchantment;Lnet/minecraft/item/ItemStack;)I"), method = "damage(ILjava/util/Random;Lnet/minecraft/server/network/ServerPlayerEntity;)Z", cancellable = true)
+	@Inject(at = @At(value = "RETURN", ordinal = 0), method = "damage(ILjava/util/Random;Lnet/minecraft/server/network/ServerPlayerEntity;)Z", cancellable = true)
 	public void pf_onDamaged(int damageTaken, Random random, ServerPlayerEntity serverPlayerEntity, CallbackInfoReturnable<Boolean> cir) {
-		if (this.getItem() instanceof FMCDurabilityProvider) {
-			cir.setReturnValue(false);
-
-			if (this.getItem() instanceof FMCUsableItem) {
-				((FMCUsableItem) this.getItem()).useFMC((ItemStack) (Object) this);
-			}
+		if (this.getItem() instanceof FMCUsableItem) {
+			((FMCUsableItem) this.getItem()).useFMC(serverPlayerEntity, (ItemStack) (Object) this);
 		}
 	}
 }

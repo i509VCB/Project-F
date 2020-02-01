@@ -29,8 +29,8 @@ import grondag.fluidity.api.storage.Store;
 import grondag.fluidity.base.storage.discrete.PortableSingleArticleStore;
 import grondag.fluidity.base.storage.discrete.SingleArticleStore;
 import me.i509.fabric.projectf.api.article.FMCArticle;
-import me.i509.fabric.projectf.api.article.FMCItemArticleProvider;
-import me.i509.fabric.projectf.api.item.FMCDurabilityProvider;
+import me.i509.fabric.projectf.api.article.FMCArticleProvider;
+import me.i509.fabric.projectf.item.BasicDurabilityProvider;
 import me.i509.fabric.projectf.util.TextMessages;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -42,8 +42,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.world.World;
 
-public abstract class AbstractFMCItem extends Item implements FMCDurabilityProvider, FMCItemArticleProvider {
-	protected static final String KEY = "store";
+public abstract class AbstractFMCItem extends Item implements BasicDurabilityProvider, FMCArticleProvider {
+	public static final String KEY = "store";
 	private final long maxFMC;
 
 	public AbstractFMCItem(Settings settings, long maxFMC) {
@@ -70,21 +70,6 @@ public abstract class AbstractFMCItem extends Item implements FMCDurabilityProvi
 		full.getOrCreateTag();
 		full.putSubTag(AbstractFMCItem.KEY, store.writeTag());
 		stacks.add(full);
-	}
-
-	@Override
-	public double getDurability(ItemStack stack) {
-		return 1.0D - ((double) PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY) / (double) this.getMaxFMC());
-	}
-
-	@Override
-	public boolean showDurability(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public int getDurabilityColor(ItemStack stack) {
-		return 0xA6A626;
 	}
 
 	@Environment(EnvType.CLIENT)

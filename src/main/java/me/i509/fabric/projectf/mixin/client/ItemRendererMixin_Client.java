@@ -25,7 +25,7 @@
 package me.i509.fabric.projectf.mixin.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import me.i509.fabric.projectf.api.item.FMCDurabilityProvider;
+import me.i509.fabric.projectf.api.item.DurabilityProvider;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
@@ -45,8 +45,8 @@ public abstract class ItemRendererMixin_Client {
 
 	@Inject(method = "renderGuiItemOverlay(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V", at = @At("HEAD"))
 	private void pf_renderGuiItemOverlay(TextRenderer textRenderer, ItemStack stack, int x, int y, String string, CallbackInfo info) {
-		if (stack.getItem() instanceof FMCDurabilityProvider) {
-			FMCDurabilityProvider durabilityProvider = (FMCDurabilityProvider) stack.getItem();
+		if (stack.getItem() instanceof DurabilityProvider) {
+			DurabilityProvider durabilityProvider = (DurabilityProvider) stack.getItem();
 
 			if (!durabilityProvider.showDurability(stack)) {
 				return;

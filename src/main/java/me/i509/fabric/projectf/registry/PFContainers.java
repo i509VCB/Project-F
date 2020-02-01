@@ -26,6 +26,7 @@ package me.i509.fabric.projectf.registry;
 
 import me.i509.fabric.projectf.ProjectF;
 import me.i509.fabric.projectf.container.AlchemicalBagContainer;
+import me.i509.fabric.projectf.container.AlchemicalChestContainer11x7;
 import me.i509.fabric.projectf.util.PFUtils;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.util.Identifier;
@@ -33,7 +34,9 @@ import net.minecraft.util.Unit;
 
 public final class PFContainers {
 	public static final Identifier ALCHEMICAL_BAG = ProjectF.id("alchemical_bag");
+	public static final Identifier ALCHEMICAL_CHEST = ProjectF.id("achemical_chest");
 	private static final Unit DUMMY_ALCHEMICAL_BAG_CONTAINER = PFUtils.dummyRegister(() -> ContainerProviderRegistry.INSTANCE.registerFactory(ALCHEMICAL_BAG, AlchemicalBagContainer::create));
+	private static final Unit DUMMY_ALCHEMICAL_CHEST_CONTAINER = PFUtils.dummyRegister(() -> ContainerProviderRegistry.INSTANCE.registerFactory(ALCHEMICAL_CHEST, AlchemicalChestContainer11x7::create));
 
 	public static void init() {
 		// NO-OP

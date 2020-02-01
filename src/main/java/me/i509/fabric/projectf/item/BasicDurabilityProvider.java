@@ -22,11 +22,27 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.api.item;
+package me.i509.fabric.projectf.item;
 
+import grondag.fluidity.base.storage.discrete.PortableSingleArticleStore;
+import me.i509.fabric.projectf.api.article.FMCArticleProvider;
+import me.i509.fabric.projectf.api.item.DurabilityProvider;
+import me.i509.fabric.projectf.item.template.AbstractFMCItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
 
-public interface FMCUsableItem {
-	void useFMC(ServerPlayerEntity serverPlayerEntity, ItemStack stack);
+public interface BasicDurabilityProvider extends DurabilityProvider, FMCArticleProvider {
+	@Override
+	default double getDurability(ItemStack stack) {
+		return 1.0D - ((double) PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY) / (double) this.getMaxFMC());
+	}
+
+	@Override
+	default boolean showDurability(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	default int getDurabilityColor(ItemStack stack) {
+		return 0xA6A626;
+	}
 }

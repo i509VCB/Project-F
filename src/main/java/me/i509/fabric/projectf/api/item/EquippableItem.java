@@ -24,9 +24,18 @@
 
 package me.i509.fabric.projectf.api.item;
 
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 
-public interface FMCUsableItem {
-	void useFMC(ServerPlayerEntity serverPlayerEntity, ItemStack stack);
+/**
+ * Represents an item which can be equipped, this can be defined for mobs so they place and item in the correct hand or treat it like armor.
+ */
+public interface EquippableItem {
+	EquipmentSlot getEquippableSlot(ItemStack item);
+
+	default SoundEvent getEquipSound() {
+		return SoundEvents.AMBIENT_CAVE;
+	}
 }

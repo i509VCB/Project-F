@@ -22,11 +22,17 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.api.item;
+package me.i509.fabric.projectf.mixin;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Mixin;
 
-public interface FMCUsableItem {
-	void useFMC(ServerPlayerEntity serverPlayerEntity, ItemStack stack);
+@Mixin(PlayerEntity.class)
+public abstract class PlayerEntityMixin extends LivingEntity {
+	protected PlayerEntityMixin(EntityType<? extends LivingEntity> type, World world) {
+		super(type, world);
+	}
 }

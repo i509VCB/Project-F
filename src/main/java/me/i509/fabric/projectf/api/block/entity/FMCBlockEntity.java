@@ -22,11 +22,30 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.api.item;
+package me.i509.fabric.projectf.api.block.entity;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
+import java.util.Optional;
+import grondag.fluidity.base.storage.discrete.SingleArticleStore;
+import me.i509.fabric.projectf.api.article.FMCArticle;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
-public interface FMCUsableItem {
-	void useFMC(ServerPlayerEntity serverPlayerEntity, ItemStack stack);
+/**
+ * Represents a BlockEntity which can hold an article of {@link FMCArticle}.
+ */
+public interface FMCBlockEntity {
+	SingleArticleStore getStore();
+
+	static Optional<SingleArticleStore> getStore(World world, BlockPos blockPos) {
+		@Nullable BlockEntity blockEntity = world.getBlockEntity(blockPos);
+
+		if (blockEntity instanceof FMCBlockEntity) {
+			FMCBlockEntity fmcBlockEntity = (FMCBlockEntity) blockEntity;
+			return Optional.of(fmcBlockEntity.getStore());
+		}
+
+		return Optional.empty();
+	}
 }

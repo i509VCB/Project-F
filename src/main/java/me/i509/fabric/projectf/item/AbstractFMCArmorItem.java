@@ -22,41 +22,30 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.item.template;
+package me.i509.fabric.projectf.item;
 
-import java.util.List;
+import grondag.fluidity.api.device.ItemComponentContext;
 import grondag.fluidity.api.storage.Store;
+import grondag.fluidity.base.storage.discrete.DiscreteStore;
 import grondag.fluidity.base.storage.discrete.PortableSingleArticleStore;
 import grondag.fluidity.base.storage.discrete.SingleArticleStore;
 import me.i509.fabric.projectf.api.article.FMCArticle;
-import me.i509.fabric.projectf.api.article.FMCItemArticleProvider;
+import me.i509.fabric.projectf.api.article.FMCArticleProvider;
 import me.i509.fabric.projectf.api.item.FMCUsableItem;
-import me.i509.fabric.projectf.api.item.FMCDurabilityProvider;
-import me.i509.fabric.projectf.util.TextMessages;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.item.TooltipContext;
+import me.i509.fabric.projectf.item.template.AbstractContextualArmorItem;
+import me.i509.fabric.projectf.item.template.AbstractFMCItem;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
 import net.minecraft.util.DefaultedList;
-import net.minecraft.world.World;
 
-public abstract class AbstractFMCArmorItem extends ArmorItem implements FMCDurabilityProvider, FMCItemArticleProvider, FMCUsableItem {
+public abstract class AbstractFMCArmorItem extends AbstractContextualArmorItem implements BasicDurabilityProvider, FMCArticleProvider, FMCUsableItem {
 	private final long maxFMC;
 
-	public AbstractFMCArmorItem(ArmorMaterial material, EquipmentSlot slot, Settings settings, long maxFMC) {
-		super(material, slot, settings.maxCount(1));
-		Store.STORAGE_COMPONENT.registerProvider(this::provideStoreFromContext, this);
+	public AbstractFMCArmorItem(EquipmentSlot slot, long maxFMC, Settings settings) {
+		super(slot, settings);
 		this.maxFMC = maxFMC;
-	}
-
-	@Override
-	public long getMaxFMC() {
-		return this.maxFMC;
+		Store.STORAGE_COMPONENT.registerProvider(this::provideStoreFromContext, this);
 	}
 
 	@Override
@@ -75,24 +64,13 @@ public abstract class AbstractFMCArmorItem extends ArmorItem implements FMCDurab
 	}
 
 	@Override
-	public double getDurability(ItemStack stack) {
-		return 1.0D - ((double) PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY) / (double) this.getMaxFMC());
+	public DiscreteStore provideStoreFromContext(ItemComponentContext ctx) {
+		PortableSingleArticleStore store = new PortableSingleArticleStore(this.getMaxFMC(), AbstractFMCItem.KEY, ctx);
+		return store;
 	}
 
 	@Override
-	public boolean showDurability(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public int getDurabilityColor(ItemStack stack) {
-		return 0xA6A626;
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
-		long value = PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY);
-		tooltip.add(TextMessages.createFMCItemTooltip(value, this.getMaxFMC()));
+	public long getMaxFMC() {
+		return this.maxFMC;
 	}
 }

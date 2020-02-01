@@ -48,7 +48,7 @@ public abstract class PlayerEntityMixin_AnimationTrackers extends LivingEntity i
 		this.dataTracker.startTracking(MATTER_GUN_DELAY, 0);
 	}
 
-	@Inject(at = @At("TAIL"), method = "tick")
+	@Inject(at = @At("TAIL"), method = "tick()V")
 	private void pf_tick(CallbackInfo ci) {
 		this.dataTracker.set(MATTER_GUN_DELAY, this.dataTracker.get(MATTER_GUN_DELAY) - 1);
 		ItemStack stack = this.getMainHandStack();

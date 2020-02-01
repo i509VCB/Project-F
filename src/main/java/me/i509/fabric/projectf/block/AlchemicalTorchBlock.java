@@ -22,11 +22,12 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.api.item;
+package me.i509.fabric.projectf.block;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.block.TorchBlock;
 
-public interface FMCUsableItem {
-	void useFMC(ServerPlayerEntity serverPlayerEntity, ItemStack stack);
+public class AlchemicalTorchBlock extends TorchBlock {
+	public AlchemicalTorchBlock(Settings settings) {
+		super(settings);
+	}
 }

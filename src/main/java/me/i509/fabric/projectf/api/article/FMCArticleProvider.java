@@ -31,13 +31,14 @@ import grondag.fluidity.base.storage.discrete.DiscreteStore;
 import me.i509.fabric.projectf.util.Reference;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.world.World;
 
 /**
  * Represents an item which can contain an amount of FMC within a DiscreteStore.
  *
  * <p>It is recommended to use one of the abstract implementations instead of making an item from scratch.
  */
-public interface FMCItemArticleProvider {
+public interface FMCArticleProvider {
 	DiscreteStore provideStoreFromContext(ItemComponentContext ctx);
 
 	long getMaxFMC();
@@ -46,5 +47,9 @@ public interface FMCItemArticleProvider {
 	// DeviceComponentAccess<Store> access = Store.STORAGE_COMPONENT.getAccessForHeldItem(() -> stackRef.get(), stackRef::set, (ServerPlayerEntity) player);
 	default DeviceComponentAccess<Store> getStore(Reference<ItemStack> stackReference, ServerPlayerEntity player) {
 		return Store.STORAGE_COMPONENT.getAccessForHeldItem(stackReference::get, stackReference::set, player);
+	}
+
+	default DeviceComponentAccess<Store> getStore(Reference<ItemStack> stackReference, World world) {
+		return Store.STORAGE_COMPONENT.getAccess(stackReference::get, stackReference::set, world);
 	}
 }

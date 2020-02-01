@@ -56,7 +56,7 @@ public class DamagingBaseFluidBlock extends FluidBlock {
 
 			if (entity instanceof ServerPlayerEntity) {
 				ServerPlayerEntity player = (ServerPlayerEntity) entity;
-				// TODO: Protection item a player just need in their inventory
+				// TODO: Protection item a player just needs in their inventory
 				// Trinkets for example is implemented via the external slots check.
 				//isSafe = ProjectFHooks.testFluidSafetyCompat(player);
 			}

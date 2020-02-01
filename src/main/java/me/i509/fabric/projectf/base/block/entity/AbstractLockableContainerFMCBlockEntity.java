@@ -22,31 +22,33 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.container;
+package me.i509.fabric.projectf.base.block.entity;
 
-import me.i509.fabric.projectf.inventory.AlchemicalBagInventory;
-import me.i509.fabric.projectf.inventory.slot.AlchemicalBagSlot;
-import me.i509.fabric.projectf.item.AlchemicalBagItem;
+import grondag.fluidity.base.storage.discrete.SingleArticleStore;
+import me.i509.fabric.projectf.api.block.entity.BlockEntityInventoryProvider;
+import me.i509.fabric.projectf.api.block.entity.FMCBlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.LockableContainerBlockEntity;
 import net.minecraft.container.Container;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
 
-public class AlchemicalBagContainer extends AbstractChestLikeContainer<AlchemicalBagInventory> {
-	public AlchemicalBagContainer(int syncId, PlayerInventory playerInventory, AlchemicalBagInventory inventory) {
-		super(syncId, AlchemicalBagSlot::new, playerInventory, inventory, new TranslatableText("item.projectf.alchemical_bag", inventory.getColor().toString()), 3);
+public abstract class AbstractLockableContainerFMCBlockEntity extends LockableContainerBlockEntity implements FMCBlockEntity, BlockEntityInventoryProvider {
+	private final long capacity;
+	protected final SingleArticleStore store;
+
+	protected AbstractLockableContainerFMCBlockEntity(BlockEntityType<? extends AbstractLockableContainerFMCBlockEntity> type, long capacity) {
+		super(type);
+		this.capacity = capacity;
+		this.store = new SingleArticleStore(this.capacity);
 	}
 
-	public DyeColor getColor() {
-		return this.inventory.getColor();
+	@Override
+	public SingleArticleStore getStore() {
+		return this.store;
 	}
 
-	public static Container create(int syncId, Identifier identifier, PlayerEntity playerEntity, PacketByteBuf byteBuf) {
-		DyeColor bagColor = byteBuf.readEnumConstant(DyeColor.class);
-		AlchemicalBagInventory inventory = AlchemicalBagItem.getInventory(playerEntity, bagColor);
-		return new AlchemicalBagContainer(syncId, playerEntity.inventory, inventory);
+	@Override
+	protected final Container createContainer(int syncId, PlayerInventory playerInventory) {
+		return null; // We use Fabric's API instead.
 	}
 }

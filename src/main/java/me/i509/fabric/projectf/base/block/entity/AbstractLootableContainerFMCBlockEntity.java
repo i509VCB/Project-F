@@ -22,25 +22,33 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.block.entity;
+package me.i509.fabric.projectf.base.block.entity;
 
 import grondag.fluidity.base.storage.discrete.SingleArticleStore;
-import me.i509.fabric.projectf.api.FMCBlockEntity;
-import net.minecraft.block.entity.BlockEntity;
+import me.i509.fabric.projectf.api.block.entity.BlockEntityInventoryProvider;
+import me.i509.fabric.projectf.api.block.entity.FMCBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.LootableContainerBlockEntity;
+import net.minecraft.container.Container;
+import net.minecraft.entity.player.PlayerInventory;
 
-public abstract class AbstractFMCBlockEntity extends BlockEntity implements FMCBlockEntity {
+public abstract class AbstractLootableContainerFMCBlockEntity extends LootableContainerBlockEntity implements FMCBlockEntity, BlockEntityInventoryProvider {
 	private final long capacity;
 	protected final SingleArticleStore store;
 
-	protected AbstractFMCBlockEntity(BlockEntityType<? extends AbstractFMCBlockEntity> type, long capacity) {
+	protected AbstractLootableContainerFMCBlockEntity(BlockEntityType<? extends AbstractLootableContainerFMCBlockEntity> type, long capacity) {
 		super(type);
 		this.capacity = capacity;
-		store = new SingleArticleStore(this.capacity);
+		this.store = new SingleArticleStore(this.capacity);
 	}
 
 	@Override
 	public SingleArticleStore getStore() {
 		return this.store;
+	}
+
+	@Override
+	protected final Container createContainer(int syncId, PlayerInventory playerInventory) {
+		return null; // We use Fabric's API instead.
 	}
 }

@@ -22,11 +22,34 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.api.item;
+package me.i509.fabric.projectf.item.armor.matter.dark;
 
+import grondag.fluidity.api.device.DeviceComponentAccess;
+import grondag.fluidity.api.storage.Store;
+import me.i509.fabric.projectf.api.item.ContextualProtectionItem;
+import me.i509.fabric.projectf.item.AbstractFMCArmorItem;
+import me.i509.fabric.projectf.util.Reference;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-public interface FMCUsableItem {
-	void useFMC(ServerPlayerEntity serverPlayerEntity, ItemStack stack);
+public class MatterArmorItem extends AbstractFMCArmorItem {
+	private final ContextualProtectionItem protectionContext;
+
+	public MatterArmorItem(EquipmentSlot slot, long maxFMC, ContextualProtectionItem protectionContext, Settings settings) {
+		super(slot, maxFMC, settings);
+		this.protectionContext = protectionContext;
+	}
+
+	@Override
+	public void useFMC(ServerPlayerEntity serverPlayerEntity, ItemStack stack) {
+		DeviceComponentAccess<Store> store = this.getStore(new Reference<>(stack), serverPlayerEntity);
+		// TODO determine how much to use
+	}
+
+	@Override
+	public int getProtection(LivingEntity livingEntity, ItemStack itemStack) {
+		return this.protectionContext.getProtection(livingEntity, itemStack);
+	}
 }

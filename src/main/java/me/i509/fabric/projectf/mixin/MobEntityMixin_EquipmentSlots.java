@@ -22,11 +22,23 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.api.item;
+package me.i509.fabric.projectf.mixin;
 
+import me.i509.fabric.projectf.api.item.EquippableItem;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-public interface FMCUsableItem {
-	void useFMC(ServerPlayerEntity serverPlayerEntity, ItemStack stack);
+@Mixin(MobEntity.class)
+public abstract class MobEntityMixin_EquipmentSlots {
+	@Inject(at = @At("TAIL"), method = "getPreferredEquipmentSlot(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/entity/EquipmentSlot;", cancellable = true)
+	private static void projectf_otherPreferredEquipmentSlot(ItemStack stack, CallbackInfoReturnable<EquipmentSlot> cir) {
+		if (stack.getItem() instanceof EquippableItem) {
+			cir.setReturnValue(((EquippableItem) stack.getItem()).getEquippableSlot(stack));
+		}
+	}
 }

@@ -22,25 +22,20 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.block.entity;
+package me.i509.fabric.projectf.api.item;
 
-import grondag.fluidity.base.storage.discrete.SingleArticleStore;
-import me.i509.fabric.projectf.api.FMCBlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.LootableContainerBlockEntity;
+import net.minecraft.item.ItemStack;
 
-public abstract class AbstractLootableContainerFMCBlockEntity extends LootableContainerBlockEntity implements FMCBlockEntity {
-	private final long capacity;
-	protected final SingleArticleStore store;
-
-	protected AbstractLootableContainerFMCBlockEntity(BlockEntityType<? extends AbstractLootableContainerFMCBlockEntity> type, long capacity) {
-		super(type);
-		this.capacity = capacity;
-		store = new SingleArticleStore(this.capacity);
+public interface DurabilityProvider {
+	default double getDurability(ItemStack stack) {
+		return 0;
 	}
 
-	@Override
-	public SingleArticleStore getStore() {
-		return this.store;
+	default boolean showDurability(ItemStack stack) {
+		return false;
+	}
+
+	default int getDurabilityColor(ItemStack stack) {
+		return 0;
 	}
 }

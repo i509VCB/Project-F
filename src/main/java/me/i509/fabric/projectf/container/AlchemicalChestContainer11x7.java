@@ -24,42 +24,41 @@
 
 package me.i509.fabric.projectf.container;
 
-import me.i509.fabric.projectf.util.SlotFactory;
 import net.minecraft.container.Container;
 import net.minecraft.container.Slot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.PacketByteBuf;
 
-public abstract class AbstractChestLikeContainer<I extends Inventory> extends Container {
-	protected final I inventory;
-	private final Text title;
-	private final int rows;
+public class AlchemicalChestContainer11x7 extends Container {
+	private final SidedInventory inventory;
+	private final Text name;
 
-	protected AbstractChestLikeContainer(int syncId, SlotFactory factory, PlayerInventory playerInventory, I inventory, Text title, int rows) {
+	public AlchemicalChestContainer11x7(int syncId, PlayerInventory playerInventory, SidedInventory inventory, Text name) {
 		super(null, syncId);
 		this.inventory = inventory;
-		this.title = title;
-		this.rows = rows;
-		inventory.onInvOpen(playerInventory.player);
-		int totalHeight = (this.rows - 4) * 18;
+		this.name = name;
+		this.inventory.onInvOpen(playerInventory.player);
 
-		for (int y = 0; y < this.rows; ++y) {
-			for (int x = 0; x < 9; ++x) {
-				this.addSlot(factory.create(inventory, x + y * 9, 8 + x * 18, 18 + y * 18));
+		for (int row = 0; row < 7; ++row) {
+			for (int column = 0; column < 11; ++column) {
+				this.addSlot(new Slot(inventory, column + (row * 11), (column * 18) + 5, 18 + (row * 18)));
 			}
 		}
 
-		for (int y = 0; y < 3; ++y) {
-			for (int x = 0; x < 9; ++x) {
-				this.addSlot(new Slot(playerInventory, x + y * 9 + 9, 8 + x * 18, 103 + y * 18 + totalHeight));
+		for (int row = 0; row < 3; ++row) {
+			for (int column = 0; column < 9; ++column) {
+				this.addSlot(new Slot(playerInventory, column + row * 9 + 9, 23 + (column * 18), 112 + row * 18 + 45));
 			}
 		}
 
-		for (int y = 0; y < 9; ++y) {
-			this.addSlot(new Slot(playerInventory, y, 8 + y * 18, 161 + totalHeight));
+		for (int column = 0; column < 9; ++column) {
+			this.addSlot(new Slot(playerInventory, column, 23 + (column * 18), 170 + 45));
 		}
 	}
 
@@ -77,11 +76,11 @@ public abstract class AbstractChestLikeContainer<I extends Inventory> extends Co
 			ItemStack itemStack2 = slot.getStack();
 			itemStack = itemStack2.copy();
 
-			if (invSlot < this.rows * 9) {
-				if (!this.insertItem(itemStack2, this.rows * 9, this.slots.size(), true)) {
+			if (invSlot < 77) {
+				if (!this.insertItem(itemStack2, 7 * 9, this.slots.size(), true)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (!this.insertItem(itemStack2, 0, this.rows * 9, false)) {
+			} else if (!this.insertItem(itemStack2, 0, 77, false)) {
 				return ItemStack.EMPTY;
 			}
 
@@ -101,7 +100,18 @@ public abstract class AbstractChestLikeContainer<I extends Inventory> extends Co
 		this.inventory.onInvClose(player);
 	}
 
-	public int getRows() {
-		return this.rows;
+	public Inventory getInventory() {
+		return this.inventory;
+	}
+
+	public Text getDisplayName() {
+		return this.name;
+	}
+
+	public static Container create(int syncId, Identifier identifier, PlayerEntity playerEntity, PacketByteBuf byteBuf) {
+		//AlchemicalBagInventory inventory = //AlchemicalBagItem.getInventory(playerEntity, bagColor);
+		//Text title = byteBuf.readText();
+		//return new AlchemicalChestContainer11x7(syncId, playerEntity.inventory, inventory, title);
+		return null;
 	}
 }

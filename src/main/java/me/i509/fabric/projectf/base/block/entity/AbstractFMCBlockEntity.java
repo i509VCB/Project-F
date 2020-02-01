@@ -22,11 +22,25 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.api.item;
+package me.i509.fabric.projectf.base.block.entity;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
+import grondag.fluidity.base.storage.discrete.SingleArticleStore;
+import me.i509.fabric.projectf.api.block.entity.FMCBlockEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 
-public interface FMCUsableItem {
-	void useFMC(ServerPlayerEntity serverPlayerEntity, ItemStack stack);
+public abstract class AbstractFMCBlockEntity extends BlockEntity implements FMCBlockEntity {
+	private final long capacity;
+	protected final SingleArticleStore store;
+
+	protected AbstractFMCBlockEntity(BlockEntityType<? extends AbstractFMCBlockEntity> type, long capacity) {
+		super(type);
+		this.capacity = capacity;
+		this.store = new SingleArticleStore(this.capacity);
+	}
+
+	@Override
+	public SingleArticleStore getStore() {
+		return this.store;
+	}
 }

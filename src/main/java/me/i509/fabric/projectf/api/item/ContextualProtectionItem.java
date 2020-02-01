@@ -24,18 +24,9 @@
 
 package me.i509.fabric.projectf.api.item;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 
-public interface FMCDurabilityProvider {
-	default double getDurability(ItemStack stack) {
-		return 0;
-	}
-
-	default boolean showDurability(ItemStack stack) {
-		return false;
-	}
-
-	default int getDurabilityColor(ItemStack stack) {
-		return 0;
-	}
+public interface ContextualProtectionItem {
+	int getProtection(LivingEntity livingEntity, ItemStack itemStack);
 }
