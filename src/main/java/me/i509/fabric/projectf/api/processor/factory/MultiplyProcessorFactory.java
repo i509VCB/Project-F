@@ -22,38 +22,13 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl.type;
+package me.i509.fabric.projectf.api.processor.factory;
 
-import me.i509.fabric.projectf.ProjectF;
-import me.i509.fabric.projectf.api.processor.type.DurabilityPercentageProcessor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import me.i509.fabric.projectf.api.processor.type.MultiplyProcessor;
+import me.i509.fabric.projectf.api.processor.type.Processor;
 
-public class DurabilityPercentageProcessorImpl implements DurabilityPercentageProcessor {
-	private long full;
+public interface MultiplyProcessorFactory extends ProcessorFactory<MultiplyProcessor> {
+	MultiplyProcessorFactory processor(Processor<?> processor);
 
-	public DurabilityPercentageProcessorImpl(long full) {
-		this.full = full;
-	}
-
-	@Override
-	public long getFullDurabilityValue() {
-		return this.full;
-	}
-
-	@Override
-	public boolean isRecursive() {
-		return false; // Cannot be recursive.
-	}
-
-	@Override
-	public long process(ItemStack stack) {
-		double percentage = (double) (stack.getMaxDamage() - stack.getDamage()) / (double) stack.getMaxDamage();
-		return (long) (this.full * percentage);
-	}
-
-	@Override
-	public Identifier getId() {
-		return ProjectF.id("percentage_of");
-	}
+	MultiplyProcessorFactory multiplier(double multiplier);
 }

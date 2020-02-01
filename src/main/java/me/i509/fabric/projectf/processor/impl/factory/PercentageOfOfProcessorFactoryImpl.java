@@ -24,23 +24,13 @@
 
 package me.i509.fabric.projectf.processor.impl.factory;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import me.i509.fabric.projectf.api.processor.type.DurabilityPercentageProcessor;
-import me.i509.fabric.projectf.api.processor.factory.DurabilityPercentageProcessorFactory;
-import me.i509.fabric.projectf.processor.impl.type.DurabilityPercentageProcessorImpl;
+import me.i509.fabric.projectf.api.processor.factory.PercentageOfProcessorFactory;
+import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
+import me.i509.fabric.projectf.processor.impl.type.PercentageOfProcessorImpl;
 
-public class DurabilityPercentageProcessorFactoryImpl implements DurabilityPercentageProcessorFactory {
-	private long full;
-
+public class PercentageOfOfProcessorFactoryImpl implements PercentageOfProcessorFactory {
 	@Override
-	public DurabilityPercentageProcessorFactory fullDurabilityValue(long value) {
-		this.full = value;
-		return this;
-	}
-
-	@Override
-	public DurabilityPercentageProcessor create() {
-		checkArgument(this.full >= 0, "Maximum FMC value cannot be negative.");
-		return new DurabilityPercentageProcessorImpl(this.full);
+	public PercentageOfProcessor create() {
+		return new PercentageOfProcessorImpl();
 	}
 }

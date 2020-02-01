@@ -42,11 +42,6 @@ public class ConstantProcessorImpl implements ConstantProcessor {
 	}
 
 	@Override
-	public boolean isRecursive() {
-		return false; // Cannot be recursive.
-	}
-
-	@Override
 	public long process(ItemStack stack) {
 		return this.value;
 	}

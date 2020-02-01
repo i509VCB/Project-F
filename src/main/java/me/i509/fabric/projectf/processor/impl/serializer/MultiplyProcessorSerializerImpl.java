@@ -24,73 +24,77 @@
 
 package me.i509.fabric.projectf.processor.impl.serializer;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import me.i509.fabric.projectf.ProjectF;
-import me.i509.fabric.projectf.api.processor.serializer.MaxProcessorSerializer;
+import me.i509.fabric.projectf.api.processor.serializer.MultiplyProcessorSerializer;
 import me.i509.fabric.projectf.api.processor.serializer.ProcessorSerializer;
-import me.i509.fabric.projectf.api.processor.type.MaxProcessor;
+import me.i509.fabric.projectf.api.processor.type.MultiplyProcessor;
 import me.i509.fabric.projectf.api.processor.type.Processor;
 import me.i509.fabric.projectf.processor.ProcessorRegistry;
-import me.i509.fabric.projectf.processor.impl.type.MaxProcessorImpl;
+import me.i509.fabric.projectf.processor.impl.type.MultiplyProcessorImpl;
 import me.i509.fabric.projectf.util.gson.GsonUtils;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
 
-public class MaxProcessorSerializerImpl implements MaxProcessorSerializer {
+public class MultiplyProcessorSerializerImpl implements MultiplyProcessorSerializer {
 	@Override
-	public MaxProcessor deserialize(JsonElement element) throws JsonParseException {
+	public MultiplyProcessor deserialize(JsonElement element) throws JsonParseException {
 		JsonObject obj = GsonUtils.asObjectOrThrow(element);
 
 		if (obj.entrySet().size() != 2) {
-			throw new JsonParseException("Max Processor must have two entries");
+			throw new JsonParseException("Multiply Processor must have two entries");
 		}
 
-		List<Processor<?>> processors = new ArrayList<>();
+		Processor<?> processor = null;
+		double multiplier = 0.0D;
 
-		for (Map.Entry<String, JsonElement> stringJsonElementEntry : obj.entrySet()) {
-			ProcessorSerializer<?, ?> serializer = ProjectF.getInstance().getProcessorRegistry().getSerializer(stringJsonElementEntry.getKey()).orElseThrow(() -> new JsonParseException("Could not find a processor with the following id: " + stringJsonElementEntry.getKey()));
-			processors.add(serializer.deserialize(stringJsonElementEntry.getValue()));
+		for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
+			if (entry.getKey().equals("multiplier")) {
+				multiplier = entry.getValue().getAsDouble();
+				continue;
+			}
+
+			// We can only assume the processor is the other one
+			ProcessorSerializer<?, ?> serializer = ProjectF.getInstance().getProcessorRegistry().getSerializer(entry.getKey()).orElseThrow(() -> new JsonParseException("Could not find a processor with the following id: " + entry.getKey()));
+			processor = serializer.deserialize(entry.getValue());
 		}
 
-		if (processors.size() != 2) {
-			throw new JsonParseException("Max Processor must have two entries");
+		if (processor == null) {
+			throw new JsonParseException("Multiply Processor must specify a processor");
 		}
 
-		return new MaxProcessorImpl(processors.get(0), processors.get(1));
+		return new MultiplyProcessorImpl(processor, multiplier);
 	}
 
 	@Override
-	public JsonElement serialize(MaxProcessor processor) {
+	public JsonElement serialize(MultiplyProcessor processor) {
 		return null;
 	}
 
 	@Override
-	public PacketByteBuf toPacket(MaxProcessor processor, PacketByteBuf buf) {
+	public PacketByteBuf toPacket(MultiplyProcessor processor, PacketByteBuf buf) {
+		buf.writeIdentifier(processor.getId());
+
 		ProcessorRegistry registry = ProjectF.getInstance().getProcessorRegistry();
 		buf.writeIdentifier(processor.getId());
-		ProcessorSerializer serializer1 = registry.getSerializer(processor.first().getId().toString()).get();
-		ProcessorSerializer serializer2 = registry.getSerializer(processor.second().getId().toString()).get();
-		serializer1.toPacket(processor.first(), buf);
-		serializer2.toPacket(processor.second(), buf);
+		ProcessorSerializer serializer = registry.getSerializer(processor.processor().getId().toString()).get();
+		serializer.toPacket(processor.processor(), buf);
+
+		buf.writeDouble(processor.multiplier());
 		return buf;
 	}
 
 	@Override
-	public MaxProcessor fromPacket(PacketByteBuf buf) {
+	public MultiplyProcessor fromPacket(PacketByteBuf buf) {
 		ProcessorRegistry registry = ProjectF.getInstance().getProcessorRegistry();
-		Identifier firstId = buf.readIdentifier();
-		ProcessorSerializer firstSerializer = registry.getSerializer(firstId.toString()).get();
-		Processor<?> first = firstSerializer.fromPacket(buf);
+		Identifier processorId = buf.readIdentifier();
+		ProcessorSerializer processorSerializer = registry.getSerializer(processorId.toString()).get();
+		Processor<?> processor = processorSerializer.fromPacket(buf);
 
-		Identifier secondId = buf.readIdentifier();
-		ProcessorSerializer secondSerializer = registry.getSerializer(secondId.toString()).get();
-		Processor<?> second = secondSerializer.fromPacket(buf);
-
-		return new MaxProcessorImpl(first, second);
+		double multiplier = buf.readDouble();
+		return new MultiplyProcessorImpl(processor, multiplier);
 	}
 }

@@ -27,22 +27,22 @@ package me.i509.fabric.projectf.api.processor;
 import me.i509.fabric.projectf.ProjectF;
 import me.i509.fabric.projectf.api.processor.factory.AddProcessorFactory;
 import me.i509.fabric.projectf.api.processor.factory.ConstantProcessorFactory;
-import me.i509.fabric.projectf.api.processor.factory.DurabilityPercentageProcessorFactory;
+import me.i509.fabric.projectf.api.processor.factory.PercentageOfProcessorFactory;
 import me.i509.fabric.projectf.api.processor.factory.MaxProcessorFactory;
 import me.i509.fabric.projectf.api.processor.factory.MinProcessorFactory;
+import me.i509.fabric.projectf.api.processor.factory.MultiplyProcessorFactory;
 import me.i509.fabric.projectf.api.processor.factory.OfItemsProcessorFactory;
-import me.i509.fabric.projectf.api.processor.factory.PercentageOfProcessorFactory;
 import me.i509.fabric.projectf.api.processor.type.AddProcessor;
 import me.i509.fabric.projectf.api.processor.type.ConstantProcessor;
-import me.i509.fabric.projectf.api.processor.type.DurabilityPercentageProcessor;
+import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
 import me.i509.fabric.projectf.api.processor.type.MaxProcessor;
 import me.i509.fabric.projectf.api.processor.type.MinProcessor;
+import me.i509.fabric.projectf.api.processor.type.MultiplyProcessor;
 import me.i509.fabric.projectf.api.processor.type.OfItemsProcessor;
-import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
 import me.i509.fabric.projectf.api.processor.type.Processor;
 
 /**
- * Represents an enumeration of all builtin processors.
+ * Represents an enumeration of all builtin processor factories.
  */
 public final class Processors {
 	/**
@@ -54,11 +54,6 @@ public final class Processors {
 	 * Represents a {@link Processor} which has a constant value.
 	 */
 	public static final ConstantProcessorFactory CONSTANT = ProjectF.getInstance().getProcessorRegistry().get(ConstantProcessor.class);
-
-	/**
-	 * Represents a {@link Processor} whose value is a constant value, which is scaled by the item's durability.
-	 */
-	public static final DurabilityPercentageProcessorFactory DURABILITY_PERCENTAGE = ProjectF.getInstance().getProcessorRegistry().get(DurabilityPercentageProcessor.class);
 
 	/**
 	 * Represents a {@link Processor} whose value is the {@link Processor}s of other items.
@@ -78,7 +73,14 @@ public final class Processors {
 	public static final MinProcessorFactory MIN = ProjectF.getInstance().getProcessorRegistry().get(MinProcessor.class);
 
 	/**
-	 * Represents a {@link Processor} whoses result is a part of another {@link Processor}'s value.
+	 * Represents a {@link Processor} whose value is another {@link Processor} multiplied by a value.
+	 */
+	public static final MultiplyProcessorFactory MULTIPLY = ProjectF.getInstance().getProcessorRegistry().get(MultiplyProcessor.class);
+
+	/**
+	 * Represents a {@link Processor} whose value a percentage of an item's durability.
+	 *
+	 * <p>Likely you will want to {@link MultiplyProcessor multiply} this value since this is a direct scaling of the item's durability.</p>
 	 */
 	public static final PercentageOfProcessorFactory PERCENTAGE_OF = ProjectF.getInstance().getProcessorRegistry().get(PercentageOfProcessor.class);
 }

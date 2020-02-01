@@ -22,35 +22,41 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl.factory;
+package me.i509.fabric.projectf.processor.impl.type;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+import me.i509.fabric.projectf.ProjectF;
+import me.i509.fabric.projectf.api.processor.type.MultiplyProcessor;
 import me.i509.fabric.projectf.api.processor.type.Processor;
-import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
-import me.i509.fabric.projectf.api.processor.factory.PercentageOfProcessorFactory;
-import me.i509.fabric.projectf.processor.impl.type.PercentageOfProcessorImpl;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 
-public class PercentageOfProcessorFactoryImpl implements PercentageOfProcessorFactory {
-	private Processor processor;
-	private long divisor;
+public class MultiplyProcessorImpl implements MultiplyProcessor {
+	private Processor<?> processor;
+	private double multiplier;
 
-	@Override
-	public PercentageOfProcessorFactory processor(Processor processor) {
+	public MultiplyProcessorImpl(Processor<?> processor, double multiplier) {
 		this.processor = processor;
-		return this;
+		this.multiplier = multiplier;
 	}
 
 	@Override
-	public PercentageOfProcessorFactory divisor(long divisor) {
-		this.divisor = divisor;
-		return this;
+	public Processor<?> processor() {
+		return this.processor;
 	}
 
 	@Override
-	public PercentageOfProcessor create() {
-		checkNotNull(processor, "Processor cannot be null");
-		checkArgument(divisor > 0, "Divisor must be greater than 0");
-		return new PercentageOfProcessorImpl(this.processor, this.divisor);
+	public double multiplier() {
+		return this.multiplier;
+	}
+
+	@Override
+	public long process(ItemStack stack) {
+		long value = processor.process(stack);
+		return (long) (value * multiplier);
+	}
+
+	@Override
+	public Identifier getId() {
+		return ProjectF.id("multiply");
 	}
 }

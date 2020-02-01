@@ -25,46 +25,22 @@
 package me.i509.fabric.projectf.processor.impl.type;
 
 import me.i509.fabric.projectf.ProjectF;
-import me.i509.fabric.projectf.api.processor.type.Processor;
 import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 public class PercentageOfProcessorImpl implements PercentageOfProcessor {
-	private final long divisor;
-	private final Processor processor;
-
-	public PercentageOfProcessorImpl(Processor processor, long divisor) {
-		this.processor = processor;
-		this.divisor = divisor;
-	}
-
-	@Override
-	public boolean isRecursive() {
-		if (this.processor.equals(this)) {
-			return true;
-		}
-
-		return this.processor.isRecursive();
+	public PercentageOfProcessorImpl() {
+		// NO-OP
 	}
 
 	@Override
 	public long process(ItemStack stack) {
-		return this.processor.process(stack) / this.divisor;
+		return stack.isDamageable() ? (stack.getMaxDamage() - stack.getDamage()) : 0L;
 	}
 
 	@Override
 	public Identifier getId() {
 		return ProjectF.id("percentage_of");
-	}
-
-	@Override
-	public Processor getProcessor() {
-		return this.processor;
-	}
-
-	@Override
-	public long getDivisor() {
-		return this.divisor;
 	}
 }

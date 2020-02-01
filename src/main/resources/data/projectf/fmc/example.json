@@ -17,8 +17,14 @@
   },
   "minecraft:wooden_pickaxe": {
     "projectf:add": {
-      "projectf:durability_percentage": 20,
+      "projectf:percentage_of": "",
       "projectf:constant": 1
+    }
+  },
+  "minecraft:wooden_axe": {
+    "projectf:multiply": {
+      "projectf:percentage_of": "",
+      "multiplier": 2
     }
   }
 }

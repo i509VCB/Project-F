@@ -27,7 +27,4 @@ package me.i509.fabric.projectf.api.processor.type;
 import me.i509.fabric.projectf.api.processor.factory.PercentageOfProcessorFactory;
 
 public interface PercentageOfProcessor extends Processor<PercentageOfProcessorFactory> {
-	Processor getProcessor();
-
-	long getDivisor();
 }

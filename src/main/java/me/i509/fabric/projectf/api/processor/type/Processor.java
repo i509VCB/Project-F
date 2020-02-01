@@ -29,8 +29,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 public interface Processor<F extends ProcessorFactory<?>> {
-	boolean isRecursive();
-
 	long process(ItemStack stack);
 
 	Identifier getId();

@@ -40,27 +40,6 @@ public class AddProcessorImpl implements AddProcessor {
 	}
 
 	@Override
-	public boolean isRecursive() {
-		if (this.first.equals(this) || this.second.equals(this)) {
-			return true;
-		}
-
-		boolean recursive = this.first.isRecursive();
-
-		if (recursive) {
-			return true;
-		}
-
-		recursive = this.second.isRecursive();
-
-		if (recursive) {
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
 	public long process(ItemStack stack) {
 		return first.process(stack) + second.process(stack);
 	}

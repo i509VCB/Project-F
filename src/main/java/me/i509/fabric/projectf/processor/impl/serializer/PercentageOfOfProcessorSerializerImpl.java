@@ -25,46 +25,30 @@
 package me.i509.fabric.projectf.processor.impl.serializer;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import me.i509.fabric.projectf.api.processor.type.DurabilityPercentageProcessor;
-import me.i509.fabric.projectf.api.processor.serializer.DurabilityPercentageProcessorSerializer;
-import me.i509.fabric.projectf.processor.impl.type.DurabilityPercentageProcessorImpl;
+import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
+import me.i509.fabric.projectf.api.processor.serializer.PercentageOfProcessorSerializer;
+import me.i509.fabric.projectf.processor.impl.type.PercentageOfProcessorImpl;
 import net.minecraft.util.PacketByteBuf;
 
-public class DurabilityPercentageProcessorSerializerImpl implements DurabilityPercentageProcessorSerializer {
+public class PercentageOfOfProcessorSerializerImpl implements PercentageOfProcessorSerializer {
 	@Override
-	public DurabilityPercentageProcessor deserialize(JsonElement element) {
-		if (element instanceof JsonPrimitive) {
-			long value;
-
-			try {
-				value = element.getAsLong();
-			} catch (Throwable e) {
-				throw new JsonParseException("Failed to parse Durability Percentage Processor", e);
-			}
-
-			return new DurabilityPercentageProcessorImpl(value);
-		}
-
-		throw new JsonParseException("Durability Percentage Processor value was not a long");
+	public PercentageOfProcessor deserialize(JsonElement element) {
+		return new PercentageOfProcessorImpl();
 	}
 
 	@Override
-	public JsonElement serialize(DurabilityPercentageProcessor processor) {
+	public JsonElement serialize(PercentageOfProcessor processor) {
 		return null;
 	}
 
 	@Override
-	public PacketByteBuf toPacket(DurabilityPercentageProcessor processor, PacketByteBuf buf) {
+	public PacketByteBuf toPacket(PercentageOfProcessor processor, PacketByteBuf buf) {
 		buf.writeIdentifier(processor.getId());
-		buf.writeLong(processor.getFullDurabilityValue());
 		return buf;
 	}
 
 	@Override
-	public DurabilityPercentageProcessor fromPacket(PacketByteBuf buf) {
-		long fullDurabilityValue = buf.readLong();
-		return new DurabilityPercentageProcessorImpl(fullDurabilityValue);
+	public PercentageOfProcessor fromPacket(PacketByteBuf buf) {
+		return new PercentageOfProcessorImpl();
 	}
 }

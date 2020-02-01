@@ -50,11 +50,6 @@ public class MaxProcessorImpl implements MaxProcessor {
 	}
 
 	@Override
-	public boolean isRecursive() {
-		return this.first().isRecursive() || this.second().isRecursive();
-	}
-
-	@Override
 	public long process(ItemStack stack) {
 		long first = this.first.process(stack);
 		long second = this.second.process(stack);

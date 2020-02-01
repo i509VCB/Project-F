@@ -71,11 +71,25 @@ public class OfItemsProcessorSerializerImpl implements OfItemsProcessorSerialize
 
 	@Override
 	public PacketByteBuf toPacket(OfItemsProcessor processor, PacketByteBuf buf) {
-		return null;
+		buf.writeIdentifier(processor.getId());
+		buf.writeInt(processor.getItems().size()); // Write the size so we don't over read the value.
+
+		processor.getItems().forEach(item -> {
+			buf.writeIdentifier(Registry.ITEM.getId(item));
+		});
+
+		return buf;
 	}
 
 	@Override
 	public OfItemsProcessor fromPacket(PacketByteBuf buf) {
-		return null;
+		int count = buf.readInt();
+		List<Item> items = new ArrayList<>();
+
+		for (int x = 0; x < count; x++) {
+			items.add(Registry.ITEM.get(buf.readIdentifier()));
+		}
+
+		return new OfItemsProcessorImpl(items);
 	}
 }

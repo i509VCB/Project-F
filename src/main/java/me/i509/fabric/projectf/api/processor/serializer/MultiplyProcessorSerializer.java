@@ -22,32 +22,10 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl.serializer;
+package me.i509.fabric.projectf.api.processor.serializer;
 
-import com.google.gson.JsonElement;
-import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
-import me.i509.fabric.projectf.api.processor.serializer.PercentageOfProcessorSerializer;
-import net.minecraft.util.PacketByteBuf;
+import me.i509.fabric.projectf.api.processor.factory.MultiplyProcessorFactory;
+import me.i509.fabric.projectf.api.processor.type.MultiplyProcessor;
 
-public class PercentageOfProcessorSerializerImpl implements PercentageOfProcessorSerializer {
-	@Override
-	public PercentageOfProcessor deserialize(JsonElement obj) {
-		// TODO
-		return null;
-	}
-
-	@Override
-	public JsonElement serialize(PercentageOfProcessor processor) {
-		return null;
-	}
-
-	@Override
-	public PacketByteBuf toPacket(PercentageOfProcessor processor, PacketByteBuf buf) {
-		return null;
-	}
-
-	@Override
-	public PercentageOfProcessor fromPacket(PacketByteBuf buf) {
-		return null;
-	}
+public interface MultiplyProcessorSerializer extends ProcessorSerializer<MultiplyProcessor, MultiplyProcessorFactory> {
 }

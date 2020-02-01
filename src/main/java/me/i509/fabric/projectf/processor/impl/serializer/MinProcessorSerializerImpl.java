@@ -38,6 +38,7 @@ import me.i509.fabric.projectf.api.processor.type.Processor;
 import me.i509.fabric.projectf.processor.ProcessorRegistry;
 import me.i509.fabric.projectf.processor.impl.type.MinProcessorImpl;
 import me.i509.fabric.projectf.util.gson.GsonUtils;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
 
 public class MinProcessorSerializerImpl implements MinProcessorSerializer {
@@ -72,15 +73,24 @@ public class MinProcessorSerializerImpl implements MinProcessorSerializer {
 	public PacketByteBuf toPacket(MinProcessor processor, PacketByteBuf buf) {
 		ProcessorRegistry registry = ProjectF.getInstance().getProcessorRegistry();
 		buf.writeIdentifier(processor.getId());
-		ProcessorSerializer serializer1 = registry.getSerializer(processor.first().getId().toString()).get();
-		ProcessorSerializer serializer2 = registry.getSerializer(processor.second().getId().toString()).get();
-		serializer1.toPacket(processor.first(), buf);
-		serializer2.toPacket(processor.second(), buf);
+		ProcessorSerializer firstSerializer = registry.getSerializer(processor.first().getId().toString()).get();
+		ProcessorSerializer secondSerializer = registry.getSerializer(processor.second().getId().toString()).get();
+		firstSerializer.toPacket(processor.first(), buf);
+		secondSerializer.toPacket(processor.second(), buf);
 		return buf;
 	}
 
 	@Override
 	public MinProcessor fromPacket(PacketByteBuf buf) {
-		return null;
+		ProcessorRegistry registry = ProjectF.getInstance().getProcessorRegistry();
+		Identifier firstId = buf.readIdentifier();
+		ProcessorSerializer firstSerializer = registry.getSerializer(firstId.toString()).get();
+		Processor<?> first = firstSerializer.fromPacket(buf);
+
+		Identifier secondId = buf.readIdentifier();
+		ProcessorSerializer secondSerializer = registry.getSerializer(secondId.toString()).get();
+		Processor<?> second = secondSerializer.fromPacket(buf);
+
+		return new MinProcessorImpl(first, second);
 	}
 }

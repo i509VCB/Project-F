@@ -22,10 +22,33 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.api.processor.type;
+package me.i509.fabric.projectf.processor.impl.factory;
 
-import me.i509.fabric.projectf.api.processor.factory.DurabilityPercentageProcessorFactory;
+import static com.google.common.base.Preconditions.checkNotNull;
+import me.i509.fabric.projectf.api.processor.factory.MultiplyProcessorFactory;
+import me.i509.fabric.projectf.api.processor.type.MultiplyProcessor;
+import me.i509.fabric.projectf.api.processor.type.Processor;
+import me.i509.fabric.projectf.processor.impl.type.MultiplyProcessorImpl;
 
-public interface DurabilityPercentageProcessor extends Processor<DurabilityPercentageProcessorFactory> {
-	long getFullDurabilityValue();
+public class MultiplyProcessorFactoryImpl implements MultiplyProcessorFactory {
+	private Processor<?> processor;
+	private double multiplier;
+
+	@Override
+	public MultiplyProcessor create() {
+		checkNotNull(processor, "Processor to be multiplied cannot be null");
+		return new MultiplyProcessorImpl(processor, multiplier);
+	}
+
+	@Override
+	public MultiplyProcessorFactory processor(Processor<?> processor) {
+		this.processor = processor;
+		return this;
+	}
+
+	@Override
+	public MultiplyProcessorFactory multiplier(double multiplier) {
+		this.multiplier = multiplier;
+		return this;
+	}
 }

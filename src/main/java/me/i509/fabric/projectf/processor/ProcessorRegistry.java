@@ -36,26 +36,26 @@ import me.i509.fabric.projectf.api.processor.factory.ProcessorFactory;
 import me.i509.fabric.projectf.api.processor.serializer.ProcessorSerializer;
 import me.i509.fabric.projectf.api.processor.type.AddProcessor;
 import me.i509.fabric.projectf.api.processor.type.ConstantProcessor;
-import me.i509.fabric.projectf.api.processor.type.DurabilityPercentageProcessor;
+import me.i509.fabric.projectf.api.processor.type.MultiplyProcessor;
+import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
 import me.i509.fabric.projectf.api.processor.type.MaxProcessor;
 import me.i509.fabric.projectf.api.processor.type.MinProcessor;
 import me.i509.fabric.projectf.api.processor.type.OfItemsProcessor;
-import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
 import me.i509.fabric.projectf.api.processor.type.Processor;
 import me.i509.fabric.projectf.processor.impl.factory.AddProcessorFactoryImpl;
 import me.i509.fabric.projectf.processor.impl.factory.ConstantProcessorFactoryImpl;
-import me.i509.fabric.projectf.processor.impl.factory.DurabilityPercentageProcessorFactoryImpl;
+import me.i509.fabric.projectf.processor.impl.factory.MultiplyProcessorFactoryImpl;
+import me.i509.fabric.projectf.processor.impl.factory.PercentageOfOfProcessorFactoryImpl;
 import me.i509.fabric.projectf.processor.impl.factory.MaxProcessorFactoryImpl;
 import me.i509.fabric.projectf.processor.impl.factory.MinProcessorFactoryImpl;
 import me.i509.fabric.projectf.processor.impl.factory.OfItemsProcessorFactoryImpl;
-import me.i509.fabric.projectf.processor.impl.factory.PercentageOfProcessorFactoryImpl;
 import me.i509.fabric.projectf.processor.impl.serializer.AddProcessorSerializerImpl;
 import me.i509.fabric.projectf.processor.impl.serializer.ConstantProcessorSerializerImpl;
-import me.i509.fabric.projectf.processor.impl.serializer.DurabilityPercentageProcessorSerializerImpl;
+import me.i509.fabric.projectf.processor.impl.serializer.MultiplyProcessorSerializerImpl;
+import me.i509.fabric.projectf.processor.impl.serializer.PercentageOfOfProcessorSerializerImpl;
 import me.i509.fabric.projectf.processor.impl.serializer.MaxProcessorSerializerImpl;
 import me.i509.fabric.projectf.processor.impl.serializer.MinProcessorSerializerImpl;
 import me.i509.fabric.projectf.processor.impl.serializer.OfItemsProcessorSerializerImpl;
-import me.i509.fabric.projectf.processor.impl.serializer.PercentageOfProcessorSerializerImpl;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
 
@@ -66,11 +66,11 @@ public class ProcessorRegistry {
 	public ProcessorRegistry() {
 		this.register(ProjectF.id("add"), AddProcessor.class, AddProcessorFactoryImpl::new, new AddProcessorSerializerImpl());
 		this.register(ProjectF.id("constant"), ConstantProcessor.class, ConstantProcessorFactoryImpl::new, new ConstantProcessorSerializerImpl());
-		this.register(ProjectF.id("durability_percentage"), DurabilityPercentageProcessor.class, DurabilityPercentageProcessorFactoryImpl::new, new DurabilityPercentageProcessorSerializerImpl());
 		this.register(ProjectF.id("of_items"), OfItemsProcessor.class, OfItemsProcessorFactoryImpl::new, new OfItemsProcessorSerializerImpl());
 		this.register(ProjectF.id("max"), MaxProcessor.class, MaxProcessorFactoryImpl::new, new MaxProcessorSerializerImpl());
 		this.register(ProjectF.id("min"), MinProcessor.class, MinProcessorFactoryImpl::new, new MinProcessorSerializerImpl());
-		this.register(ProjectF.id("percentage_of"), PercentageOfProcessor.class, PercentageOfProcessorFactoryImpl::new, new PercentageOfProcessorSerializerImpl());
+		this.register(ProjectF.id("multiply"), MultiplyProcessor.class, MultiplyProcessorFactoryImpl::new, new MultiplyProcessorSerializerImpl());
+		this.register(ProjectF.id("percentage_of"), PercentageOfProcessor.class, PercentageOfOfProcessorFactoryImpl::new, new PercentageOfOfProcessorSerializerImpl());
 
 		List<FMCProcessorEntrypoint> entrypoints = FabricLoader.getInstance().getEntrypoints("fmc:processor", FMCProcessorEntrypoint.class);
 		entrypoints.forEach(e -> e.registerProcessors(this::register));
@@ -90,6 +90,11 @@ public class ProcessorRegistry {
 		checkNotNull(identifier, "Identifier cannot be null");
 		checkNotNull(factory, "Factory cannot be null");
 		checkNotNull(serializer, "Serializer cannot be null");
+
+		if (idToSerializer.containsKey(identifier)) {
+			throw new IllegalArgumentException("Cannot register two processors with the same identifier: " + identifier.toString());
+		}
+
 		this.idToSerializer.put(identifier, serializer);
 		this.classToFactoryMap.put(clazz, factory);
 		ProjectF.getLogger().info("Registered Processor of id: " + identifier.toString());

@@ -22,10 +22,12 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.api.processor.factory;
+package me.i509.fabric.projectf.api.processor.type;
 
-import me.i509.fabric.projectf.api.processor.type.DurabilityPercentageProcessor;
+import me.i509.fabric.projectf.api.processor.factory.MultiplyProcessorFactory;
 
-public interface DurabilityPercentageProcessorFactory extends ProcessorFactory<DurabilityPercentageProcessor> {
-	DurabilityPercentageProcessorFactory fullDurabilityValue(long value);
+public interface MultiplyProcessor extends Processor<MultiplyProcessorFactory> {
+	Processor<?> processor();
+
+	double multiplier();
 }

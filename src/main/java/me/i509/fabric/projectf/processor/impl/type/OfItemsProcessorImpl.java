@@ -41,27 +41,6 @@ public class OfItemsProcessorImpl implements OfItemsProcessor {
 	}
 
 	@Override
-	public boolean isRecursive() {
-		boolean detectedRecursion = false;
-
-		for (Item item : items) {
-			Processor itemProc = ProjectF.getInstance().getFMCManager().getProcessor(item);
-
-			if (itemProc.equals(this)) { // If the processor of one of the dependant items, is ourself, we are recursive.
-				return true;
-			} else {
-				detectedRecursion = itemProc.isRecursive();
-			}
-
-			if (detectedRecursion) {
-				break;
-			}
-		}
-
-		return detectedRecursion;
-	}
-
-	@Override
 	public List<Item> getItems() {
 		return this.items;
 	}
