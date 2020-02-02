@@ -47,6 +47,6 @@ public class FMCFluidDamageSource extends DamageSource {
 	}
 
 	public Text getDeathMessage(LivingEntity livingEntity) {
-		return new TranslatableText("death.fluid.fmc");
+		return new TranslatableText("death.fluid.fmc", livingEntity.getDisplayName());
 	}
 }

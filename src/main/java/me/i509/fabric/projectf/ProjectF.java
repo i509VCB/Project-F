@@ -94,5 +94,9 @@ public class ProjectF {
 		}
 
 		tooltip.add(new TranslatableText("fmc.amount.each", fmcValue));
+
+		if (stack.getCount() > 1) {
+			tooltip.add(new TranslatableText("fmc.amount.total", fmcValue * stack.getCount()));
+		}
 	}
 }

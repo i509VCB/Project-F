@@ -137,7 +137,9 @@
         <module name="ModifierOrder"/>
         <module name="RedundantModifier"/>
 
-        <module name="AnnotationLocation"/>
+        <module name="AnnotationLocation">
+            <property name="allowSamelineMultipleAnnotations" value="true"/>
+        </module>
         <module name="MissingOverride"/>
 
         <!-- By default this allows catch blocks with only comments -->

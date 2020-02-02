@@ -27,10 +27,12 @@ package me.i509.fabric.projectf.item;
 import me.i509.fabric.projectf.bridge.AlchemicalBagBridge_PlayerEntity;
 import me.i509.fabric.projectf.inventory.AlchemicalBagInventory;
 import me.i509.fabric.projectf.registry.PFContainers;
+import me.i509.fabric.projectf.util.TextMessages;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.PacketByteBuf;
@@ -47,6 +49,11 @@ public class AlchemicalBagItem extends Item {
 
 	public DyeColor getColor() {
 		return color;
+	}
+
+	@Override
+	public Text getName(ItemStack stack) {
+		return TextMessages.createAlchemicalBagText(this.color);
 	}
 
 	@Override

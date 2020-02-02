@@ -22,30 +22,23 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.item.armor.matter.dark;
+package me.i509.fabric.projectf.mixin.inventory;
 
-import grondag.fluidity.base.storage.discrete.PortableSingleArticleStore;
-import me.i509.fabric.projectf.api.item.ContextualProtectionItem;
-import me.i509.fabric.projectf.item.template.AbstractFMCItem;
+import net.minecraft.server.network.ServerPlayerEntity;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-public interface DarkMatterProtectionContexts {
-	ContextualProtectionItem HELMET = (livingEntity, stack) -> {
-		long amount = PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY);
-		return amount > 0 ? 5 : 0;
-	};
-
-	ContextualProtectionItem CHEST = (livingEntity, stack) -> {
-		long amount = PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY);
-		return amount > 0 ? 9 : 0;
-	};
-
-	ContextualProtectionItem LEGS = (livingEntity, stack) -> {
-		long amount = PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY);
-		return amount > 0 ? 8 : 0;
-	};
-
-	ContextualProtectionItem BOOTS = (livingEntity, stack) -> {
-		long amount = PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY);
-		return amount > 0 ? 6 : 0;
-	};
+@Mixin(ServerPlayerEntity.class)
+public abstract class ServerPlayerEntityMixin_AlchemicalBag extends PlayerEntityMixin_AlchemicalBag {
+	/**
+	 * @author i509vcb
+	 * @reason When a player dies, we have to copy the alchemical bag inventories or the player will lose their alchemical bag data.
+	 */
+	@Inject(at = @At("TAIL"), method = "copyFrom")
+	private void copyEnderSlabData(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo ci) {
+		ServerPlayerEntityMixin_AlchemicalBag oldBridge = (ServerPlayerEntityMixin_AlchemicalBag) (Object) oldPlayer;
+		this.pf$bags = oldBridge.pf$bags;
+	}
 }

@@ -22,34 +22,34 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.item.armor.matter.dark;
+package me.i509.fabric.projectf.mixin.inventory;
 
-import grondag.fluidity.api.device.DeviceComponentAccess;
-import grondag.fluidity.api.storage.Store;
-import me.i509.fabric.projectf.api.item.ContextualProtectionItem;
-import me.i509.fabric.projectf.item.AbstractFMCArmorItem;
-import me.i509.fabric.projectf.util.Reference;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
+import me.i509.fabric.projectf.api.item.FMCUsableItem;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.DefaultedList;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-public class MatterArmorItem extends AbstractFMCArmorItem {
-	private final ContextualProtectionItem protectionContext;
+@Mixin(PlayerInventory.class)
+public abstract class PlayerInventoryMixin {
+	@Shadow @Final public DefaultedList<ItemStack> armor;
+	@Shadow @Final public PlayerEntity player;
 
-	public MatterArmorItem(EquipmentSlot slot, long maxFMC, ContextualProtectionItem protectionContext, Settings settings) {
-		super(slot, maxFMC, settings);
-		this.protectionContext = protectionContext;
-	}
-
-	@Override
-	public void useFMC(ServerPlayerEntity serverPlayerEntity, ItemStack stack) {
-		DeviceComponentAccess<Store> store = this.getStore(new Reference<>(stack), serverPlayerEntity);
-		// TODO determine how much to use
-	}
-
-	@Override
-	public int getProtection(LivingEntity livingEntity, ItemStack itemStack) {
-		return this.protectionContext.getProtection(livingEntity, itemStack);
+	@Inject(at = @At("TAIL"), method = "damageArmor(F)V")
+	private void pf_damageArmor(float armor, CallbackInfo ci) {
+		if (armor > 0.0F && this.player instanceof ServerPlayerEntity) {
+			for (ItemStack itemStack : this.armor) {
+				if (itemStack.getItem() instanceof FMCUsableItem) {
+					((FMCUsableItem) itemStack.getItem()).useFMC((ServerPlayerEntity) this.player, itemStack);
+				}
+			}
+		}
 	}
 }

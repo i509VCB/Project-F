@@ -5,6 +5,19 @@
   "minecraft:diamond": {
     "projectf:constant": 16384
   },
+  "minecraft:diamond_block": {
+    "projectf:of_items": [
+      "minecraft:diamond",
+      "minecraft:diamond",
+      "minecraft:diamond",
+      "minecraft:diamond",
+      "minecraft:diamond",
+      "minecraft:diamond",
+      "minecraft:diamond",
+      "minecraft:diamond",
+      "minecraft:diamond"
+    ]
+  },
   "minecraft:stick": {
     "projectf:constant": 2
   },

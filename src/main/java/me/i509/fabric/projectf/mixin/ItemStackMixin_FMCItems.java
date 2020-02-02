@@ -33,6 +33,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemStack.class)
@@ -41,9 +42,19 @@ public abstract class ItemStackMixin_FMCItems {
 	public abstract Item getItem();
 
 	@Inject(at = @At(value = "RETURN", ordinal = 0), method = "damage(ILjava/util/Random;Lnet/minecraft/server/network/ServerPlayerEntity;)Z", cancellable = true)
-	public void pf_onDamaged(int damageTaken, Random random, ServerPlayerEntity serverPlayerEntity, CallbackInfoReturnable<Boolean> cir) {
+	private void pf_onDamaged(int damageTaken, Random random, ServerPlayerEntity serverPlayerEntity, CallbackInfoReturnable<Boolean> cir) {
 		if (this.getItem() instanceof FMCUsableItem) {
 			((FMCUsableItem) this.getItem()).useFMC(serverPlayerEntity, (ItemStack) (Object) this);
+			cir.setReturnValue(false); // We don't want it to break, so return false.
 		}
+	}
+
+	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isDamageable()Z"), method = "damage(ILnet/minecraft/entity/LivingEntity;Ljava/util/function/Consumer;)V")
+	private boolean pf_isDamageable(ItemStack stack) {
+		if (stack.getItem() instanceof FMCUsableItem) {
+			return true;
+		}
+
+		return stack.isDamageable();
 	}
 }

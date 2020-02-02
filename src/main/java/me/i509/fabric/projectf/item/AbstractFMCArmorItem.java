@@ -24,6 +24,7 @@
 
 package me.i509.fabric.projectf.item;
 
+import java.util.List;
 import grondag.fluidity.api.device.ItemComponentContext;
 import grondag.fluidity.api.storage.Store;
 import grondag.fluidity.base.storage.discrete.DiscreteStore;
@@ -34,10 +35,16 @@ import me.i509.fabric.projectf.api.article.FMCArticleProvider;
 import me.i509.fabric.projectf.api.item.FMCUsableItem;
 import me.i509.fabric.projectf.item.template.AbstractContextualArmorItem;
 import me.i509.fabric.projectf.item.template.AbstractFMCItem;
+import me.i509.fabric.projectf.util.TextMessages;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
 import net.minecraft.util.DefaultedList;
+import net.minecraft.world.World;
 
 public abstract class AbstractFMCArmorItem extends AbstractContextualArmorItem implements BasicDurabilityProvider, FMCArticleProvider, FMCUsableItem {
 	private final long maxFMC;
@@ -72,5 +79,12 @@ public abstract class AbstractFMCArmorItem extends AbstractContextualArmorItem i
 	@Override
 	public long getMaxFMC() {
 		return this.maxFMC;
+	}
+
+	@Environment(EnvType.CLIENT)
+	@Override
+	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
+		long value = PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY);
+		tooltip.add(TextMessages.createFMCItemTooltip(value, this.getMaxFMC()));
 	}
 }

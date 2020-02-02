@@ -1,7 +1,8 @@
 {
+  "death.fluid.fmc": "%d disintegrated",
   "entity.minecraft.villager.alchemist": "Alchemist",
   "fmc.amount.each": "FMC Value: %d",
-  "fmc.amount.total": "FMC Value for %d items: %d",
+  "fmc.amount.total": "Total FMC: %d",
   "fmc.item.value": "%d/%d FMC",
   "item.projectf.alchemical_bag": "%d Alchemical Bag",
   "projectf.color.white": "White",

@@ -6,6 +6,8 @@
     "ItemStackMixin_FMCItems",
     "PlayerEntityMixin_AnimationTrackers",
     "inventory.PlayerEntityMixin_AlchemicalBag",
+    "inventory.PlayerInventoryMixin",
+    "inventory.ServerPlayerEntityMixin_AlchemicalBag",
     "PlayerEntityMixin",
     "LivingEntityMixin_Armor",
     "MobEntityMixin_EquipmentSlots"

@@ -22,40 +22,30 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf;
+package me.i509.fabric.projectf.item.armor;
 
-import java.util.Map;
-import me.i509.fabric.projectf.api.processor.type.Processor;
-import me.i509.fabric.projectf.api.processor.Processors;
-import me.i509.fabric.projectf.util.collections.DefaultedHashMap;
-import net.minecraft.item.Item;
+import grondag.fluidity.base.storage.discrete.PortableSingleArticleStore;
+import me.i509.fabric.projectf.api.item.ContextualProtectionItem;
+import me.i509.fabric.projectf.item.template.AbstractFMCItem;
 
-public class FMCManager {
-	private final ProjectF projF;
-	private final Map<Item, Processor> itemToProcessor;
+public interface DarkMatterProtectionContexts {
+	ContextualProtectionItem HELMET = (livingEntity, stack) -> {
+		long amount = PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY);
+		return amount > 0 ? 5 : 0;
+	};
 
-	public FMCManager(ProjectF projectF) {
-		this.projF = projectF;
-		this.itemToProcessor = new DefaultedHashMap<>(
-			Processors.CONSTANT
-				.value(0)
-				.create()
-		);
-	}
+	ContextualProtectionItem CHEST = (livingEntity, stack) -> {
+		long amount = PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY);
+		return amount > 0 ? 9 : 0;
+	};
 
-	public void register(Item item, Processor processor) {
-		this.itemToProcessor.put(item, processor);
-	}
+	ContextualProtectionItem LEGS = (livingEntity, stack) -> {
+		long amount = PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY);
+		return amount > 0 ? 8 : 0;
+	};
 
-	public Processor getProcessor(Item item) {
-		return this.itemToProcessor.get(item);
-	}
-
-	public void clear() {
-		this.itemToProcessor.clear();
-	}
-
-	public ProjectF getProjectF() {
-		return this.projF;
-	}
+	ContextualProtectionItem BOOTS = (livingEntity, stack) -> {
+		long amount = PortableSingleArticleStore.getAmount(stack, AbstractFMCItem.KEY);
+		return amount > 0 ? 6 : 0;
+	};
 }

@@ -42,7 +42,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin_AlchemicalBag implements AlchemicalBagBridge_PlayerEntity {
-	private Map<DyeColor, AlchemicalBagInventory> pf$bags = new HashMap<>();
+	protected Map<DyeColor, AlchemicalBagInventory> pf$bags = new HashMap<>();
 
 	@Inject(at = @At("TAIL"), method = "<init>")
 	private void pf_initBagInventories(World world, GameProfile profile, CallbackInfo ci) {
