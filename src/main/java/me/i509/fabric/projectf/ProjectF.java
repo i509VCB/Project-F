@@ -26,6 +26,7 @@ package me.i509.fabric.projectf;
 
 import java.util.List;
 import me.i509.fabric.projectf.api.processor.type.Processor;
+import me.i509.fabric.projectf.config.PFConfig;
 import me.i509.fabric.projectf.processor.ProcessorRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -50,6 +51,8 @@ public class ProjectF {
 			return new ParameterizedMessage("[ProjectF] " + message, params);
 		}
 	});
+
+	private PFConfig config = new PFConfig(); // TODO Impl config loading
 
 	private ProjectF() {
 		// NO-OP
@@ -98,5 +101,9 @@ public class ProjectF {
 		if (stack.getCount() > 1) {
 			tooltip.add(new TranslatableText("fmc.amount.total", fmcValue * stack.getCount()));
 		}
+	}
+
+	public PFConfig getConfig() {
+		return this.config;
 	}
 }

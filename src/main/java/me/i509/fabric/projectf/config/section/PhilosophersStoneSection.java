@@ -22,13 +22,21 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.block;
+package me.i509.fabric.projectf.config.section;
 
-import net.minecraft.block.WallTorchBlock;
-import net.minecraft.particle.ParticleTypes;
+import ninja.leaping.configurate.objectmapping.Setting;
+import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 
-public class AlchemicalWallTorchBlock extends WallTorchBlock {
-	public AlchemicalWallTorchBlock(Settings settings) {
-		super(settings, ParticleTypes.SOUL_FIRE_FLAME);
+@ConfigSerializable
+public class PhilosophersStoneSection {
+	@Setting(comment = Comments.COPY_STATE_PROPERTIES)
+	private boolean copyBlockStateProperties = true;
+
+	public boolean shouldCopyBlockStateProperties() {
+		return this.copyBlockStateProperties;
+	}
+
+	private static final class Comments {
+		static final String COPY_STATE_PROPERTIES = "Whether when transforming a block using a Philosophers stone, the properties of the state should be preserved if possible.";
 	}
 }

@@ -28,6 +28,7 @@ import me.i509.fabric.projectf.ProjectF;
 import me.i509.fabric.projectf.item.AlchemicalBagItem;
 import me.i509.fabric.projectf.item.MatterStarItem;
 import me.i509.fabric.projectf.item.MatterGunItem;
+import me.i509.fabric.projectf.item.PhilosophersStoneItem;
 import me.i509.fabric.projectf.item.armor.DarkMatterProtectionContexts;
 import me.i509.fabric.projectf.item.armor.MatterArmorItem;
 import net.minecraft.entity.EquipmentSlot;
@@ -40,13 +41,21 @@ import net.minecraft.util.registry.Registry;
 public final class PFItems {
 	public static final BucketItem FMC_BUCKET = register("fmc_bucket", new BucketItem(PFFluids.STILL_FMC, PFItemSettings.BUCKET));
 	public static final MatterGunItem MATTER_GUN = register("matter_gun", new MatterGunItem(PFItemSettings.FMC_ITEM));
+	public static final PhilosophersStoneItem PHILOSOPHERS_STONE = register("philosophers_stone", new PhilosophersStoneItem(PFItemSettings.PHILOSOPHERS_STONE));
+
+	public static final Item DARK_MATTER = register("dark_matter", new Item(PFItemSettings.GENERIC));
+	public static final Item RED_MATTER = register("red_matter", new Item(PFItemSettings.GENERIC));
+	
+	public static final Item LOW_COVELENCE_DUST = register("low_covelence_dust", new Item(PFItemSettings.GENERIC));
+	public static final Item MEDIUM_COVELENCE_DUST = register("medium_covelence_dust", new Item(PFItemSettings.GENERIC));
+	public static final Item HIGH_COVELENCE_DUST = register("high_covelence_dust", new Item(PFItemSettings.GENERIC));
 
 	public static final MatterArmorItem DARK_MATTER_HELMET = register("dark_matter_helmet", new MatterArmorItem(EquipmentSlot.HEAD, 200000, DarkMatterProtectionContexts.HELMET, PFItemSettings.BUCKET));
 	public static final MatterArmorItem DARK_MATTER_CHESTPLATE = register("dark_matter_chestplate", new MatterArmorItem(EquipmentSlot.CHEST, 200000, DarkMatterProtectionContexts.CHEST, PFItemSettings.BUCKET));
 	public static final MatterArmorItem DARK_MATTER_LEGGINGS = register("dark_matter_leggings", new MatterArmorItem(EquipmentSlot.LEGS, 200000, DarkMatterProtectionContexts.LEGS, PFItemSettings.BUCKET));
 	public static final MatterArmorItem DARK_MATTER_BOOTS = register("dark_matter_boots", new MatterArmorItem(EquipmentSlot.FEET, 200000, DarkMatterProtectionContexts.BOOTS, PFItemSettings.BUCKET));
 
-	public static final WallStandingBlockItem ALCHEMICAL_TORCH = register("alchemical_toch", new WallStandingBlockItem(PFBlocks.ALCHEMICAL_TORCH, PFBlocks.ALCHEMICAL_WALL_TORCH, PFItemSettings.MAIN_GROUP));
+	public static final WallStandingBlockItem ALCHEMICAL_TORCH = register("alchemical_torch", new WallStandingBlockItem(PFBlocks.ALCHEMICAL_TORCH, PFBlocks.ALCHEMICAL_WALL_TORCH, PFItemSettings.MAIN_GROUP));
 
 	// Matter Stars
 

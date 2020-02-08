@@ -22,13 +22,18 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.block;
+package me.i509.fabric.projectf.config;
 
-import net.minecraft.block.WallTorchBlock;
-import net.minecraft.particle.ParticleTypes;
+import me.i509.fabric.projectf.config.section.PhilosophersStoneSection;
+import ninja.leaping.configurate.objectmapping.Setting;
+import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 
-public class AlchemicalWallTorchBlock extends WallTorchBlock {
-	public AlchemicalWallTorchBlock(Settings settings) {
-		super(settings, ParticleTypes.SOUL_FIRE_FLAME);
+@ConfigSerializable
+public class PFConfig {
+	@Setting
+	private PhilosophersStoneSection philosophersStone = new PhilosophersStoneSection();
+
+	public PhilosophersStoneSection getPhilosophersStoneSection() {
+		return this.philosophersStone;
 	}
 }

@@ -24,24 +24,30 @@
 
 package me.i509.fabric.projectf.registry;
 
-import net.minecraft.item.Item;
-import net.minecraft.util.Rarity;
+import me.i509.fabric.projectf.ProjectF;
+import me.i509.fabric.projectf.recipe.PhilosophersStoneBlockRecipe;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.util.registry.Registry;
 
-public final class PFItemSettings {
-	public static final Item.Settings BUCKET = new Item.Settings().maxCount(1).group(PFItemGroups.MAIN_GROUP);
-	public static final Item.Settings MAIN_GROUP = new Item.Settings().group(PFItemGroups.MAIN_GROUP);
-	public static final Item.Settings FMC_ITEM = new Item.Settings().maxCount(1).group(PFItemGroups.MAIN_GROUP);
-	public static final Item.Settings MATTER_STAR = new Item.Settings().maxCount(1).rarity(Rarity.UNCOMMON).group(PFItemGroups.MAIN_GROUP);
-	public static final Item.Settings ALCHEMICAL_BAG_SETTINGS = new Item.Settings().maxCount(1).rarity(Rarity.UNCOMMON).group(PFItemGroups.MAIN_GROUP);
-	public static final Item.Settings GENERIC = new Item.Settings().group(PFItemGroups.MAIN_GROUP);
-	public static final Item.Settings PHILOSOPHERS_STONE = new Item.Settings().group(PFItemGroups.MAIN_GROUP).maxCount(1).rarity(Rarity.RARE).maxDamage(1200);
+public class PFRecipeTypes {
+	public static final RecipeType<PhilosophersStoneBlockRecipe> PHILOSOPHERS_STONE_BLOCK = register("philosphers_stone_block");
+
+	private static <C extends Inventory, T extends Recipe<C>> RecipeType<T> register(String name) {
+		return Registry.register(Registry.RECIPE_TYPE, ProjectF.id(name), new RecipeType<T>() {
+			public String toString() {
+				return name;
+			}
+		});
+	}
 
 	public static void init() {
 		// NO-OP
 	}
 
 	// Suppress default constructor to ensure non-instantiability.
-	private PFItemSettings() {
+	private PFRecipeTypes() {
 		throw new AssertionError("You should not be attempting to instantiate this class.");
 	}
 }

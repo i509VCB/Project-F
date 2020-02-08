@@ -130,5 +130,10 @@ public class ArmorMaterialBuilder {
 		public float getToughness() {
 			return this.toughness;
 		}
+
+		@Override
+		public float method_24355() {
+			return 0;
+		}
 	}
 }

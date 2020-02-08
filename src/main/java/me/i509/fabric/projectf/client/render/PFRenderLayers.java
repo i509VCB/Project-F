@@ -22,26 +22,24 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.registry;
+package me.i509.fabric.projectf.client.render;
 
-import net.minecraft.item.Item;
-import net.minecraft.util.Rarity;
+import me.i509.fabric.projectf.registry.PFBlocks;
+import me.i509.fabric.projectf.util.PFUtils;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.util.Unit;
 
-public final class PFItemSettings {
-	public static final Item.Settings BUCKET = new Item.Settings().maxCount(1).group(PFItemGroups.MAIN_GROUP);
-	public static final Item.Settings MAIN_GROUP = new Item.Settings().group(PFItemGroups.MAIN_GROUP);
-	public static final Item.Settings FMC_ITEM = new Item.Settings().maxCount(1).group(PFItemGroups.MAIN_GROUP);
-	public static final Item.Settings MATTER_STAR = new Item.Settings().maxCount(1).rarity(Rarity.UNCOMMON).group(PFItemGroups.MAIN_GROUP);
-	public static final Item.Settings ALCHEMICAL_BAG_SETTINGS = new Item.Settings().maxCount(1).rarity(Rarity.UNCOMMON).group(PFItemGroups.MAIN_GROUP);
-	public static final Item.Settings GENERIC = new Item.Settings().group(PFItemGroups.MAIN_GROUP);
-	public static final Item.Settings PHILOSOPHERS_STONE = new Item.Settings().group(PFItemGroups.MAIN_GROUP).maxCount(1).rarity(Rarity.RARE).maxDamage(1200);
+public final class PFRenderLayers {
+	private static final Unit ALCHEMICAL_TORCH = PFUtils.dummyRegister(() -> BlockRenderLayerMap.INSTANCE.putBlock(PFBlocks.ALCHEMICAL_TORCH, RenderLayer.getCutout()));
+	private static final Unit ALCHEMICAL_WALL_TORCH = PFUtils.dummyRegister(() -> BlockRenderLayerMap.INSTANCE.putBlock(PFBlocks.ALCHEMICAL_WALL_TORCH, RenderLayer.getCutout()));
 
 	public static void init() {
 		// NO-OP
 	}
 
 	// Suppress default constructor to ensure non-instantiability.
-	private PFItemSettings() {
+	private PFRenderLayers() {
 		throw new AssertionError("You should not be attempting to instantiate this class.");
 	}
 }

@@ -22,13 +22,63 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.block;
+package me.i509.fabric.projectf.inventory;
 
-import net.minecraft.block.WallTorchBlock;
-import net.minecraft.particle.ParticleTypes;
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.ItemStack;
 
-public class AlchemicalWallTorchBlock extends WallTorchBlock {
-	public AlchemicalWallTorchBlock(Settings settings) {
-		super(settings, ParticleTypes.SOUL_FIRE_FLAME);
+public class PhilosophersStoneBlockInventory implements Inventory {
+	private Block block;
+
+	public PhilosophersStoneBlockInventory(Block block) {
+		this.block = block;
+	}
+
+	public Block getBlock() {
+		return this.block;
+	}
+
+	@Override
+	public int getInvSize() {
+		return 1;
+	}
+
+	@Override
+	public boolean isInvEmpty() {
+		return false;
+	}
+
+	@Override
+	public ItemStack getInvStack(int slot) {
+		return ItemStack.EMPTY;
+	}
+
+	@Override
+	public ItemStack takeInvStack(int slot, int amount) {
+		return ItemStack.EMPTY;
+	}
+
+	@Override
+	public ItemStack removeInvStack(int slot) {
+		return ItemStack.EMPTY;
+	}
+
+	@Override
+	public void setInvStack(int slot, ItemStack stack) {
+	}
+
+	@Override
+	public void markDirty() {
+	}
+
+	@Override
+	public boolean canPlayerUseInv(PlayerEntity player) {
+		return false;
+	}
+
+	@Override
+	public void clear() {
 	}
 }

@@ -25,6 +25,7 @@
 package me.i509.fabric.projectf.mixin.inventory;
 
 import me.i509.fabric.projectf.api.item.FMCUsableItem;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -42,8 +43,8 @@ public abstract class PlayerInventoryMixin {
 	@Shadow @Final public DefaultedList<ItemStack> armor;
 	@Shadow @Final public PlayerEntity player;
 
-	@Inject(at = @At("TAIL"), method = "damageArmor(F)V")
-	private void pf_damageArmor(float armor, CallbackInfo ci) {
+	@Inject(at = @At("TAIL"), method = "damageArmor(Lnet/minecraft/entity/damage/DamageSource;F)V")
+	private void pf_damageArmor(DamageSource source, float armor, CallbackInfo ci) {
 		if (armor > 0.0F && this.player instanceof ServerPlayerEntity) {
 			for (ItemStack itemStack : this.armor) {
 				if (itemStack.getItem() instanceof FMCUsableItem) {

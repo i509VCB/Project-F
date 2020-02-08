@@ -1,0 +1,6 @@
+{
+  "type": "projectf:philosphers_stone_block",
+  "input": "sandstone_stairs",
+  "output": "red_sandstone_stairs",
+  "damage": 4
+}

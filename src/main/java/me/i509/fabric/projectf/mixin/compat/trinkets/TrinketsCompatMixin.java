@@ -24,7 +24,7 @@
 
 package me.i509.fabric.projectf.mixin.compat.trinkets;
 
-import dev.emi.trinkets.api.TrinketsApi;
+// import dev.emi.trinkets.api.TrinketsApi;
 import me.i509.fabric.projectf.api.item.FMCProtectorItem;
 import me.i509.fabric.projectf.compat.ProjectFHooks;
 import net.minecraft.inventory.Inventory;
@@ -35,8 +35,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = ProjectFHooks.class, remap = false)
+@Mixin(value = ProjectFHooks.class, remap = false, priority = 1001)
 public abstract class TrinketsCompatMixin {
+	/*
 	@Inject(at = @At("HEAD"), method = "testFluidSafetyCompat(Lnet/minecraft/server/network/ServerPlayerEntity;)Z", cancellable = true)
 	private static void pf_trinketsCompat_testExternalFluidSafety(ServerPlayerEntity player, CallbackInfoReturnable<Boolean> cir) {
 		Inventory inv = TrinketsApi.getTrinketsInventory(player);
@@ -54,4 +55,6 @@ public abstract class TrinketsCompatMixin {
 			}
 		}
 	}
+
+	 */
 }

@@ -25,6 +25,7 @@
 package me.i509.fabric.projectf.client;
 
 import me.i509.fabric.projectf.ProjectF;
+import me.i509.fabric.projectf.client.render.PFRenderLayers;
 import me.i509.fabric.projectf.registry.client.PFScreens;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -45,5 +46,6 @@ public class ProjectFClient implements ClientModInitializer {
 		});
 
 		PFScreens.init();
+		PFRenderLayers.init();
 	}
 }

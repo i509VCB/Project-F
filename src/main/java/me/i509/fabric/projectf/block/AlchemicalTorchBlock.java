@@ -25,9 +25,10 @@
 package me.i509.fabric.projectf.block;
 
 import net.minecraft.block.TorchBlock;
+import net.minecraft.particle.ParticleTypes;
 
 public class AlchemicalTorchBlock extends TorchBlock {
 	public AlchemicalTorchBlock(Settings settings) {
-		super(settings);
+		super(settings, ParticleTypes.SOUL_FIRE_FLAME);
 	}
 }

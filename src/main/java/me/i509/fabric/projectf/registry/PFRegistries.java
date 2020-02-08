@@ -40,6 +40,8 @@ public final class PFRegistries {
 		PFVillagers.init();
 		PFTradeOffers.init();
 		PFContainers.init();
+		PFRecipeTypes.init();
+		PFRecipeSerializers.init();
 	}
 
 	// Suppress default constructor to ensure non-instantiability.
