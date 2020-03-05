@@ -24,46 +24,19 @@
 
 package me.i509.fabric.projectf.item.template;
 
-import static net.minecraft.item.ArmorItem.DISPENSER_BEHAVIOR;
-import me.i509.fabric.projectf.api.item.EquippableItem;
-import me.i509.fabric.projectf.api.item.DurabilityProvider;
 import me.i509.fabric.projectf.api.item.ContextualProtectionItem;
+import me.i509.fabric.projectf.api.item.DurabilityProvider;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.world.World;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ArmorMaterial;
 
-public abstract class AbstractContextualArmorItem extends Item implements ContextualProtectionItem, DurabilityProvider, EquippableItem {
+public abstract class AbstractContextualArmorItem extends ArmorItem implements ContextualProtectionItem, DurabilityProvider {
 	private final EquipmentSlot slot;
 
-	public AbstractContextualArmorItem(EquipmentSlot slot, Settings settings) {
-		super(settings);
+	public AbstractContextualArmorItem(ArmorMaterial material, EquipmentSlot slot, Settings settings) {
+		super(material, slot, settings);
 		this.slot = slot;
 		DispenserBlock.registerBehavior(this, DISPENSER_BEHAVIOR);
-	}
-
-	@Override
-	public EquipmentSlot getEquippableSlot(ItemStack item) {
-		return this.slot;
-	}
-
-	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-		ItemStack handStack = user.getStackInHand(hand);
-		EquipmentSlot equipmentSlot = MobEntity.getPreferredEquipmentSlot(handStack);
-		ItemStack targetSlot = user.getEquippedStack(equipmentSlot);
-
-		if (targetSlot.isEmpty()) {
-			user.equipStack(equipmentSlot, handStack.copy());
-			handStack.setCount(0);
-			return TypedActionResult.success(handStack);
-		} else {
-			return TypedActionResult.fail(handStack);
-		}
 	}
 }

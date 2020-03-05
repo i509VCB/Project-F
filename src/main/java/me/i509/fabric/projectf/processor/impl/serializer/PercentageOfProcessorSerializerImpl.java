@@ -22,33 +22,33 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.base.block.entity;
+package me.i509.fabric.projectf.processor.impl.serializer;
 
-import grondag.fluidity.base.storage.discrete.SingleArticleStore;
-import me.i509.fabric.projectf.api.block.entity.BlockEntityInventoryProvider;
-import me.i509.fabric.projectf.api.block.entity.FMCBlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.LootableContainerBlockEntity;
-import net.minecraft.container.Container;
-import net.minecraft.entity.player.PlayerInventory;
+import com.google.gson.JsonElement;
+import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
+import me.i509.fabric.projectf.api.processor.serializer.PercentageOfProcessorSerializer;
+import me.i509.fabric.projectf.processor.impl.type.PercentageOfProcessorImpl;
+import net.minecraft.util.PacketByteBuf;
 
-public abstract class AbstractLootableContainerFMCBlockEntity extends LootableContainerBlockEntity implements FMCBlockEntity, BlockEntityInventoryProvider {
-	private final long capacity;
-	protected final SingleArticleStore store;
-
-	protected AbstractLootableContainerFMCBlockEntity(BlockEntityType<? extends AbstractLootableContainerFMCBlockEntity> type, long capacity) {
-		super(type);
-		this.capacity = capacity;
-		this.store = new SingleArticleStore(this.capacity);
+public class PercentageOfProcessorSerializerImpl implements PercentageOfProcessorSerializer {
+	@Override
+	public PercentageOfProcessor deserialize(JsonElement element) {
+		return new PercentageOfProcessorImpl();
 	}
 
 	@Override
-	public SingleArticleStore getStore() {
-		return this.store;
+	public JsonElement serialize(PercentageOfProcessor processor) {
+		return null;
 	}
 
 	@Override
-	protected final Container createContainer(int syncId, PlayerInventory playerInventory) {
-		return null; // We use Fabric's API instead.
+	public PacketByteBuf toPacket(PercentageOfProcessor processor, PacketByteBuf buf) {
+		buf.writeIdentifier(processor.getId());
+		return buf;
+	}
+
+	@Override
+	public PercentageOfProcessor fromPacket(PacketByteBuf buf) {
+		return new PercentageOfProcessorImpl();
 	}
 }

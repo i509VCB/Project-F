@@ -31,7 +31,7 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.registry.Registry;
 
-public class PFRecipeTypes {
+public final class PFRecipeTypes {
 	public static final RecipeType<PhilosophersStoneBlockRecipe> PHILOSOPHERS_STONE_BLOCK = register("philosphers_stone_block");
 
 	private static <C extends Inventory, T extends Recipe<C>> RecipeType<T> register(String name) {

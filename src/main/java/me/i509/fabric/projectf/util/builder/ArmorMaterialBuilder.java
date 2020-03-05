@@ -40,6 +40,7 @@ public class ArmorMaterialBuilder {
 	private SoundEvent soundEvent;
 	private float toughness = 0.0F;
 	private Supplier<Ingredient> ingredient = () -> Ingredient.EMPTY;
+	private float knockbackResistance = 0.0F;
 
 	public ArmorMaterialBuilder name(String name) {
 		this.name = checkNotNull(name, "Name cannot be null");
@@ -67,6 +68,11 @@ public class ArmorMaterialBuilder {
 		return this;
 	}
 
+	public ArmorMaterialBuilder knockbackResistance(float resistance) {
+		this.knockbackResistance = resistance;
+		return this;
+	}
+
 	public ArmorMaterialBuilder ingredient(Ingredient ingredient) {
 		Ingredient temp = checkNotNull(ingredient, "Cannot have null ingredient. Use Ingredient.EMPTY instead");
 		this.ingredient = () -> temp;
@@ -76,7 +82,7 @@ public class ArmorMaterialBuilder {
 	public ArmorMaterial build() {
 		checkNotNull(name, "Armor Material Name cannot be null");
 		checkNotNull(soundEvent, "Sound Event cannot be null");
-		return new Material(this.name, this.protectionAmounts, this.enchantability, this.soundEvent, this.toughness, this.ingredient);
+		return new Material(this.name, this.protectionAmounts, this.enchantability, this.soundEvent, this.toughness, this.knockbackResistance, this.ingredient);
 	}
 
 	static final class Material implements ArmorMaterial {
@@ -86,14 +92,16 @@ public class ArmorMaterialBuilder {
 		private final SoundEvent equipSound;
 		private final float toughness;
 		private final Lazy<Ingredient> ingredientSupplier;
+		private float knockbackResistance;
 
-		Material(String name, int[] protectionAmounts, int enchantability, SoundEvent equipSound, float toughness, Supplier<Ingredient> ingredientSupplier) {
+		Material(String name, int[] protectionAmounts, int enchantability, SoundEvent equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> ingredientSupplier) {
 			this.name = name;
 			this.protectionAmounts = protectionAmounts;
 			this.enchantability = enchantability;
 			this.equipSound = equipSound;
 			this.toughness = toughness;
 			this.ingredientSupplier = new Lazy<>(ingredientSupplier);
+			this.knockbackResistance = knockbackResistance;
 		}
 
 		@Override
@@ -131,9 +139,9 @@ public class ArmorMaterialBuilder {
 			return this.toughness;
 		}
 
-		@Override
+		@Override // kb resistenceq
 		public float method_24355() {
-			return 0;
+			return this.knockbackResistance;
 		}
 	}
 }

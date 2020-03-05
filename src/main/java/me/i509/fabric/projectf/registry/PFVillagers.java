@@ -35,7 +35,7 @@ import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-public class PFVillagers {
+public final class PFVillagers {
 	public static final VillagerProfession ALCHEMIST_PROFESSION = register("alchemist", PFPointOfInterestTypes.ALCHEMIST, ImmutableSet.of(), ImmutableSet.of(), null);
 
 	public static VillagerProfession register(String path, PointOfInterestType type, ImmutableSet<Item> gatherableItems, ImmutableSet<Block> secondaryJobSites, @Nullable SoundEvent soundEvent) {

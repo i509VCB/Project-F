@@ -31,7 +31,7 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.sound.SoundEvents;
 
 public final class PFMaterials {
-	/*
+
 	public static final ToolMaterial BLACK_MATTER_TOOL = new ToolMaterialBuilder()
 			.miningLevel(4)
 			.miningSpeed(12.0F)
@@ -61,7 +61,7 @@ public final class PFMaterials {
 			.equipSound(SoundEvents.ITEM_ARMOR_EQUIP_GENERIC)
 			.toughness(3.0F)
 			.build();
-	*/
+
 	public static void init() {
 		// NO-OP
 	}

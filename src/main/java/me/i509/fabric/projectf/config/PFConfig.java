@@ -24,6 +24,8 @@
 
 package me.i509.fabric.projectf.config;
 
+import me.i509.fabric.projectf.config.section.BlockEntitySection;
+import me.i509.fabric.projectf.config.section.FMCSection;
 import me.i509.fabric.projectf.config.section.PhilosophersStoneSection;
 import ninja.leaping.configurate.objectmapping.Setting;
 import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
@@ -35,5 +37,19 @@ public class PFConfig {
 
 	public PhilosophersStoneSection getPhilosophersStoneSection() {
 		return this.philosophersStone;
+	}
+
+	@Setting
+	private FMCSection fmc = new FMCSection();
+
+	public FMCSection getFMCSection() {
+		return this.fmc;
+	}
+
+	@Setting
+	private BlockEntitySection blockEntities = new BlockEntitySection();
+
+	public BlockEntitySection getBlockEntitySection() {
+		return this.blockEntities;
 	}
 }

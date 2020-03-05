@@ -25,12 +25,16 @@
 package me.i509.fabric.projectf.registry;
 
 import me.i509.fabric.projectf.ProjectF;
+import me.i509.fabric.projectf.block.AlchemicalChestBlock;
+import me.i509.fabric.projectf.block.MatterCondenserBlock;
 import me.i509.fabric.projectf.block.AlchemicalTorchBlock;
 import me.i509.fabric.projectf.block.AlchemicalWallTorchBlock;
 import me.i509.fabric.projectf.block.DamagingBaseFluidBlock;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tools.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.registry.Registry;
@@ -39,6 +43,9 @@ public final class PFBlocks {
 	public static final Block LIQUID_FMC = registerNoItem("liquid_fmc_block", new DamagingBaseFluidBlock(PFFluids.STILL_FMC, FabricBlockSettings.copy(Blocks.WATER).dropsNothing().build()));
 	public static final Block ALCHEMICAL_TORCH = registerNoItem("alchemical_torch", new AlchemicalTorchBlock(FabricBlockSettings.copy(Blocks.TORCH).lightLevel(15).build()));
 	public static final Block ALCHEMICAL_WALL_TORCH = registerNoItem("alchemical_wall_torch", new AlchemicalWallTorchBlock(FabricBlockSettings.copy(PFBlocks.ALCHEMICAL_TORCH).lightLevel(15).dropsLike(PFBlocks.ALCHEMICAL_TORCH).build()));
+	public static final Block ALCHEMICAL_CHEST = register("alchemical_chest", new AlchemicalChestBlock(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES, 2).build()), PFItemSettings.GENERIC);
+
+	public static final Block MATTER_CONDENSER = register("matter_condenser", new MatterCondenserBlock(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES, 2).build()), PFItemSettings.GENERIC);
 
 	public static Block registerNoItem(String path, Block block) {
 		return Registry.register(Registry.BLOCK, ProjectF.id(path), block);

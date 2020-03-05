@@ -34,7 +34,8 @@ public final class PFItemSettings {
 	public static final Item.Settings MATTER_STAR = new Item.Settings().maxCount(1).rarity(Rarity.UNCOMMON).group(PFItemGroups.MAIN_GROUP);
 	public static final Item.Settings ALCHEMICAL_BAG_SETTINGS = new Item.Settings().maxCount(1).rarity(Rarity.UNCOMMON).group(PFItemGroups.MAIN_GROUP);
 	public static final Item.Settings GENERIC = new Item.Settings().group(PFItemGroups.MAIN_GROUP);
-	public static final Item.Settings PHILOSOPHERS_STONE = new Item.Settings().group(PFItemGroups.MAIN_GROUP).maxCount(1).rarity(Rarity.RARE).maxDamage(1200);
+	public static final Item.Settings PHILOSOPHERS_STONE = new Item.Settings().group(PFItemGroups.MAIN_GROUP).rarity(Rarity.RARE).maxDamage(1200);
+	public static final Item.Settings BLOCK = new Item.Settings();
 
 	public static void init() {
 		// NO-OP

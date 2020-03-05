@@ -35,7 +35,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.poi.PointOfInterestType;
 
-public class PFPointOfInterestTypes {
+public final class PFPointOfInterestTypes {
 	public static final PointOfInterestType ALCHEMIST = register("alchemist", getAllStatesOf(Blocks.JUKEBOX), 1, 1);
 
 	private static PointOfInterestType register(String path, Set<BlockState> workStationStates, int ticketCount, int searchDistance) {

@@ -20,5 +20,9 @@
   "projectf.color.brown": "Brown",
   "projectf.color.green": "Green",
   "projectf.color.red": "Red",
-  "projectf.color.black": "Black"
+  "projectf.color.black": "Black",
+  "projectf.blockentity.alchemical_chest": "Alchemical Chest",
+  "block.projectf.alchemical_chest": "Alchemical Chest",
+  "projectf.blockentity.matter_condenser": "Matter Condenser",
+  "block.projectf.matter_condenser": "Matter Condenser"
 }

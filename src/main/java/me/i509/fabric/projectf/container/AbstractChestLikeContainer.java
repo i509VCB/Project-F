@@ -34,12 +34,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 
 public abstract class AbstractChestLikeContainer<I extends Inventory> extends Container {
+	protected final PlayerInventory playerInventory;
 	protected final I inventory;
 	private final Text title;
 	private final int rows;
 
 	protected AbstractChestLikeContainer(int syncId, SlotFactory factory, PlayerInventory playerInventory, I inventory, Text title, int rows) {
 		super(null, syncId);
+		this.playerInventory = playerInventory;
 		this.inventory = inventory;
 		this.title = title;
 		this.rows = rows;
@@ -103,5 +105,13 @@ public abstract class AbstractChestLikeContainer<I extends Inventory> extends Co
 
 	public int getRows() {
 		return this.rows;
+	}
+
+	public PlayerInventory getPlayerInventory() {
+		return this.playerInventory;
+	}
+
+	public Text getTitle() {
+		return this.title;
 	}
 }

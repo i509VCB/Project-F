@@ -33,7 +33,7 @@ import me.i509.fabric.projectf.villager.SellItemFactory;
 import net.minecraft.util.Unit;
 import net.minecraft.village.TradeOffers;
 
-public class PFTradeOffers {
+public final class PFTradeOffers {
 	private static final TradeOffers.Factory[] ALCHEMIST_LEVEL_1 = new TradeOffers.Factory[]{
 		new SellItemFactory(PFItems.MATTER_GUN, 64, 1, 1, 10)
 	};

@@ -34,6 +34,7 @@ public class ProjectFMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ProjectF.getInstance().init();
+		ProjectF.getInstance().getConfig().getBlockEntitySection().getMatterCondenserMaxStorage();
 
 		// Register our resource listener for the FMC values.
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new FMCResourceReloadListener(ProjectF.getInstance()));

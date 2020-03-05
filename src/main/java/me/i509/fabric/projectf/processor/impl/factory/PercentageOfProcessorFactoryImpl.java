@@ -28,7 +28,7 @@ import me.i509.fabric.projectf.api.processor.factory.PercentageOfProcessorFactor
 import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
 import me.i509.fabric.projectf.processor.impl.type.PercentageOfProcessorImpl;
 
-public class PercentageOfOfProcessorFactoryImpl implements PercentageOfProcessorFactory {
+public class PercentageOfProcessorFactoryImpl implements PercentageOfProcessorFactory {
 	@Override
 	public PercentageOfProcessor create() {
 		return new PercentageOfProcessorImpl();

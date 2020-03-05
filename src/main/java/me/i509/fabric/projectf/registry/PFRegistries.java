@@ -34,6 +34,7 @@ public final class PFRegistries {
 		PFItemGroups.init();
 		PFItemSettings.init();
 		PFBlocks.init();
+		PFBlockEntities.init();
 		PFItems.init();
 		PFMaterials.init();
 		PFPointOfInterestTypes.init();

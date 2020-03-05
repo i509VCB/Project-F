@@ -30,6 +30,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -48,6 +49,8 @@ public abstract class LivingEntityMixin_Armor extends Entity {
 	}
 
 	@Shadow public abstract Iterable<ItemStack> getArmorItems();
+
+	@Shadow public int stuckArrowTimer;
 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V"), method = "onEquipStack(Lnet/minecraft/item/ItemStack;)V", cancellable = true)
 	private void projectf_equipSound(ItemStack stack, CallbackInfo ci) {
@@ -69,6 +72,10 @@ public abstract class LivingEntityMixin_Armor extends Entity {
 			}
 
 			if (stack.getItem() instanceof ContextualProtectionItem) {
+				if (stack.getItem() instanceof ArmorItem) {
+					newValue -= ((ArmorItem) stack.getItem()).getProtection();
+				}
+
 				newValue += ((ContextualProtectionItem) stack.getItem()).getProtection((LivingEntity) (Object) this, stack);
 			}
 		}

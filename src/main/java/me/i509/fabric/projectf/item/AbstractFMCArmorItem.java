@@ -33,6 +33,7 @@ import grondag.fluidity.base.storage.discrete.SingleArticleStore;
 import me.i509.fabric.projectf.api.article.FMCArticle;
 import me.i509.fabric.projectf.api.article.FMCArticleProvider;
 import me.i509.fabric.projectf.api.item.FMCUsableItem;
+import me.i509.fabric.projectf.api.item.VisibleArmorItem;
 import me.i509.fabric.projectf.item.template.AbstractContextualArmorItem;
 import me.i509.fabric.projectf.item.template.AbstractFMCItem;
 import me.i509.fabric.projectf.util.TextMessages;
@@ -40,6 +41,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
@@ -49,8 +51,8 @@ import net.minecraft.world.World;
 public abstract class AbstractFMCArmorItem extends AbstractContextualArmorItem implements BasicDurabilityProvider, FMCArticleProvider, FMCUsableItem {
 	private final long maxFMC;
 
-	public AbstractFMCArmorItem(EquipmentSlot slot, long maxFMC, Settings settings) {
-		super(slot, settings);
+	public AbstractFMCArmorItem(ArmorMaterial material, EquipmentSlot slot, long maxFMC, Settings settings) {
+		super(material, slot, settings.maxDamage(-1));
 		this.maxFMC = maxFMC;
 		Store.STORAGE_COMPONENT.registerProvider(this::provideStoreFromContext, this);
 	}

@@ -32,7 +32,7 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.registry.Registry;
 
-public class PFRecipeSerializers {
+public final class PFRecipeSerializers {
 	public static final RecipeSerializer<PhilosophersStoneBlockRecipe> PHILOSOPHERS_STONE_BLOCK = register("philosphers_stone_block", new PhilsophersStoneBlockRecipeSerializer());
 
 	public static <C extends Inventory, T extends Recipe<C>> RecipeSerializer<T> register(String name, RecipeSerializer<T> serializer) {

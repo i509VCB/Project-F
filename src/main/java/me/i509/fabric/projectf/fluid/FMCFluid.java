@@ -24,6 +24,10 @@
 
 package me.i509.fabric.projectf.fluid;
 
+import grondag.fluidity.api.fraction.Fraction;
+import grondag.fluidity.api.fraction.MutableFraction;
+import grondag.fluidity.base.storage.bulk.SimpleTank;
+import me.i509.fabric.projectf.ProjectF;
 import me.i509.fabric.projectf.registry.PFBlocks;
 import me.i509.fabric.projectf.registry.PFFluids;
 import me.i509.fabric.projectf.registry.PFItems;
@@ -33,6 +37,10 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
 import net.minecraft.state.StateManager;
+import net.minecraft.tag.FluidTags;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 
 public abstract class FMCFluid extends AbstractFiniteFluid {
 	@Override
@@ -58,6 +66,11 @@ public abstract class FMCFluid extends AbstractFiniteFluid {
 	@Override
 	public boolean matchesType(Fluid fluid) {
 		return fluid.equals(this.getFlowing()) || this.equals(this.getStill());
+	}
+
+	@Override
+	public boolean canBeReplacedWith(FluidState state, BlockView world, BlockPos pos, Fluid fluid, Direction direction) {
+		return direction == Direction.DOWN && !fluid.matches(FluidTags.WATER);
 	}
 
 	public static class Still extends FMCFluid {
@@ -88,5 +101,15 @@ public abstract class FMCFluid extends AbstractFiniteFluid {
 			super.appendProperties(stateFactoryBuilder);
 			stateFactoryBuilder.add(LEVEL);
 		}
+	}
+
+	public static Fraction articleToFluid(long amount) {
+		return ProjectF.getInstance().getConfig().getFMCSection().getArticleToFluid();
+	}
+
+	public static long fluidToArticle(Fraction fraction) {
+		MutableFraction mutable = new MutableFraction(ProjectF.getInstance().getConfig().getFMCSection().getArticleToFluid());
+		mutable.multiply(ProjectF.getInstance().getConfig().getFMCSection().getArticleToFluid().whole());
+		return mutable.whole();
 	}
 }

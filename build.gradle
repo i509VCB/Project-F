@@ -100,7 +100,7 @@ dependencies {
         exclude (group: "net.fabricmc.fabric-api")
     }
 
-    // Fun test mod
+    // Towelette is used for a single hook so stair collisions work with damaging fluid.
     modRuntime("towelette:Towelette:${project.towelette_version}") // Remove Only to add towlette to dev.
     modRuntime("statement:Statement:${project.statement_version}")
 }

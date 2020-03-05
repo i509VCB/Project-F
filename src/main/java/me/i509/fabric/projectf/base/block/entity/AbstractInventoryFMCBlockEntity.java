@@ -24,31 +24,38 @@
 
 package me.i509.fabric.projectf.base.block.entity;
 
-import grondag.fluidity.base.storage.discrete.SingleArticleStore;
 import me.i509.fabric.projectf.api.block.entity.BlockEntityInventoryProvider;
-import me.i509.fabric.projectf.api.block.entity.FMCBlockEntity;
+import me.i509.fabric.projectf.api.inventory.SerializableInventory;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.LockableContainerBlockEntity;
-import net.minecraft.container.Container;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 
-public abstract class AbstractLockableContainerFMCBlockEntity extends LockableContainerBlockEntity implements FMCBlockEntity, BlockEntityInventoryProvider {
-	private final long capacity;
-	protected final SingleArticleStore store;
+public abstract class AbstractInventoryFMCBlockEntity<I extends SerializableInventory> extends AbstractFMCBlockEntity implements BlockEntityInventoryProvider<I> {
+	protected final I inventory;
 
-	protected AbstractLockableContainerFMCBlockEntity(BlockEntityType<? extends AbstractLockableContainerFMCBlockEntity> type, long capacity) {
-		super(type);
-		this.capacity = capacity;
-		this.store = new SingleArticleStore(this.capacity);
+	protected AbstractInventoryFMCBlockEntity(BlockEntityType<? extends AbstractInventoryFMCBlockEntity> type, I inventory, long capacity) {
+		super(type, capacity);
+		this.inventory = inventory;
 	}
 
 	@Override
-	public SingleArticleStore getStore() {
-		return this.store;
+	public CompoundTag toTag(CompoundTag tag) {
+		super.toTag(tag);
+		ListTag inventoryTag = this.inventory.getTags();
+		tag.put("Inventory", inventoryTag);
+		return tag;
 	}
 
 	@Override
-	protected final Container createContainer(int syncId, PlayerInventory playerInventory) {
-		return null; // We use Fabric's API instead.
+	public void fromTag(CompoundTag tag) {
+		super.fromTag(tag);
+		this.inventory.readTags(tag.getList("Inventory", NbtType.COMPOUND));
+	}
+
+	@Override
+	public I getInventory() {
+		return this.inventory;
 	}
 }

@@ -25,7 +25,8 @@
 package me.i509.fabric.projectf.registry.client;
 
 import me.i509.fabric.projectf.client.screen.AlchemicalBagScreen;
-import me.i509.fabric.projectf.client.screen.AlchemicalChestScreen11x7;
+import me.i509.fabric.projectf.client.screen.AlchemicalChestScreen;
+import me.i509.fabric.projectf.client.screen.MatterCondenserScreen11x7;
 import me.i509.fabric.projectf.registry.PFContainers;
 import me.i509.fabric.projectf.util.PFUtils;
 import net.fabricmc.api.EnvType;
@@ -34,9 +35,10 @@ import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
 import net.minecraft.util.Unit;
 
 @Environment(EnvType.CLIENT)
-public class PFScreens {
+public final class PFScreens {
 	private static final Unit ALCHEMICAL_BAG_SCREEN = PFUtils.dummyRegister(() -> ScreenProviderRegistry.INSTANCE.registerFactory(PFContainers.ALCHEMICAL_BAG, AlchemicalBagScreen::create));
-	private static final Unit ALCHEMICAL_CHEST_SCREEB = PFUtils.dummyRegister(() -> ScreenProviderRegistry.INSTANCE.registerFactory(PFContainers.ALCHEMICAL_CHEST, AlchemicalChestScreen11x7::create));
+	private static final Unit ALCHEMICAL_CHEST_SCREEN = PFUtils.dummyRegister(() -> ScreenProviderRegistry.INSTANCE.registerFactory(PFContainers.ALCHEMICAL_CHEST, AlchemicalChestScreen::create));
+	private static final Unit MATTER_CONDENSER_SCREEN = PFUtils.dummyRegister(() -> ScreenProviderRegistry.INSTANCE.registerFactory(PFContainers.MATTER_CONDENSER, MatterCondenserScreen11x7::create));
 
 	public static void init() {
 		// NO-OP

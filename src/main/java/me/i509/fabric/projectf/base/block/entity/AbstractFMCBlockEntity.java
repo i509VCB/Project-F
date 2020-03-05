@@ -25,22 +25,47 @@
 package me.i509.fabric.projectf.base.block.entity;
 
 import grondag.fluidity.base.storage.discrete.SingleArticleStore;
+import me.i509.fabric.projectf.api.article.FMCArticle;
 import me.i509.fabric.projectf.api.block.entity.FMCBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.nbt.CompoundTag;
 
 public abstract class AbstractFMCBlockEntity extends BlockEntity implements FMCBlockEntity {
-	private final long capacity;
+	protected final long capacity;
 	protected final SingleArticleStore store;
 
 	protected AbstractFMCBlockEntity(BlockEntityType<? extends AbstractFMCBlockEntity> type, long capacity) {
 		super(type);
 		this.capacity = capacity;
 		this.store = new SingleArticleStore(this.capacity);
+		this.store.getConsumer().apply(FMCArticle.getArticle(), 0L, false);
+	}
+
+	@Override
+	public CompoundTag toTag(CompoundTag tag) {
+		super.toTag(tag);
+		CompoundTag storeTag = new CompoundTag();
+		store.writeTag(storeTag);
+		tag.put("store", storeTag);
+		return tag;
+	}
+
+	@Override
+	public void fromTag(CompoundTag tag) {
+		super.fromTag(tag);
+		if (tag.getCompound("store") != null) {
+			store.readTag(tag.getCompound("store"));
+		}
 	}
 
 	@Override
 	public SingleArticleStore getStore() {
 		return this.store;
+	}
+
+	@Override
+	public long getMaxFMCValue() {
+		return this.capacity;
 	}
 }

@@ -43,13 +43,7 @@ public interface FMCArticleProvider {
 
 	long getMaxFMC();
 
-	// Reference<ItemStack> stackRef = new Reference<>(player.getStackInHand(hand));
-	// DeviceComponentAccess<Store> access = Store.STORAGE_COMPONENT.getAccessForHeldItem(() -> stackRef.get(), stackRef::set, (ServerPlayerEntity) player);
 	default DeviceComponentAccess<Store> getStore(Reference<ItemStack> stackReference, ServerPlayerEntity player) {
 		return Store.STORAGE_COMPONENT.getAccessForHeldItem(stackReference::get, stackReference::set, player);
-	}
-
-	default DeviceComponentAccess<Store> getStore(Reference<ItemStack> stackReference, World world) {
-		return Store.STORAGE_COMPONENT.getAccess(stackReference::get, stackReference::set, world);
 	}
 }

@@ -24,10 +24,31 @@
 
 package me.i509.fabric.projectf.api.block.entity;
 
+import java.util.Optional;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-public interface BlockEntityInventoryProvider {
+public interface BlockEntityInventoryProvider<I extends Inventory> {
+	Identifier CONTENTS = new Identifier("contents");
+
 	void openContainer(BlockPos pos, PlayerEntity playerEntity, Text displayName);
+
+	I getInventory();
+
+	public static <I extends Inventory> Optional<I> getInventory(Class<I> inventoryClazz, World world, BlockPos blockPos) {
+		BlockEntity blockEntity = world.getBlockEntity(blockPos);
+
+		if (blockEntity instanceof BlockEntityInventoryProvider) {
+			if (((BlockEntityInventoryProvider) blockEntity).getInventory().getClass().isAssignableFrom(inventoryClazz)) {
+				return Optional.of((I) ((BlockEntityInventoryProvider) blockEntity).getInventory());
+			}
+		}
+
+		return Optional.empty();
+	}
 }

@@ -24,41 +24,55 @@
 
 package me.i509.fabric.projectf.container;
 
+import java.util.Optional;
+import java.util.function.LongSupplier;
+import me.i509.fabric.projectf.api.block.entity.BlockEntityInventoryProvider;
+import me.i509.fabric.projectf.block.entity.MatterCondenserBlockEntity;
+import me.i509.fabric.projectf.inventory.MatterCondenserInventory;
+import me.i509.fabric.projectf.inventory.slot.OneItemSlot;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.container.Container;
 import net.minecraft.container.Slot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
+import net.minecraft.util.math.BlockPos;
 
-public class AlchemicalChestContainer11x7 extends Container {
-	private final SidedInventory inventory;
+public class MatterCondenserContainer11x7 extends Container {
+	private final PlayerInventory playerInventory;
+	private final MatterCondenserInventory inventory;
 	private final Text name;
+	private LongSupplier longSupplier;
 
-	public AlchemicalChestContainer11x7(int syncId, PlayerInventory playerInventory, SidedInventory inventory, Text name) {
+	public MatterCondenserContainer11x7(int syncId, PlayerInventory playerInventory, MatterCondenserInventory inventory, LongSupplier longSupplier, Text name) {
 		super(null, syncId);
+		this.playerInventory = playerInventory;
 		this.inventory = inventory;
 		this.name = name;
 		this.inventory.onInvOpen(playerInventory.player);
+		this.longSupplier = longSupplier;
 
-		for (int row = 0; row < 7; ++row) {
+		this.addSlot(new OneItemSlot(inventory, 0,  5, 5));
+
+		for (int row = 0; row < 6; ++row) {
 			for (int column = 0; column < 11; ++column) {
-				this.addSlot(new Slot(inventory, column + (row * 11), (column * 18) + 5, 18 + (row * 18)));
+				this.addSlot(new Slot(inventory, column + (row * 11) + 1, (column * 18) + 5, 26 + (row * 18)));
 			}
 		}
 
 		for (int row = 0; row < 3; ++row) {
 			for (int column = 0; column < 9; ++column) {
-				this.addSlot(new Slot(playerInventory, column + row * 9 + 9, 23 + (column * 18), 112 + row * 18 + 45));
+				this.addSlot(new Slot(playerInventory, column + row * 9 + 9 + 1, 23 + (column * 18), 102 + row * 18 + 45));
 			}
 		}
 
 		for (int column = 0; column < 9; ++column) {
-			this.addSlot(new Slot(playerInventory, column, 23 + (column * 18), 170 + 45));
+			this.addSlot(new Slot(playerInventory, column, 23 + (column * 18), 160 + 45));
 		}
 	}
 
@@ -104,14 +118,24 @@ public class AlchemicalChestContainer11x7 extends Container {
 		return this.inventory;
 	}
 
+	public PlayerInventory getPlayerInventory() {
+		return this.playerInventory;
+	}
+
 	public Text getDisplayName() {
 		return this.name;
 	}
 
 	public static Container create(int syncId, Identifier identifier, PlayerEntity playerEntity, PacketByteBuf byteBuf) {
-		//AlchemicalBagInventory inventory = //AlchemicalBagItem.getInventory(playerEntity, bagColor);
-		//Text title = byteBuf.readText();
-		//return new AlchemicalChestContainer11x7(syncId, playerEntity.inventory, inventory, title);
-		return null;
+		Text title = byteBuf.readText();
+		BlockPos pos = byteBuf.readBlockPos();
+
+		Optional<MatterCondenserInventory> inventory = BlockEntityInventoryProvider.getInventory(MatterCondenserInventory.class, playerEntity.world, pos);
+		return new MatterCondenserContainer11x7(syncId, playerEntity.inventory, inventory.get(), ((MatterCondenserBlockEntity) playerEntity.world.getBlockEntity(pos)).getFmcSupplier(), title);
+	}
+
+	@Environment(EnvType.CLIENT)
+	public LongSupplier getLongSupplier() {
+		return this.longSupplier;
 	}
 }

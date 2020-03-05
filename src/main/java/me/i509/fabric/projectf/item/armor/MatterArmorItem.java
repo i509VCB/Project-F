@@ -29,6 +29,7 @@ import grondag.fluidity.api.storage.Store;
 import me.i509.fabric.projectf.api.article.FMCArticle;
 import me.i509.fabric.projectf.api.item.ContextualProtectionItem;
 import me.i509.fabric.projectf.item.AbstractFMCArmorItem;
+import me.i509.fabric.projectf.registry.PFMaterials;
 import me.i509.fabric.projectf.util.Reference;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -39,7 +40,7 @@ public class MatterArmorItem extends AbstractFMCArmorItem {
 	private final ContextualProtectionItem protectionContext;
 
 	public MatterArmorItem(EquipmentSlot slot, long maxFMC, ContextualProtectionItem protectionContext, Settings settings) {
-		super(slot, maxFMC, settings);
+		super(PFMaterials.BLACK_MATTER_ARMOR, slot, maxFMC, settings);
 		this.protectionContext = protectionContext;
 	}
 

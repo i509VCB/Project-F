@@ -31,7 +31,9 @@ import me.i509.fabric.projectf.item.MatterGunItem;
 import me.i509.fabric.projectf.item.PhilosophersStoneItem;
 import me.i509.fabric.projectf.item.armor.DarkMatterProtectionContexts;
 import me.i509.fabric.projectf.item.armor.MatterArmorItem;
+import me.i509.fabric.projectf.item.armor.TestArmorType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ArmorMaterials;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.WallStandingBlockItem;
@@ -85,6 +87,8 @@ public final class PFItems {
 	public static final AlchemicalBagItem GREEN_ALCHEMICAL_BAG = register("green_alchemical_bag", new AlchemicalBagItem(DyeColor.GREEN, PFItemSettings.ALCHEMICAL_BAG_SETTINGS));
 	public static final AlchemicalBagItem RED_ALCHEMICAL_BAG = register("red_alchemical_bag", new AlchemicalBagItem(DyeColor.RED, PFItemSettings.ALCHEMICAL_BAG_SETTINGS));
 	public static final AlchemicalBagItem BLACK_ALCHEMICAL_BAG = register("black_alchemical_bag", new AlchemicalBagItem(DyeColor.BLACK, PFItemSettings.ALCHEMICAL_BAG_SETTINGS));
+
+	public static final TestArmorType AR = register("test_armor", new TestArmorType(ArmorMaterials.LEATHER, EquipmentSlot.HEAD, new Item.Settings()));
 
 	public static <I extends Item> I register(String path, I item) {
 		return Registry.register(Registry.ITEM, ProjectF.id(path), item);

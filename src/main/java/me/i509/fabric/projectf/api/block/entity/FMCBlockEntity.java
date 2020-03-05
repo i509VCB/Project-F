@@ -38,6 +38,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 public interface FMCBlockEntity {
 	SingleArticleStore getStore();
 
+	long getMaxFMCValue();
+
 	static Optional<SingleArticleStore> getStore(World world, BlockPos blockPos) {
 		@Nullable BlockEntity blockEntity = world.getBlockEntity(blockPos);
 
