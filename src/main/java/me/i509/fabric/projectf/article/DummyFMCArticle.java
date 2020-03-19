@@ -27,7 +27,7 @@ package me.i509.fabric.projectf.article;
 import me.i509.fabric.projectf.api.article.FMCArticle;
 import net.minecraft.nbt.ByteTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.network.PacketByteBuf;
 
 public final class DummyFMCArticle implements FMCArticle {
 	public static final DummyFMCArticle FMC_ARTICLE = new DummyFMCArticle();

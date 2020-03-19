@@ -32,24 +32,24 @@ import me.i509.fabric.projectf.inventory.MatterCondenserInventory;
 import me.i509.fabric.projectf.inventory.slot.OneItemSlot;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.container.Container;
-import net.minecraft.container.Slot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 
-public class MatterCondenserContainer11x7 extends Container {
+public class MatterCondenserScreenHandler11x7 extends ScreenHandler {
 	private final PlayerInventory playerInventory;
 	private final MatterCondenserInventory inventory;
 	private final Text name;
 	private LongSupplier longSupplier;
 
-	public MatterCondenserContainer11x7(int syncId, PlayerInventory playerInventory, MatterCondenserInventory inventory, LongSupplier longSupplier, Text name) {
+	public MatterCondenserScreenHandler11x7(int syncId, PlayerInventory playerInventory, MatterCondenserInventory inventory, LongSupplier longSupplier, Text name) {
 		super(null, syncId);
 		this.playerInventory = playerInventory;
 		this.inventory = inventory;
@@ -126,12 +126,12 @@ public class MatterCondenserContainer11x7 extends Container {
 		return this.name;
 	}
 
-	public static Container create(int syncId, Identifier identifier, PlayerEntity playerEntity, PacketByteBuf byteBuf) {
+	public static ScreenHandler create(int syncId, Identifier identifier, PlayerEntity playerEntity, PacketByteBuf byteBuf) {
 		Text title = byteBuf.readText();
 		BlockPos pos = byteBuf.readBlockPos();
 
 		Optional<MatterCondenserInventory> inventory = BlockEntityInventoryProvider.getInventory(MatterCondenserInventory.class, playerEntity.world, pos);
-		return new MatterCondenserContainer11x7(syncId, playerEntity.inventory, inventory.get(), ((MatterCondenserBlockEntity) playerEntity.world.getBlockEntity(pos)).getFmcSupplier(), title);
+		return new MatterCondenserScreenHandler11x7(syncId, playerEntity.inventory, inventory.get(), ((MatterCondenserBlockEntity) playerEntity.world.getBlockEntity(pos)).getFmcSupplier(), title);
 	}
 
 	@Environment(EnvType.CLIENT)

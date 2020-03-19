@@ -36,8 +36,8 @@ import me.i509.fabric.projectf.api.processor.type.Processor;
 import me.i509.fabric.projectf.processor.ProcessorRegistry;
 import me.i509.fabric.projectf.processor.impl.type.MultiplyProcessorImpl;
 import me.i509.fabric.projectf.util.gson.GsonUtils;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
 
 public class MultiplyProcessorSerializerImpl implements MultiplyProcessorSerializer {
 	@Override

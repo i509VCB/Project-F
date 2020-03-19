@@ -28,7 +28,7 @@ import com.google.gson.JsonElement;
 import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
 import me.i509.fabric.projectf.api.processor.serializer.PercentageOfProcessorSerializer;
 import me.i509.fabric.projectf.processor.impl.type.PercentageOfProcessorImpl;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.network.PacketByteBuf;
 
 public class PercentageOfProcessorSerializerImpl implements PercentageOfProcessorSerializer {
 	@Override

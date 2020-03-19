@@ -68,7 +68,7 @@ public abstract class AbstractLockableInventoryFMCBlockEntity<I extends Serializ
 
 	public static boolean checkUnlocked(PlayerEntity player, ContainerLock lock, Text containerName) {
 		if (!player.isSpectator() && !lock.canOpen(player.getMainHandStack())) {
-			player.addChatMessage(new TranslatableText("container.isLocked", containerName), true);
+			player.addMessage(new TranslatableText("container.isLocked", containerName), true);
 			player.playSound(SoundEvents.BLOCK_CHEST_LOCKED, SoundCategory.BLOCKS, 1.0F, 1.0F);
 			return false;
 		} else {

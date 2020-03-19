@@ -24,18 +24,18 @@
 
 package me.i509.fabric.projectf.client.screen;
 
-import me.i509.fabric.projectf.container.AlchemicalBagContainer;
+import me.i509.fabric.projectf.container.AlchemicalBagScreenHandler;
 import me.i509.fabric.projectf.util.TextMessages;
-import net.minecraft.client.gui.screen.ingame.ContainerScreen;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.DyeColor;
 
-public class AlchemicalBagScreen extends AbstractChestLikeScreen<AlchemicalBagContainer> {
-	public AlchemicalBagScreen(AlchemicalBagContainer container, PlayerInventory inventory, DyeColor color) {
+public class AlchemicalBagScreen extends AbstractChestLikeScreen<AlchemicalBagScreenHandler> {
+	public AlchemicalBagScreen(AlchemicalBagScreenHandler container, PlayerInventory inventory, DyeColor color) {
 		super(container, inventory, TextMessages.createAlchemicalBagText(color));
 	}
 
-	public static ContainerScreen<AlchemicalBagContainer> create(AlchemicalBagContainer container) {
+	public static HandledScreen<AlchemicalBagScreenHandler> create(AlchemicalBagScreenHandler container) {
 		return new AlchemicalBagScreen(container, container.getPlayerInventory(), container.getColor());
 	}
 }

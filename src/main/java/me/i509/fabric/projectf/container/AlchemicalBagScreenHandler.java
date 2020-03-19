@@ -27,16 +27,16 @@ package me.i509.fabric.projectf.container;
 import me.i509.fabric.projectf.inventory.AlchemicalBagInventory;
 import me.i509.fabric.projectf.inventory.slot.AlchemicalBagSlot;
 import me.i509.fabric.projectf.item.AlchemicalBagItem;
-import net.minecraft.container.Container;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
 
-public class AlchemicalBagContainer extends AbstractChestLikeContainer<AlchemicalBagInventory> {
-	public AlchemicalBagContainer(int syncId, PlayerInventory playerInventory, AlchemicalBagInventory inventory) {
+public class AlchemicalBagScreenHandler extends AbstractChestLikeScreenHandler<AlchemicalBagInventory> {
+	public AlchemicalBagScreenHandler(int syncId, PlayerInventory playerInventory, AlchemicalBagInventory inventory) {
 		super(syncId, AlchemicalBagSlot::new, playerInventory, inventory, new TranslatableText("item.projectf.alchemical_bag", inventory.getColor().toString()), 3);
 	}
 
@@ -44,9 +44,9 @@ public class AlchemicalBagContainer extends AbstractChestLikeContainer<Alchemica
 		return this.inventory.getColor();
 	}
 
-	public static Container create(int syncId, Identifier identifier, PlayerEntity playerEntity, PacketByteBuf byteBuf) {
+	public static ScreenHandler create(int syncId, Identifier identifier, PlayerEntity playerEntity, PacketByteBuf byteBuf) {
 		DyeColor bagColor = byteBuf.readEnumConstant(DyeColor.class);
 		AlchemicalBagInventory inventory = AlchemicalBagItem.getInventory(playerEntity, bagColor);
-		return new AlchemicalBagContainer(syncId, playerEntity.inventory, inventory);
+		return new AlchemicalBagScreenHandler(syncId, playerEntity.inventory, inventory);
 	}
 }

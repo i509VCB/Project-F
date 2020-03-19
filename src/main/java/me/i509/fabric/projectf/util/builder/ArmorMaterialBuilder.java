@@ -27,6 +27,7 @@ package me.i509.fabric.projectf.util.builder;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.function.Supplier;
+import me.i509.fabric.projectf.util.builder.ArmorMaterialBuilder.Material;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.recipe.Ingredient;
@@ -140,7 +141,7 @@ public class ArmorMaterialBuilder {
 		}
 
 		@Override // kb resistenceq
-		public float method_24355() {
+		public float getKnockbackResistance() {
 			return this.knockbackResistance;
 		}
 	}

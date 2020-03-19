@@ -35,8 +35,8 @@ import me.i509.fabric.projectf.api.processor.serializer.OfItemsProcessorSerializ
 import me.i509.fabric.projectf.processor.impl.type.OfItemsProcessorImpl;
 import me.i509.fabric.projectf.util.gson.GsonUtils;
 import net.minecraft.item.Item;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.registry.Registry;
 
 public class OfItemsProcessorSerializerImpl implements OfItemsProcessorSerializer {

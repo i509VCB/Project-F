@@ -25,21 +25,21 @@
 package me.i509.fabric.projectf.container;
 
 import me.i509.fabric.projectf.util.SlotFactory;
-import net.minecraft.container.Container;
-import net.minecraft.container.Slot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 
-public abstract class AbstractChestLikeContainer<I extends Inventory> extends Container {
+public abstract class AbstractChestLikeScreenHandler<I extends Inventory> extends ScreenHandler {
 	protected final PlayerInventory playerInventory;
 	protected final I inventory;
 	private final Text title;
 	private final int rows;
 
-	protected AbstractChestLikeContainer(int syncId, SlotFactory factory, PlayerInventory playerInventory, I inventory, Text title, int rows) {
+	protected AbstractChestLikeScreenHandler(int syncId, SlotFactory factory, PlayerInventory playerInventory, I inventory, Text title, int rows) {
 		super(null, syncId);
 		this.playerInventory = playerInventory;
 		this.inventory = inventory;

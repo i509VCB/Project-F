@@ -45,7 +45,7 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.util.DefaultedList;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 public abstract class AbstractFMCArmorItem extends AbstractContextualArmorItem implements BasicDurabilityProvider, FMCArticleProvider, FMCUsableItem {

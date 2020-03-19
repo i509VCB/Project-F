@@ -5,16 +5,16 @@ import me.i509.fabric.projectf.block.entity.AlchemicalChestBlockEntity;
 import me.i509.fabric.projectf.block.entity.MatterCondenserBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockPlacementEnvironment;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.container.Container;
 import net.minecraft.entity.EntityContext;
+import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
@@ -47,7 +47,7 @@ public class AlchemicalChestBlock extends Block implements BlockEntityProvider {
 
 	@Override
 	@CallBlockStateInstead
-	public boolean canPlaceAtSide(BlockState world, BlockView view, BlockPos pos, BlockPlacementEnvironment env) {
+	public boolean canPathfindThrough(BlockState world, BlockView view, BlockPos pos, NavigationType env) {
 		return false;
 	}
 
@@ -59,7 +59,7 @@ public class AlchemicalChestBlock extends Block implements BlockEntityProvider {
 		}
 
 		BlockPos above = pos.up();
-		if (world.getBlockState(above).isSimpleFullBlock(world, pos)) {
+		if (world.getBlockState(above).isFullCube(world, pos)) {
 			return ActionResult.FAIL;
 		}
 
@@ -109,7 +109,7 @@ public class AlchemicalChestBlock extends Block implements BlockEntityProvider {
 	@CallBlockStateInstead
 	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
 		if (world.getBlockEntity(pos) instanceof MatterCondenserBlockEntity) {
-			return Container.calculateComparatorOutput(((MatterCondenserBlockEntity) world.getBlockEntity(pos)).getInventory());
+			return ScreenHandler.calculateComparatorOutput(((MatterCondenserBlockEntity) world.getBlockEntity(pos)).getInventory());
 		}
 
 		return 0;

@@ -25,9 +25,9 @@
 package me.i509.fabric.projectf.registry;
 
 import me.i509.fabric.projectf.ProjectF;
-import me.i509.fabric.projectf.container.AlchemicalBagContainer;
-import me.i509.fabric.projectf.container.AlchemicalChestContainer;
-import me.i509.fabric.projectf.container.MatterCondenserContainer11x7;
+import me.i509.fabric.projectf.container.AlchemicalBagScreenHandler;
+import me.i509.fabric.projectf.container.AlchemicalChestScreenHandler;
+import me.i509.fabric.projectf.container.MatterCondenserScreenHandler11x7;
 import me.i509.fabric.projectf.util.PFUtils;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.util.Identifier;
@@ -37,9 +37,9 @@ public final class PFContainers {
 	public static final Identifier ALCHEMICAL_BAG = ProjectF.id("alchemical_bag");
 	public static final Identifier ALCHEMICAL_CHEST = ProjectF.id("alchemical_chest");
 	public static final Identifier MATTER_CONDENSER = ProjectF.id("matter_condenser");
-	private static final Unit DUMMY_ALCHEMICAL_BAG_CONTAINER = PFUtils.dummyRegister(() -> ContainerProviderRegistry.INSTANCE.registerFactory(ALCHEMICAL_BAG, AlchemicalBagContainer::create));
-	private static final Unit DUMMY_ALCHEMICAL_CHEST_CONTAINER = PFUtils.dummyRegister(() -> ContainerProviderRegistry.INSTANCE.registerFactory(ALCHEMICAL_CHEST, AlchemicalChestContainer::create));
-	private static final Unit DUMMY_MATTER_CONDENSER_CONTAINER = PFUtils.dummyRegister(() -> ContainerProviderRegistry.INSTANCE.registerFactory(MATTER_CONDENSER, MatterCondenserContainer11x7::create));
+	private static final Unit DUMMY_ALCHEMICAL_BAG_CONTAINER = PFUtils.dummyRegister(() -> ContainerProviderRegistry.INSTANCE.registerFactory(ALCHEMICAL_BAG, AlchemicalBagScreenHandler::create));
+	private static final Unit DUMMY_ALCHEMICAL_CHEST_CONTAINER = PFUtils.dummyRegister(() -> ContainerProviderRegistry.INSTANCE.registerFactory(ALCHEMICAL_CHEST, AlchemicalChestScreenHandler::create));
+	private static final Unit DUMMY_MATTER_CONDENSER_CONTAINER = PFUtils.dummyRegister(() -> ContainerProviderRegistry.INSTANCE.registerFactory(MATTER_CONDENSER, MatterCondenserScreenHandler11x7::create));
 
 	public static void init() {
 		// NO-OP

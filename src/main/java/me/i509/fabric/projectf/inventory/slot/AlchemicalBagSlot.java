@@ -25,9 +25,9 @@
 package me.i509.fabric.projectf.inventory.slot;
 
 import me.i509.fabric.projectf.item.AlchemicalBagItem;
-import net.minecraft.container.Slot;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.slot.Slot;
 
 public class AlchemicalBagSlot extends Slot {
 	public AlchemicalBagSlot(Inventory inventory, int invSlot, int xPosition, int yPosition) {

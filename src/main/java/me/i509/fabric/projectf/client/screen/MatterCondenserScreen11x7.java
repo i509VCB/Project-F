@@ -27,27 +27,27 @@ package me.i509.fabric.projectf.client.screen;
 import java.util.function.LongSupplier;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.i509.fabric.projectf.ProjectF;
-import me.i509.fabric.projectf.container.MatterCondenserContainer11x7;
+import me.i509.fabric.projectf.container.MatterCondenserScreenHandler11x7;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.screen.ingame.ContainerScreen;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
-public class MatterCondenserScreen11x7 extends ContainerScreen<MatterCondenserContainer11x7> {
+public class MatterCondenserScreen11x7 extends HandledScreen<MatterCondenserScreenHandler11x7> {
 	private static final Identifier TEXTURE = ProjectF.id("textures/gui/container/mattercondenser_11x7.png");
 	private final LongSupplier fmcValueSupplier;
 
-	public MatterCondenserScreen11x7(MatterCondenserContainer11x7 container, PlayerInventory playerInventory, LongSupplier fmcValueSupplier, Text name) {
+	public MatterCondenserScreen11x7(MatterCondenserScreenHandler11x7 container, PlayerInventory playerInventory, LongSupplier fmcValueSupplier, Text name) {
 		super(container, playerInventory, name);
-		this.containerHeight = 123 + 7 * 18;
-		this.containerWidth += 36;
+		this.backgroundHeight = 123 + 7 * 18;
+		this.backgroundWidth += 36;
 		this.fmcValueSupplier = fmcValueSupplier;
 	}
 
-	public static ContainerScreen<MatterCondenserContainer11x7> create(MatterCondenserContainer11x7 container) {
+	public static HandledScreen<MatterCondenserScreenHandler11x7> create(MatterCondenserScreenHandler11x7 container) {
 		return new MatterCondenserScreen11x7(container, container.getPlayerInventory(), container.getLongSupplier(), container.getDisplayName());
 	}
 
@@ -61,18 +61,18 @@ public class MatterCondenserScreen11x7 extends ContainerScreen<MatterCondenserCo
 
 	@Override
 	protected void drawForeground(int mouseX, int mouseY) {
-		this.font.draw(Long.toString(this.fmcValueSupplier.getAsLong()), 132.0F, 7.0F, 4210752);
-		this.font.draw(this.playerInventory.getDisplayName().asFormattedString(), 8.0F, (float) (this.containerHeight - 114 + 2), 4210752);
+		this.textRenderer.draw(Long.toString(this.fmcValueSupplier.getAsLong()), 132.0F, 7.0F, 4210752);
+		this.textRenderer.draw(this.playerInventory.getDisplayName().asFormattedString(), 8.0F, (float) (this.backgroundHeight - 114 + 2), 4210752);
 	}
 
 	@Override
 	protected void drawBackground(float delta, int mouseX, int mouseY) {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.minecraft.getTextureManager().bindTexture(TEXTURE);
-		int i = (this.width - this.containerWidth) / 2;
-		int j = (this.height - this.containerHeight) / 2;
-		this.blit(i, j, 0, 0, this.containerWidth, 7 * 18 + 17);
-		this.blit(i, j + 7 * 18, 0, 126, this.containerWidth, 114);
-		this.blit(i + 23, j + 5, 0, 240, this.containerWidth, 16); // Draw the bar
+		this.client.getTextureManager().bindTexture(TEXTURE);
+		int i = (this.width - this.backgroundWidth) / 2;
+		int j = (this.height - this.backgroundHeight) / 2;
+		this.drawTexture(i, j, 0, 0, this.backgroundWidth, 7 * 18 + 17);
+		this.drawTexture(i, j + 7 * 18, 0, 126, this.backgroundWidth, 114);
+		this.drawTexture(i + 23, j + 5, 0, 240, this.backgroundWidth, 16); // Draw the bar
 	}
 }

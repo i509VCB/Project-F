@@ -39,7 +39,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.util.DefaultedList;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 public abstract class AbstractFMCItem extends Item implements BasicDurabilityProvider, FMCArticleProvider {

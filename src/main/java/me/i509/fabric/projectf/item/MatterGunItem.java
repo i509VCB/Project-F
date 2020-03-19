@@ -96,7 +96,7 @@ public class MatterGunItem extends AbstractFMCItem {
 
 				if (store.getSupplier().apply(FMCArticle.getArticle(), 200, false) == 200) {
 					// TODO test code
-					player.addChatMessage(new LiteralText("yeet"), false);
+					player.addMessage(new LiteralText("yeet"), false);
 					// TODO test code
 					player.getDataTracker().set(PlayerTrackedData.MATTER_GUN_DELAY, 20);
 					transaction.commit();

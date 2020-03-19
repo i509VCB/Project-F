@@ -27,8 +27,8 @@ package me.i509.fabric.projectf.api.processor.serializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import me.i509.fabric.projectf.api.processor.type.Processor;
+import net.minecraft.network.PacketByteBuf;
 import me.i509.fabric.projectf.api.processor.factory.ProcessorFactory;
-import net.minecraft.util.PacketByteBuf;
 
 public interface ProcessorSerializer<P extends Processor, F extends ProcessorFactory<P>> {
 	P deserialize(JsonElement element) throws JsonParseException;

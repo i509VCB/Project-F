@@ -6,6 +6,10 @@ out/
 classes/
 logs/
 
+# eclipse
+
+*.launch
+
 # idea
 
 .idea/
@@ -24,3 +28,4 @@ bin/
 # fabric
 
 run/
+remappedSrc/

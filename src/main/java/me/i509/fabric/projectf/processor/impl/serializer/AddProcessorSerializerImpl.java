@@ -38,7 +38,7 @@ import me.i509.fabric.projectf.api.processor.serializer.AddProcessorSerializer;
 import me.i509.fabric.projectf.processor.ProcessorRegistry;
 import me.i509.fabric.projectf.processor.impl.type.AddProcessorImpl;
 import me.i509.fabric.projectf.util.gson.GsonUtils;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.network.PacketByteBuf;
 
 public class AddProcessorSerializerImpl implements AddProcessorSerializer {
 	@Override

@@ -28,10 +28,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import me.i509.fabric.projectf.recipe.PhilosophersStoneBlockRecipe;
 import net.minecraft.block.Block;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.registry.Registry;
 
 public class PhilsophersStoneBlockRecipeSerializer implements RecipeSerializer<PhilosophersStoneBlockRecipe> {

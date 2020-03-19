@@ -25,13 +25,13 @@
 package me.i509.fabric.projectf.client.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import me.i509.fabric.projectf.container.AbstractChestLikeContainer;
-import net.minecraft.client.gui.screen.ingame.ContainerScreen;
+import me.i509.fabric.projectf.container.AbstractChestLikeScreenHandler;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public abstract class AbstractChestLikeScreen<T extends AbstractChestLikeContainer<?>> extends ContainerScreen<T> {
+public abstract class AbstractChestLikeScreen<T extends AbstractChestLikeScreenHandler<?>> extends HandledScreen<T> {
 	private static final Identifier TEXTURE = new Identifier("textures/gui/container/generic_54.png");
 	private final int rows;
 
@@ -39,7 +39,7 @@ public abstract class AbstractChestLikeScreen<T extends AbstractChestLikeContain
 		super(container, playerInventory, name);
 		this.passEvents = false;
 		this.rows = container.getRows();
-		this.containerHeight = 114 + this.rows * 18;
+		this.backgroundHeight = 114 + this.rows * 18;
 	}
 
 	@Override
@@ -51,17 +51,17 @@ public abstract class AbstractChestLikeScreen<T extends AbstractChestLikeContain
 
 	@Override
 	protected void drawForeground(int mouseX, int mouseY) {
-		this.font.draw(this.title.asFormattedString(), 8.0F, 6.0F, 4210752);
-		this.font.draw(this.playerInventory.getDisplayName().asFormattedString(), 8.0F, (float) (this.containerHeight - 96 + 2), 4210752);
+		this.textRenderer.draw(this.title.asFormattedString(), 8.0F, 6.0F, 4210752);
+		this.textRenderer.draw(this.playerInventory.getDisplayName().asFormattedString(), 8.0F, (float) (this.backgroundHeight - 96 + 2), 4210752);
 	}
 
 	@Override
 	protected void drawBackground(float delta, int mouseX, int mouseY) {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.minecraft.getTextureManager().bindTexture(TEXTURE);
-		int x = (this.width - this.containerWidth) / 2;
-		int y = (this.height - this.containerHeight) / 2;
-		this.blit(x, y, 0, 0, this.containerWidth, this.rows * 18 + 17);
-		this.blit(x, y + this.rows * 18 + 17, 0, 126, this.containerWidth, 96);
+		this.client.getTextureManager().bindTexture(TEXTURE);
+		int x = (this.width - this.backgroundWidth) / 2;
+		int y = (this.height - this.backgroundHeight) / 2;
+		this.drawTexture(x, y, 0, 0, this.backgroundWidth, this.rows * 18 + 17);
+		this.drawTexture(x, y + this.rows * 18 + 17, 0, 126, this.backgroundWidth, 96);
 	}
 }

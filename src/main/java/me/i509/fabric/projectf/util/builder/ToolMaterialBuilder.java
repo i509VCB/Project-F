@@ -86,7 +86,7 @@ public class ToolMaterialBuilder {
 		}
 
 		@Override
-		public float getMiningSpeed() {
+		public float getMiningSpeedMultiplier() {
 			return this.miningSpeed;
 		}
 

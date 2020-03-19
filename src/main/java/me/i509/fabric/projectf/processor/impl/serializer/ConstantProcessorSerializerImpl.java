@@ -30,7 +30,7 @@ import com.google.gson.JsonPrimitive;
 import me.i509.fabric.projectf.api.processor.type.ConstantProcessor;
 import me.i509.fabric.projectf.api.processor.serializer.ConstantProcessorSerializer;
 import me.i509.fabric.projectf.processor.impl.type.ConstantProcessorImpl;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.network.PacketByteBuf;
 
 public class ConstantProcessorSerializerImpl implements ConstantProcessorSerializer {
 	@Override
