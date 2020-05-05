@@ -45,7 +45,7 @@ public abstract class AbstractChestLikeScreenHandler<I extends Inventory> extend
 		this.inventory = inventory;
 		this.title = title;
 		this.rows = rows;
-		inventory.onInvOpen(playerInventory.player);
+		inventory.onOpen(playerInventory.player);
 		int totalHeight = (this.rows - 4) * 18;
 
 		for (int y = 0; y < this.rows; ++y) {
@@ -67,7 +67,7 @@ public abstract class AbstractChestLikeScreenHandler<I extends Inventory> extend
 
 	@Override
 	public boolean canUse(PlayerEntity player) {
-		return this.inventory.canPlayerUseInv(player);
+		return this.inventory.canPlayerUse(player);
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public abstract class AbstractChestLikeScreenHandler<I extends Inventory> extend
 	@Override
 	public void close(PlayerEntity player) {
 		super.close(player);
-		this.inventory.onInvClose(player);
+		this.inventory.onClose(player);
 	}
 
 	public int getRows() {

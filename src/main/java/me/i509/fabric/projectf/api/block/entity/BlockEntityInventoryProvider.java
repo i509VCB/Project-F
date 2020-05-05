@@ -47,38 +47,38 @@ public interface BlockEntityInventoryProvider<I extends Inventory> extends Inven
 	// INVENTORY METHODS
 
 	@Override
-	default int getInvSize() {
-		return this.getInventory().getInvSize();
+	default int size() {
+		return this.getInventory().size();
 	}
 
 	@Override
-	default boolean isInvEmpty() {
-		return this.getInventory().isInvEmpty();
+	default boolean isEmpty() {
+		return this.getInventory().isEmpty();
 	}
 
 	@Override
-	default ItemStack getInvStack(int slot) {
-		return this.getInventory().getInvStack(slot);
+	default ItemStack getStack(int slot) {
+		return this.getInventory().getStack(slot);
 	}
 
 	@Override
-	default ItemStack takeInvStack(int slot, int amount) {
-		return this.getInventory().takeInvStack(slot, amount);
+	default ItemStack removeStack(int slot, int amount) {
+		return this.getInventory().removeStack(slot, amount);
 	}
 
 	@Override
-	default ItemStack removeInvStack(int slot) {
-		return this.getInventory().removeInvStack(slot);
+	default ItemStack removeStack(int slot) {
+		return this.getInventory().removeStack(slot);
 	}
 
 	@Override
-	default void setInvStack(int slot, ItemStack stack) {
-		this.getInventory().setInvStack(slot, stack);
+	default void setStack(int slot, ItemStack stack) {
+		this.getInventory().setStack(slot, stack);
 	}
 
 	@Override
-	default int getInvMaxStackAmount() {
-		return this.getInventory().getInvMaxStackAmount();
+	default int getMaxCountPerStack() {
+		return this.getInventory().getMaxCountPerStack();
 	}
 
 	@Override
@@ -87,34 +87,34 @@ public interface BlockEntityInventoryProvider<I extends Inventory> extends Inven
 	}
 
 	@Override
-	default boolean canPlayerUseInv(PlayerEntity player) {
-		return this.getInventory().canPlayerUseInv(player);
+	default boolean canPlayerUse(PlayerEntity player) {
+		return this.getInventory().canPlayerUse(player);
 	}
 
 	@Override
-	default void onInvOpen(PlayerEntity player) {
-		this.getInventory().onInvOpen(player);
+	default void onOpen(PlayerEntity player) {
+		this.getInventory().onOpen(player);
 	}
 
 	@Override
-	default void onInvClose(PlayerEntity player) {
-		this.getInventory().onInvClose(player);
+	default void onClose(PlayerEntity player) {
+		this.getInventory().onClose(player);
 	}
 
 	@Override
-	default boolean isValidInvStack(int slot, ItemStack stack) {
-		return this.getInventory().isValidInvStack(slot, stack);
+	default boolean isValid(int slot, ItemStack stack) {
+		return this.getInventory().isValid(slot, stack);
 	}
 
 	@Override
-	default int countInInv(Item item) {
-		return this.getInventory().countInInv(item);
+	default int count(Item item) {
+		return this.getInventory().count(item);
 	}
 
 
 	@Override
-	default boolean containsAnyInInv(Set<Item> items) {
-		return this.getInventory().containsAnyInInv(items);
+	default boolean containsAny(Set<Item> items) {
+		return this.getInventory().containsAny(items);
 	}
 
 	public static <I extends Inventory> Optional<I> getInventory(Class<I> inventoryClazz, World world, BlockPos blockPos) {

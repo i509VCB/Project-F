@@ -12,17 +12,17 @@ public interface SidedBlockEntityInventoryProvider<S extends SidedInventory> ext
 	// SIDED INVENTORY METHODS
 
 	@Override
-	default int[] getInvAvailableSlots(Direction side) {
-		return this.getInventory().getInvAvailableSlots(side);
+	default int[] getAvailableSlots(Direction side) {
+		return this.getInventory().getAvailableSlots(side);
 	}
 
 	@Override
-	default boolean canInsertInvStack(int slot, ItemStack stack, @Nullable Direction dir) {
-		return this.getInventory().canInsertInvStack(slot, stack, dir);
+	default boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+		return this.getInventory().canInsert(slot, stack, dir);
 	}
 
 	@Override
-	default boolean canExtractInvStack(int slot, ItemStack stack, Direction dir) {
-		return this.getInventory().canExtractInvStack(slot, stack, dir);
+	default boolean canExtract(int slot, ItemStack stack, Direction dir) {
+		return this.getInventory().canExtract(slot, stack, dir);
 	}
 }

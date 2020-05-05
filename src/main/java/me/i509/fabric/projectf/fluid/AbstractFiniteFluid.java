@@ -27,7 +27,7 @@ package me.i509.fabric.projectf.fluid;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.fluid.BaseFluid;
+import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
@@ -37,7 +37,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.WorldView;
 
-public abstract class AbstractFiniteFluid extends BaseFluid {
+public abstract class AbstractFiniteFluid extends FlowableFluid {
 	@Override
 	protected boolean isInfinite() {
 		return false;
@@ -72,7 +72,7 @@ public abstract class AbstractFiniteFluid extends BaseFluid {
 
 	// this seems to determine fluid's spread speed (higher value means faster)
 	@Override
-	protected int method_15733(WorldView world) {
+	protected int getFlowSpeed(WorldView world) {
 		return 4;
 	}
 

@@ -44,16 +44,16 @@ public class AlchemicalBagInventory extends BasicInventory implements SidedInven
 	public void readTags(ListTag listTag) {
 		int j;
 
-		for (j = 0; j < this.getInvSize(); ++j) {
-			this.setInvStack(j, ItemStack.EMPTY);
+		for (j = 0; j < this.size(); ++j) {
+			this.setStack(j, ItemStack.EMPTY);
 		}
 
 		for (j = 0; j < listTag.size(); ++j) {
 			CompoundTag compoundTag = listTag.getCompound(j);
 			int k = compoundTag.getByte("Slot") & 255;
 
-			if (k >= 0 && k < this.getInvSize()) {
-				this.setInvStack(k, ItemStack.fromTag(compoundTag));
+			if (k >= 0 && k < this.size()) {
+				this.setStack(k, ItemStack.fromTag(compoundTag));
 			}
 		}
 	}
@@ -61,8 +61,8 @@ public class AlchemicalBagInventory extends BasicInventory implements SidedInven
 	public ListTag getTags() {
 		ListTag listTag = new ListTag();
 
-		for (int i = 0; i < this.getInvSize(); ++i) {
-			ItemStack itemStack = this.getInvStack(i);
+		for (int i = 0; i < this.size(); ++i) {
+			ItemStack itemStack = this.getStack(i);
 
 			if (!itemStack.isEmpty()) {
 				CompoundTag compoundTag = new CompoundTag();
@@ -76,17 +76,17 @@ public class AlchemicalBagInventory extends BasicInventory implements SidedInven
 	}
 
 	@Override
-	public int[] getInvAvailableSlots(Direction side) {
+	public int[] getAvailableSlots(Direction side) {
 		return IntStream.range(0, 27).toArray();
 	}
 
 	@Override
-	public boolean canInsertInvStack(int slot, ItemStack stack, Direction dir) {
+	public boolean canInsert(int slot, ItemStack stack, Direction dir) {
 		return true;
 	}
 
 	@Override
-	public boolean canExtractInvStack(int slot, ItemStack stack, Direction dir) {
+	public boolean canExtract(int slot, ItemStack stack, Direction dir) {
 		return true;
 	}
 

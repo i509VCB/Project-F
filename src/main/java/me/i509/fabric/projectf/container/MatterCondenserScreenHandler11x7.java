@@ -54,7 +54,7 @@ public class MatterCondenserScreenHandler11x7 extends ScreenHandler {
 		this.playerInventory = playerInventory;
 		this.inventory = inventory;
 		this.name = name;
-		this.inventory.onInvOpen(playerInventory.player);
+		this.inventory.onOpen(playerInventory.player);
 		this.longSupplier = longSupplier;
 
 		this.addSlot(new OneItemSlot(inventory, 0,  5, 5));
@@ -78,7 +78,7 @@ public class MatterCondenserScreenHandler11x7 extends ScreenHandler {
 
 	@Override
 	public boolean canUse(PlayerEntity player) {
-		return this.inventory.canPlayerUseInv(player);
+		return this.inventory.canPlayerUse(player);
 	}
 
 	@Override
@@ -111,7 +111,7 @@ public class MatterCondenserScreenHandler11x7 extends ScreenHandler {
 	@Override
 	public void close(PlayerEntity player) {
 		super.close(player);
-		this.inventory.onInvClose(player);
+		this.inventory.onClose(player);
 	}
 
 	public Inventory getInventory() {

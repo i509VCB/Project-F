@@ -29,14 +29,14 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.fluid.BaseFluid;
+import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class DamagingBaseFluidBlock extends FluidBlock {
-	public DamagingBaseFluidBlock(BaseFluid fluid, Settings settings) {
+	public DamagingBaseFluidBlock(FlowableFluid fluid, Settings settings) {
 		super(fluid, settings);
 	}
 

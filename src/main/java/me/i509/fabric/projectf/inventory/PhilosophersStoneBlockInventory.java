@@ -41,32 +41,32 @@ public class PhilosophersStoneBlockInventory implements Inventory {
 	}
 
 	@Override
-	public int getInvSize() {
+	public int size() {
 		return 1;
 	}
 
 	@Override
-	public boolean isInvEmpty() {
+	public boolean isEmpty() {
 		return false;
 	}
 
 	@Override
-	public ItemStack getInvStack(int slot) {
+	public ItemStack getStack(int slot) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	public ItemStack takeInvStack(int slot, int amount) {
+	public ItemStack removeStack(int slot, int amount) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	public ItemStack removeInvStack(int slot) {
+	public ItemStack removeStack(int slot) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	public void setInvStack(int slot, ItemStack stack) {
+	public void setStack(int slot, ItemStack stack) {
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class PhilosophersStoneBlockInventory implements Inventory {
 	}
 
 	@Override
-	public boolean canPlayerUseInv(PlayerEntity player) {
+	public boolean canPlayerUse(PlayerEntity player) {
 		return false;
 	}
 
