@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.2.6-SNAPSHOT'
+    id 'fabric-loom' version '0.2.7-SNAPSHOT'
     id 'maven-publish'
     id 'checkstyle'
     id 'net.minecrell.licenser' version '0.4.1'
@@ -65,8 +65,9 @@ dependencies {
     modCompile "net.fabricmc:fabric-loader:${project.loader_version}"
     modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    // Config
-    implementation "org.spongepowered:configurate-hocon:${project.configurate_version}"
+    // Configs
+    modImplementation "ca.stellardrift:confabricate:${project.confabricate_version}"
+    include "ca.stellardrift:confabricate:${project.confabricate_version}"
 
     // Required Dependencies.
     // Fluidity
