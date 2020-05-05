@@ -22,13 +22,33 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.api.processor.factory;
+package me.i509.fabric.projectf.processor.impl.factory;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import me.i509.fabric.projectf.api.processor.factory.MultiplyProcessorBuilder;
+import me.i509.fabric.projectf.api.processor.type.MultiplyProcessor;
 import me.i509.fabric.projectf.api.processor.type.Processor;
+import me.i509.fabric.projectf.processor.impl.type.MultiplyProcessorImpl;
 
-/**
- * Represents a Function which returns an FMC value based on an ItemStack.
- */
-public interface ProcessorFactory<P extends Processor> {
-	P create();
+public class MultiplyProcessorBuilderImpl implements MultiplyProcessorBuilder {
+	private Processor<?> processor;
+	private double multiplier;
+
+	@Override
+	public MultiplyProcessor build() {
+		checkNotNull(processor, "Processor to be multiplied cannot be null");
+		return new MultiplyProcessorImpl(processor, multiplier);
+	}
+
+	@Override
+	public MultiplyProcessorBuilder processor(Processor<?> processor) {
+		this.processor = processor;
+		return this;
+	}
+
+	@Override
+	public MultiplyProcessorBuilder multiplier(double multiplier) {
+		this.multiplier = multiplier;
+		return this;
+	}
 }

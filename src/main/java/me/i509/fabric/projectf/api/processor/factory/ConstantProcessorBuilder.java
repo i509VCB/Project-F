@@ -22,31 +22,10 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl.factory;
+package me.i509.fabric.projectf.api.processor.factory;
 
-import me.i509.fabric.projectf.api.processor.factory.MinProcessorFactory;
-import me.i509.fabric.projectf.api.processor.type.MinProcessor;
-import me.i509.fabric.projectf.api.processor.type.Processor;
-import me.i509.fabric.projectf.processor.impl.type.MinProcessorImpl;
+import me.i509.fabric.projectf.api.processor.type.ConstantProcessor;
 
-public class MinProcessorFactoryImpl implements MinProcessorFactory {
-	private Processor<?> first;
-	private Processor<?> second;
-
-	@Override
-	public MinProcessorFactory first(Processor<?> processor) {
-		this.first = processor;
-		return this;
-	}
-
-	@Override
-	public MinProcessorFactory second(Processor<?> processor) {
-		this.second = processor;
-		return this;
-	}
-
-	@Override
-	public MinProcessor create() {
-		return new MinProcessorImpl(this.first, this.second);
-	}
+public interface ConstantProcessorBuilder extends ProcessorBuilder<ConstantProcessor> {
+	ConstantProcessorBuilder value(long value);
 }

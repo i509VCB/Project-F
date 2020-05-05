@@ -24,8 +24,8 @@
 
 package me.i509.fabric.projectf.api.processor.serializer;
 
-import me.i509.fabric.projectf.api.processor.factory.AddProcessorFactory;
+import me.i509.fabric.projectf.api.processor.factory.AddProcessorBuilder;
 import me.i509.fabric.projectf.api.processor.type.AddProcessor;
 
-public interface AddProcessorSerializer extends ProcessorSerializer<AddProcessor, AddProcessorFactory> {
+public interface AddProcessorSerializer extends ProcessorSerializer<AddProcessor, AddProcessorBuilder> {
 }

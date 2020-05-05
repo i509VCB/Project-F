@@ -24,31 +24,29 @@
 
 package me.i509.fabric.projectf.processor.impl.factory;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import me.i509.fabric.projectf.api.processor.factory.MultiplyProcessorFactory;
-import me.i509.fabric.projectf.api.processor.type.MultiplyProcessor;
+import me.i509.fabric.projectf.api.processor.factory.MaxProcessorBuilder;
+import me.i509.fabric.projectf.api.processor.type.MaxProcessor;
 import me.i509.fabric.projectf.api.processor.type.Processor;
-import me.i509.fabric.projectf.processor.impl.type.MultiplyProcessorImpl;
+import me.i509.fabric.projectf.processor.impl.type.MaxProcessorImpl;
 
-public class MultiplyProcessorFactoryImpl implements MultiplyProcessorFactory {
-	private Processor<?> processor;
-	private double multiplier;
-
-	@Override
-	public MultiplyProcessor create() {
-		checkNotNull(processor, "Processor to be multiplied cannot be null");
-		return new MultiplyProcessorImpl(processor, multiplier);
-	}
+public class MaxProcessorBuilderImpl implements MaxProcessorBuilder {
+	private Processor<?> first;
+	private Processor<?> second;
 
 	@Override
-	public MultiplyProcessorFactory processor(Processor<?> processor) {
-		this.processor = processor;
+	public MaxProcessorBuilder first(Processor<?> processor) {
+		this.first = processor;
 		return this;
 	}
 
 	@Override
-	public MultiplyProcessorFactory multiplier(double multiplier) {
-		this.multiplier = multiplier;
+	public MaxProcessorBuilder second(Processor<?> processor) {
+		this.second = processor;
 		return this;
+	}
+
+	@Override
+	public MaxProcessor build() {
+		return new MaxProcessorImpl(this.first, this.second);
 	}
 }

@@ -22,13 +22,25 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.api.processor.factory;
+package me.i509.fabric.projectf.processor.impl.factory;
 
-import me.i509.fabric.projectf.api.processor.type.MaxProcessor;
-import me.i509.fabric.projectf.api.processor.type.Processor;
+import static com.google.common.base.Preconditions.checkArgument;
+import me.i509.fabric.projectf.api.processor.type.ConstantProcessor;
+import me.i509.fabric.projectf.api.processor.factory.ConstantProcessorBuilder;
+import me.i509.fabric.projectf.processor.impl.type.ConstantProcessorImpl;
 
-public interface MaxProcessorFactory extends ProcessorFactory<MaxProcessor> {
-	MaxProcessorFactory first(Processor<?> processor);
+public class ConstantProcessorBuilderImpl implements ConstantProcessorBuilder {
+	private long value;
 
-	MaxProcessorFactory second(Processor<?> processor);
+	@Override
+	public ConstantProcessorBuilder value(long value) {
+		this.value = value;
+		return this;
+	}
+
+	@Override
+	public ConstantProcessor build() {
+		checkArgument(value >= 0, "Constant Processor value cannot be negative.");
+		return new ConstantProcessorImpl(this.value);
+	}
 }

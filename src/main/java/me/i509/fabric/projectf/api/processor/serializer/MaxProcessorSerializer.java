@@ -24,8 +24,8 @@
 
 package me.i509.fabric.projectf.api.processor.serializer;
 
-import me.i509.fabric.projectf.api.processor.factory.MaxProcessorFactory;
+import me.i509.fabric.projectf.api.processor.factory.MaxProcessorBuilder;
 import me.i509.fabric.projectf.api.processor.type.MaxProcessor;
 
-public interface MaxProcessorSerializer extends ProcessorSerializer<MaxProcessor, MaxProcessorFactory> {
+public interface MaxProcessorSerializer extends ProcessorSerializer<MaxProcessor, MaxProcessorBuilder> {
 }

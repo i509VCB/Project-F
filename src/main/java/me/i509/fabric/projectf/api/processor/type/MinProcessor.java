@@ -24,9 +24,9 @@
 
 package me.i509.fabric.projectf.api.processor.type;
 
-import me.i509.fabric.projectf.api.processor.factory.MinProcessorFactory;
+import me.i509.fabric.projectf.api.processor.factory.MinProcessorBuilder;
 
-public interface MinProcessor extends Processor<MinProcessorFactory> {
+public interface MinProcessor extends Processor<MinProcessorBuilder> {
 	Processor<?> first();
 
 	Processor<?> second();

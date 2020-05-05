@@ -22,13 +22,34 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.api.processor.factory;
+package me.i509.fabric.projectf.processor.impl.factory;
 
-import me.i509.fabric.projectf.api.processor.type.OfItemsProcessor;
-import net.minecraft.item.Item;
+import static com.google.common.base.Preconditions.checkNotNull;
+import me.i509.fabric.projectf.api.processor.type.Processor;
+import me.i509.fabric.projectf.api.processor.type.AddProcessor;
+import me.i509.fabric.projectf.api.processor.factory.AddProcessorBuilder;
+import me.i509.fabric.projectf.processor.impl.type.AddProcessorImpl;
 
-public interface OfItemsProcessorFactory extends ProcessorFactory<OfItemsProcessor> {
-	OfItemsProcessorFactory of (Item... item);
+public class AddProcessorBuilderImpl implements AddProcessorBuilder {
+	private Processor first;
+	private Processor second;
 
-	OfItemsProcessorFactory of (Item item);
+	@Override
+	public AddProcessorBuilder first(Processor processor) {
+		this.first = processor;
+		return this;
+	}
+
+	@Override
+	public AddProcessorBuilder second(Processor processor) {
+		this.second = processor;
+		return this;
+	}
+
+	@Override
+	public AddProcessor build() {
+		checkNotNull(first, "First Processor cannot be null.");
+		checkNotNull(second, "Second Processor cannot be null.");
+		return new AddProcessorImpl(this.first, this.second);
+	}
 }

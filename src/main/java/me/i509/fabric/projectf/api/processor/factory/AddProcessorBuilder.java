@@ -22,33 +22,13 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl.factory;
+package me.i509.fabric.projectf.api.processor.factory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import me.i509.fabric.projectf.api.processor.type.OfItemsProcessor;
-import me.i509.fabric.projectf.api.processor.factory.OfItemsProcessorFactory;
-import me.i509.fabric.projectf.processor.impl.type.OfItemsProcessorImpl;
-import net.minecraft.item.Item;
+import me.i509.fabric.projectf.api.processor.type.Processor;
+import me.i509.fabric.projectf.api.processor.type.AddProcessor;
 
-public class OfItemsProcessorFactoryImpl implements OfItemsProcessorFactory {
-	private List<Item> items = new ArrayList<>();
+public interface AddProcessorBuilder extends ProcessorBuilder<AddProcessor> {
+	AddProcessorBuilder first(Processor processor);
 
-	@Override
-	public OfItemsProcessorFactory of(Item... items) {
-		this.items.addAll(Arrays.asList(items));
-		return this;
-	}
-
-	@Override
-	public OfItemsProcessorFactory of(Item item) {
-		this.items.add(item);
-		return this;
-	}
-
-	@Override
-	public OfItemsProcessor create() {
-		return new OfItemsProcessorImpl(this.items);
-	}
+	AddProcessorBuilder second(Processor processor);
 }

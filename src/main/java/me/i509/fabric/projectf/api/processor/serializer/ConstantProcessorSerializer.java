@@ -24,8 +24,8 @@
 
 package me.i509.fabric.projectf.api.processor.serializer;
 
-import me.i509.fabric.projectf.api.processor.factory.ConstantProcessorFactory;
+import me.i509.fabric.projectf.api.processor.factory.ConstantProcessorBuilder;
 import me.i509.fabric.projectf.api.processor.type.ConstantProcessor;
 
-public interface ConstantProcessorSerializer extends ProcessorSerializer<ConstantProcessor, ConstantProcessorFactory> {
+public interface ConstantProcessorSerializer extends ProcessorSerializer<ConstantProcessor, ConstantProcessorBuilder> {
 }

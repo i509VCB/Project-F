@@ -25,9 +25,9 @@
 package me.i509.fabric.projectf.api.processor.type;
 
 import java.util.List;
-import me.i509.fabric.projectf.api.processor.factory.OfItemsProcessorFactory;
+import me.i509.fabric.projectf.api.processor.factory.OfItemsProcessorBuilder;
 import net.minecraft.item.Item;
 
-public interface OfItemsProcessor extends Processor<OfItemsProcessorFactory> {
+public interface OfItemsProcessor extends Processor<OfItemsProcessorBuilder> {
 	List<Item> getItems();
 }

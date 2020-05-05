@@ -24,9 +24,9 @@
 
 package me.i509.fabric.projectf.api.processor.type;
 
-import me.i509.fabric.projectf.api.processor.factory.MaxProcessorFactory;
+import me.i509.fabric.projectf.api.processor.factory.MaxProcessorBuilder;
 
-public interface MaxProcessor extends Processor<MaxProcessorFactory> {
+public interface MaxProcessor extends Processor<MaxProcessorBuilder> {
 	Processor<?> first();
 
 	Processor<?> second();

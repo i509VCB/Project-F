@@ -31,10 +31,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 public class AddProcessorImpl implements AddProcessor {
-	private final Processor first;
-	private final Processor second;
+	private final Processor<?> first;
+	private final Processor<?> second;
 
-	public AddProcessorImpl(Processor first, Processor second) {
+	public AddProcessorImpl(Processor<?> first, Processor<?> second) {
 		this.first = first;
 		this.second = second;
 	}
@@ -50,12 +50,12 @@ public class AddProcessorImpl implements AddProcessor {
 	}
 
 	@Override
-	public Processor getFirst() {
+	public Processor<?> getFirst() {
 		return this.first;
 	}
 
 	@Override
-	public Processor getSecond() {
+	public Processor<?> getSecond() {
 		return this.second;
 	}
 }

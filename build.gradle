@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.2.7-SNAPSHOT'
+    id 'fabric-loom' version '0.4.3'
     id 'maven-publish'
     id 'checkstyle'
     id 'net.minecrell.licenser' version '0.4.1'
@@ -30,15 +30,6 @@ repositories {
     maven { url = "https://www.jitpack.io" }
     maven { url = "https://tehnut.info/maven/" }
     maven { url = "https://maven.abusedmaster.xyz/" }
-    // Sad Maven Repo :(
-    maven {
-        name = "grondag"
-        url = "https://grondag-repo.appspot.com"
-        credentials {
-            username "guest"
-            password ""
-        }
-    }
 }
 
 logger.lifecycle("""
@@ -49,7 +40,6 @@ logger.lifecycle("""
 	Minecraft Version: ${project.minecraft_version}
 	Fabric-Loader Version: ${project.loader_version}
 	Fabric-API Version: ${project.fabric_version}
-	Fluidity Version: ${project.fluidity_version}
 
 	Output files will be in /build/libs
 	=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -69,22 +59,18 @@ dependencies {
     modImplementation "ca.stellardrift:confabricate:${project.confabricate_version}"
     include "ca.stellardrift:confabricate:${project.confabricate_version}"
 
-    // Required Dependencies.
-    // Fluidity
-    modImplementation ("grondag:fluidity-mc116:${project.fluidity_version}.+") { transitive = false }
-    include "grondag:fluidity-mc116:${project.fluidity_version}.+"
     // PAL
-    modImplementation "io.github.ladysnake:PlayerAbilityLib:${project.pal_version}"
+    modImplementation ("io.github.ladysnake:PlayerAbilityLib:${project.pal_version}") {
+        transitive = false
+    }
     include "io.github.ladysnake:PlayerAbilityLib:${project.pal_version}"
 
     // Annotations
     implementation "org.checkerframework:checker-qual:${project.qual_version}"
-    compileOnly "org.apiguardian:apiguardian-api:1.0.0"
 
-    // Soft Compat Mod: Trinkets
+    modImplementation "io.github.OnyxStudios.Cardinal-Components-API:cardinal-components-base:2.3.4"
+    modImplementation "io.github.OnyxStudios.Cardinal-Components-API:cardinal-components-item:2.3.4"
     /*
-    modRuntime "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-base:2.0.3"
-    modRuntime "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-entity:2.0.3"
     modImplementation("com.github.emilyploszaj:trinkets:${project.trinkets_version}") {
         transitive = false
     }
@@ -97,8 +83,7 @@ dependencies {
     }
 
     modCompile("io.github.prospector:modmenu:${modmenu_version}") {
-        exclude (group: "net.fabricmc", module: "fabric-loader")
-        exclude (group: "net.fabricmc.fabric-api")
+        transitive = false
     }
 
     // Towelette is used for a single hook so stair collisions work with damaging fluid.

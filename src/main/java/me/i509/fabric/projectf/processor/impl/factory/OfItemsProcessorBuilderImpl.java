@@ -24,32 +24,31 @@
 
 package me.i509.fabric.projectf.processor.impl.factory;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import me.i509.fabric.projectf.api.processor.type.Processor;
-import me.i509.fabric.projectf.api.processor.type.AddProcessor;
-import me.i509.fabric.projectf.api.processor.factory.AddProcessorFactory;
-import me.i509.fabric.projectf.processor.impl.type.AddProcessorImpl;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import me.i509.fabric.projectf.api.processor.type.OfItemsProcessor;
+import me.i509.fabric.projectf.api.processor.factory.OfItemsProcessorBuilder;
+import me.i509.fabric.projectf.processor.impl.type.OfItemsProcessorImpl;
+import net.minecraft.item.Item;
 
-public class AddProcessorFactoryImpl implements AddProcessorFactory {
-	private Processor first;
-	private Processor second;
+public class OfItemsProcessorBuilderImpl implements OfItemsProcessorBuilder {
+	private List<Item> items = new ArrayList<>();
 
 	@Override
-	public AddProcessorFactory first(Processor processor) {
-		this.first = processor;
+	public OfItemsProcessorBuilder of(Item... items) {
+		this.items.addAll(Arrays.asList(items));
 		return this;
 	}
 
 	@Override
-	public AddProcessorFactory second(Processor processor) {
-		this.second = processor;
+	public OfItemsProcessorBuilder of(Item item) {
+		this.items.add(item);
 		return this;
 	}
 
 	@Override
-	public AddProcessor create() {
-		checkNotNull(first, "First Processor cannot be null.");
-		checkNotNull(second, "Second Processor cannot be null.");
-		return new AddProcessorImpl(this.first, this.second);
+	public OfItemsProcessor build() {
+		return new OfItemsProcessorImpl(this.items);
 	}
 }

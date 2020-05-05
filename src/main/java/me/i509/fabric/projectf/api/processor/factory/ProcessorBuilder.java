@@ -24,11 +24,11 @@
 
 package me.i509.fabric.projectf.api.processor.factory;
 
-import me.i509.fabric.projectf.api.processor.type.MinProcessor;
 import me.i509.fabric.projectf.api.processor.type.Processor;
 
-public interface MinProcessorFactory extends ProcessorFactory<MinProcessor> {
-	MinProcessorFactory first(Processor<?> processor);
-
-	MinProcessorFactory second(Processor<?> processor);
+/**
+ * Represents a Function which returns an FMC value based on an ItemStack.
+ */
+public interface ProcessorBuilder<P extends Processor> {
+	P build();
 }

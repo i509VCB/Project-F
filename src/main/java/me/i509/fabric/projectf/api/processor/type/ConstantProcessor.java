@@ -24,8 +24,8 @@
 
 package me.i509.fabric.projectf.api.processor.type;
 
-import me.i509.fabric.projectf.api.processor.factory.ConstantProcessorFactory;
+import me.i509.fabric.projectf.api.processor.factory.ConstantProcessorBuilder;
 
-public interface ConstantProcessor extends Processor<ConstantProcessorFactory> {
+public interface ConstantProcessor extends Processor<ConstantProcessorBuilder> {
 	long getSingleValue();
 }

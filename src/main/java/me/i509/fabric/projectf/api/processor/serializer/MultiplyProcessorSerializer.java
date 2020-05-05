@@ -24,8 +24,8 @@
 
 package me.i509.fabric.projectf.api.processor.serializer;
 
-import me.i509.fabric.projectf.api.processor.factory.MultiplyProcessorFactory;
+import me.i509.fabric.projectf.api.processor.factory.MultiplyProcessorBuilder;
 import me.i509.fabric.projectf.api.processor.type.MultiplyProcessor;
 
-public interface MultiplyProcessorSerializer extends ProcessorSerializer<MultiplyProcessor, MultiplyProcessorFactory> {
+public interface MultiplyProcessorSerializer extends ProcessorSerializer<MultiplyProcessor, MultiplyProcessorBuilder> {
 }

@@ -24,10 +24,10 @@
 
 package me.i509.fabric.projectf.api.processor.type;
 
-import me.i509.fabric.projectf.api.processor.factory.AddProcessorFactory;
+import me.i509.fabric.projectf.api.processor.factory.AddProcessorBuilder;
 
-public interface AddProcessor extends Processor<AddProcessorFactory> {
-	Processor getFirst();
+public interface AddProcessor extends Processor<AddProcessorBuilder> {
+	Processor<?> getFirst();
 
-	Processor getSecond();
+	Processor<?> getSecond();
 }

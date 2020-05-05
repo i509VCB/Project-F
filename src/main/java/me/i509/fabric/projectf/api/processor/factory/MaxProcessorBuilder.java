@@ -24,8 +24,11 @@
 
 package me.i509.fabric.projectf.api.processor.factory;
 
-import me.i509.fabric.projectf.api.processor.type.ConstantProcessor;
+import me.i509.fabric.projectf.api.processor.type.MaxProcessor;
+import me.i509.fabric.projectf.api.processor.type.Processor;
 
-public interface ConstantProcessorFactory extends ProcessorFactory<ConstantProcessor> {
-	ConstantProcessorFactory value(long value);
+public interface MaxProcessorBuilder extends ProcessorBuilder<MaxProcessor> {
+	MaxProcessorBuilder first(Processor<?> processor);
+
+	MaxProcessorBuilder second(Processor<?> processor);
 }

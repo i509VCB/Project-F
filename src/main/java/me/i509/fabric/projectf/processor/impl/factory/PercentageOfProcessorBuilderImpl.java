@@ -22,9 +22,15 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.api.processor.factory;
+package me.i509.fabric.projectf.processor.impl.factory;
 
+import me.i509.fabric.projectf.api.processor.factory.PercentageOfProcessorBuilder;
 import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
+import me.i509.fabric.projectf.processor.impl.type.PercentageOfProcessorImpl;
 
-public interface PercentageOfProcessorFactory extends ProcessorFactory<PercentageOfProcessor> {
+public class PercentageOfProcessorBuilderImpl implements PercentageOfProcessorBuilder {
+	@Override
+	public PercentageOfProcessor build() {
+		return new PercentageOfProcessorImpl();
+	}
 }

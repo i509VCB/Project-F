@@ -25,12 +25,12 @@
 package me.i509.fabric.projectf.api.processor;
 
 import java.util.function.Supplier;
-import me.i509.fabric.projectf.api.processor.factory.ProcessorFactory;
+import me.i509.fabric.projectf.api.processor.factory.ProcessorBuilder;
 import me.i509.fabric.projectf.api.processor.serializer.ProcessorSerializer;
 import me.i509.fabric.projectf.api.processor.type.Processor;
 import me.i509.fabric.projectf.util.QuadConsumer;
 import net.minecraft.util.Identifier;
 
 public interface FMCProcessorEntrypoint {
-	<F extends ProcessorFactory<P>, P extends Processor, S extends ProcessorSerializer<P, F>> void registerProcessors(QuadConsumer<Identifier, Class<P>, Supplier<F>, S> acceptor);
+	<F extends ProcessorBuilder<P>, P extends Processor, S extends ProcessorSerializer<P, F>> void registerProcessors(QuadConsumer<Identifier, Class<P>, Supplier<F>, S> acceptor);
 }

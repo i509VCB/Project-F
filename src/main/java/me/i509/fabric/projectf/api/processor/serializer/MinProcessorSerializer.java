@@ -24,8 +24,8 @@
 
 package me.i509.fabric.projectf.api.processor.serializer;
 
-import me.i509.fabric.projectf.api.processor.factory.MinProcessorFactory;
+import me.i509.fabric.projectf.api.processor.factory.MinProcessorBuilder;
 import me.i509.fabric.projectf.api.processor.type.MinProcessor;
 
-public interface MinProcessorSerializer extends ProcessorSerializer<MinProcessor, MinProcessorFactory> {
+public interface MinProcessorSerializer extends ProcessorSerializer<MinProcessor, MinProcessorBuilder> {
 }

@@ -24,11 +24,11 @@
 
 package me.i509.fabric.projectf.api.processor.type;
 
-import me.i509.fabric.projectf.api.processor.factory.ProcessorFactory;
+import me.i509.fabric.projectf.api.processor.factory.ProcessorBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
-public interface Processor<F extends ProcessorFactory<?>> {
+public interface Processor<F extends ProcessorBuilder<?>> {
 	long process(ItemStack stack);
 
 	Identifier getId();

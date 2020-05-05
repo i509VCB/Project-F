@@ -24,11 +24,11 @@
 
 package me.i509.fabric.projectf.api.processor.factory;
 
-import me.i509.fabric.projectf.api.processor.type.MultiplyProcessor;
-import me.i509.fabric.projectf.api.processor.type.Processor;
+import me.i509.fabric.projectf.api.processor.type.OfItemsProcessor;
+import net.minecraft.item.Item;
 
-public interface MultiplyProcessorFactory extends ProcessorFactory<MultiplyProcessor> {
-	MultiplyProcessorFactory processor(Processor<?> processor);
+public interface OfItemsProcessorBuilder extends ProcessorBuilder<OfItemsProcessor> {
+	OfItemsProcessorBuilder of (Item... item);
 
-	MultiplyProcessorFactory multiplier(double multiplier);
+	OfItemsProcessorBuilder of (Item item);
 }

@@ -24,8 +24,8 @@
 
 package me.i509.fabric.projectf.api.processor.serializer;
 
-import me.i509.fabric.projectf.api.processor.factory.PercentageOfProcessorFactory;
+import me.i509.fabric.projectf.api.processor.factory.PercentageOfProcessorBuilder;
 import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
 
-public interface PercentageOfProcessorSerializer extends ProcessorSerializer<PercentageOfProcessor, PercentageOfProcessorFactory> {
+public interface PercentageOfProcessorSerializer extends ProcessorSerializer<PercentageOfProcessor, PercentageOfProcessorBuilder> {
 }

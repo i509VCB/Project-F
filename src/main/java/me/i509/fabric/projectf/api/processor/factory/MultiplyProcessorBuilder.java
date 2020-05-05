@@ -22,31 +22,13 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl.factory;
+package me.i509.fabric.projectf.api.processor.factory;
 
-import me.i509.fabric.projectf.api.processor.factory.MaxProcessorFactory;
-import me.i509.fabric.projectf.api.processor.type.MaxProcessor;
+import me.i509.fabric.projectf.api.processor.type.MultiplyProcessor;
 import me.i509.fabric.projectf.api.processor.type.Processor;
-import me.i509.fabric.projectf.processor.impl.type.MaxProcessorImpl;
 
-public class MaxProcessorFactoryImpl implements MaxProcessorFactory {
-	private Processor<?> first;
-	private Processor<?> second;
+public interface MultiplyProcessorBuilder extends ProcessorBuilder<MultiplyProcessor> {
+	MultiplyProcessorBuilder processor(Processor<?> processor);
 
-	@Override
-	public MaxProcessorFactory first(Processor<?> processor) {
-		this.first = processor;
-		return this;
-	}
-
-	@Override
-	public MaxProcessorFactory second(Processor<?> processor) {
-		this.second = processor;
-		return this;
-	}
-
-	@Override
-	public MaxProcessor create() {
-		return new MaxProcessorImpl(this.first, this.second);
-	}
+	MultiplyProcessorBuilder multiplier(double multiplier);
 }

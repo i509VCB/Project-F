@@ -24,9 +24,9 @@
 
 package me.i509.fabric.projectf.api.processor.type;
 
-import me.i509.fabric.projectf.api.processor.factory.MultiplyProcessorFactory;
+import me.i509.fabric.projectf.api.processor.factory.MultiplyProcessorBuilder;
 
-public interface MultiplyProcessor extends Processor<MultiplyProcessorFactory> {
+public interface MultiplyProcessor extends Processor<MultiplyProcessorBuilder> {
 	Processor<?> processor();
 
 	double multiplier();

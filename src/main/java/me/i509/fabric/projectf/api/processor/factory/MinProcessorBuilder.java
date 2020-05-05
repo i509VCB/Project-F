@@ -22,25 +22,13 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.processor.impl.factory;
+package me.i509.fabric.projectf.api.processor.factory;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import me.i509.fabric.projectf.api.processor.type.ConstantProcessor;
-import me.i509.fabric.projectf.api.processor.factory.ConstantProcessorFactory;
-import me.i509.fabric.projectf.processor.impl.type.ConstantProcessorImpl;
+import me.i509.fabric.projectf.api.processor.type.MinProcessor;
+import me.i509.fabric.projectf.api.processor.type.Processor;
 
-public class ConstantProcessorFactoryImpl implements ConstantProcessorFactory {
-	private long value;
+public interface MinProcessorBuilder extends ProcessorBuilder<MinProcessor> {
+	MinProcessorBuilder first(Processor<?> processor);
 
-	@Override
-	public ConstantProcessorFactory value(long value) {
-		this.value = value;
-		return this;
-	}
-
-	@Override
-	public ConstantProcessor create() {
-		checkArgument(value >= 0, "Constant Processor value cannot be negative.");
-		return new ConstantProcessorImpl(this.value);
-	}
+	MinProcessorBuilder second(Processor<?> processor);
 }
