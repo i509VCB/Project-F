@@ -29,7 +29,8 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Lazy;
 
-public class ToolMaterialBuilder {
+public final class ToolMaterialBuilder {
+	private int durability;
 	private float miningSpeed;
 	private float attackDmg;
 	private int miningLevel;
@@ -62,27 +63,29 @@ public class ToolMaterialBuilder {
 	}
 
 	public ToolMaterial build() {
-		return new ToolMaterialBuilder.Material(this.miningSpeed, this.attackDmg, this.miningLevel, this.enchantability, () -> this.ingredient);
+		return new ToolMaterialBuilder.Material(this.durability, this.miningSpeed, this.attackDmg, this.miningLevel, this.enchantability, () -> this.ingredient);
 	}
 
-	public class Material implements ToolMaterial {
-		private float miningSpeed;
-		private float attackDamage;
-		private int miningLevel;
-		private int enchantability;
-		private Lazy<Ingredient> ingredientSupplier;
+	static final class Material implements ToolMaterial {
+		private final int durability;
+		private final float miningSpeed;
+		private final float attackDamage;
+		private final int miningLevel;
+		private final int enchantability;
+		private final Lazy<Ingredient> ingredientSupplier;
 
-		public Material(float miningSpeed, float attackDmg, int miningLevel, int enchantability, Supplier<Ingredient> repairIng) {
+		public Material(int durability, float miningSpeed, float attackDmg, int miningLevel, int enchantability, Supplier<Ingredient> repairIngredient) {
+			this.durability = durability;
 			this.miningSpeed = miningSpeed;
 			this.attackDamage = attackDmg;
 			this.miningLevel = miningLevel;
 			this.enchantability = enchantability;
-			this.ingredientSupplier = new Lazy<>(repairIng);
+			this.ingredientSupplier = new Lazy<>(repairIngredient);
 		}
 
 		@Override
 		public int getDurability() {
-			return 100;
+			return this.durability;
 		}
 
 		@Override

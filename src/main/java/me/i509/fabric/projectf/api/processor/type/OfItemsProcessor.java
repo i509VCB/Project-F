@@ -25,9 +25,28 @@
 package me.i509.fabric.projectf.api.processor.type;
 
 import java.util.List;
-import me.i509.fabric.projectf.api.processor.factory.OfItemsProcessorBuilder;
+
+import me.i509.fabric.projectf.api.processor.Processor;
+import me.i509.fabric.projectf.api.processor.Processors;
 import net.minecraft.item.Item;
 
-public interface OfItemsProcessor extends Processor<OfItemsProcessorBuilder> {
+public interface OfItemsProcessor extends Processor {
 	List<Item> getItems();
+
+	static OfItemsProcessor.Builder builder() {
+		return Processors.supplyBuilder(OfItemsProcessor.class);
+	}
+
+	static OfItemsProcessor.Serializer serializer() {
+		return Processors.supplySerializer(OfItemsProcessor.class);
+	}
+
+	interface Builder extends Processor.Builder<OfItemsProcessor> {
+		OfItemsProcessor.Builder items(Item... items);
+
+		OfItemsProcessor.Builder items(Iterable<Item> items);
+	}
+
+	interface Serializer extends Processor.Serializer<OfItemsProcessor> {
+	}
 }

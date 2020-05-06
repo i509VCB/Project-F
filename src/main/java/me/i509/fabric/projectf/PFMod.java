@@ -22,26 +22,17 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.api.processor.type;
+package me.i509.fabric.projectf;
 
-import me.i509.fabric.projectf.api.processor.Processor;
-import me.i509.fabric.projectf.api.processor.Processors;
+import me.i509.fabric.projectf.registry.PFRegistries;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.minecraft.resource.ResourceType;
 
-public interface ConstantProcessor extends Processor {
-	long getValue();
-
-	static ConstantProcessor.Builder builder() {
-		return Processors.supplyBuilder(ConstantProcessor.class);
-	}
-
-	static ConstantProcessor.Serializer serializer() {
-		return Processors.supplySerializer(ConstantProcessor.class);
-	}
-
-	interface Builder extends Processor.Builder<ConstantProcessor> {
-		ConstantProcessor.Builder value(long value);
-	}
-
-	interface Serializer extends Processor.Serializer<ConstantProcessor> {
+public class PFMod implements ModInitializer {
+	@Override
+	public void onInitialize() {
+		ProjectF.getInstance();
+		PFRegistries.init();
 	}
 }

@@ -64,13 +64,14 @@
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
 
-        <!--<module name="ImportOrder">
-            <property name="groups" value="java,javax,*,net.minecraft,net.fabricmc,io.github.cottonmc,me.i509"/>
-            <property name="ordered" value="false"/> --><!-- the plugin orders alphabetically without considering separators.. --> <!--
+        <module name="ImportOrder">
+            <!--If you want your imports ordered in a certian way, please it on-->
+            <property name="groups" value="java,javax,*,net.minecraft,net.fabricmc,me.i509"/>
+            <property name="ordered" value="false"/><!-- the plugin orders alphabetically without considering separators.. -->
             <property name="separated" value="true"/>
             <property name="option" value="top"/>
             <property name="sortStaticImportsAlphabetically" value="true"/>
-        </module>-->
+        </module>
 
         <!-- Ensures braces are at the end of a line -->
         <module name="LeftCurly"/>
@@ -137,9 +138,7 @@
         <module name="ModifierOrder"/>
         <module name="RedundantModifier"/>
 
-        <module name="AnnotationLocation">
-            <property name="allowSamelineMultipleAnnotations" value="true"/>
-        </module>
+        <module name="AnnotationLocation"/>
         <module name="MissingOverride"/>
 
         <!-- By default this allows catch blocks with only comments -->

@@ -34,7 +34,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Lazy;
 
-public class ArmorMaterialBuilder {
+public final class ArmorMaterialBuilder {
 	private String name;
 	private int[] protectionAmounts;
 	private int enchantability;
@@ -140,7 +140,7 @@ public class ArmorMaterialBuilder {
 			return this.toughness;
 		}
 
-		@Override // kb resistenceq
+		@Override
 		public float getKnockbackResistance() {
 			return this.knockbackResistance;
 		}

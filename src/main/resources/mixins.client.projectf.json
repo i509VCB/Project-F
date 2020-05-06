@@ -1,10 +1,11 @@
 {
   "required": true,
-  "package": "me.i509.fabric.projectf.mixin",
+  "package": "me.i509.fabric.projectf.mixin.client",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
   ],
   "client": [
+    "ItemMixin_Client"
   ],
   "injectors": {
     "defaultRequire": 1

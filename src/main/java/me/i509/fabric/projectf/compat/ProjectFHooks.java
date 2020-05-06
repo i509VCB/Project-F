@@ -24,24 +24,14 @@
 
 package me.i509.fabric.projectf.compat;
 
-import me.i509.fabric.projectf.registry.PFFluids;
-import net.minecraft.server.network.ServerPlayerEntity;
+import me.i509.fabric.projectf.util.PFUtils;
 import org.spongepowered.asm.mixin.injection.Inject;
 
 /**
- * Represents all compatibility hooks. Any mods wishing to add certain condition should {@link Inject @Inject} into one of the static methods.
+ * Contains all compatibility hooks. Any mods wishing to add certain condition should {@link Inject Injected} into one of the static methods.
  */
 public class ProjectFHooks {
-	/**
-	 * Tests where this player should recieve damage from colliding with {@link PFFluids#FLOWING_FMC} or {@link PFFluids#STILL_FMC}.
-	 *
-	 * <p>This is mainly used by trinkets in case an item exists which stops damage inside of liquid fmc.
-	 *
-	 * @param player The player to test
-	 *
-	 * @return Whether this player should take damage.
-	 */
-	public static boolean testFluidSafetyCompat(ServerPlayerEntity player) {
-		return false;
+	private ProjectFHooks() {
+		throw PFUtils.BOSS_MUSIC;
 	}
 }

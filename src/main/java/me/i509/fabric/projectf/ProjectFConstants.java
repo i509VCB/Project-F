@@ -24,5 +24,15 @@
 
 package me.i509.fabric.projectf;
 
+import me.i509.fabric.projectf.api.fmc.FMCComponent;
+import me.i509.fabric.projectf.api.util.LongTransaction;
+
 public class ProjectFConstants {
+	public void e(FMCComponent component) {
+		try (LongTransaction transaction = component.recieve(LongTransaction.Action.ACT, 10)) {
+			if (transaction.getExtra() != 0) {
+				transaction.cancel();
+			}
+		}
+	}
 }

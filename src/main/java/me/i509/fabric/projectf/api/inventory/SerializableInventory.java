@@ -7,17 +7,15 @@ import net.minecraft.nbt.ListTag;
 
 public interface SerializableInventory extends Inventory {
 	default void readTags(ListTag listTag) {
-		int j;
-
-		for (j = 0; j < this.size(); ++j) {
-			this.setStack(j, ItemStack.EMPTY);
+		for (int slot = 0; slot < this.size(); ++slot) {
+			this.setStack(slot, ItemStack.EMPTY);
 		}
 
-		for (j = 0; j < listTag.size(); ++j) {
-			CompoundTag compoundTag = listTag.getCompound(j);
+		for (int slot = 0; slot < listTag.size(); ++slot) {
+			CompoundTag compoundTag = listTag.getCompound(slot);
 			int k = compoundTag.getByte("Slot") & 255;
 
-			if (k >= 0 && k < this.size()) {
+			if (k < this.size()) {
 				this.setStack(k, ItemStack.fromTag(compoundTag));
 			}
 		}
@@ -26,12 +24,12 @@ public interface SerializableInventory extends Inventory {
 	default ListTag getTags() {
 		ListTag listTag = new ListTag();
 
-		for (int i = 0; i < this.size(); ++i) {
-			ItemStack itemStack = this.getStack(i);
+		for (int slot = 0; slot < this.size(); ++slot) {
+			ItemStack itemStack = this.getStack(slot);
 
 			if (!itemStack.isEmpty()) {
 				CompoundTag compoundTag = new CompoundTag();
-				compoundTag.putByte("Slot", (byte) i);
+				compoundTag.putByte("Slot", (byte) slot);
 				itemStack.toTag(compoundTag);
 				listTag.add(compoundTag);
 			}

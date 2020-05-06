@@ -24,10 +24,28 @@
 
 package me.i509.fabric.projectf.api.processor.type;
 
-import me.i509.fabric.projectf.api.processor.factory.AddProcessorBuilder;
+import me.i509.fabric.projectf.api.processor.Processor;
+import me.i509.fabric.projectf.api.processor.Processors;
 
-public interface AddProcessor extends Processor<AddProcessorBuilder> {
-	Processor<?> getFirst();
+public interface AddProcessor extends Processor {
+	Processor first();
 
-	Processor<?> getSecond();
+	Processor second();
+
+	static AddProcessor.Builder builder() {
+		return Processors.supplyBuilder(AddProcessor.class);
+	}
+
+	static AddProcessor.Serializer serializer() {
+		return Processors.supplySerializer(AddProcessor.class);
+	}
+
+	interface Builder extends Processor.Builder<AddProcessor> {
+		AddProcessor.Builder first(Processor processor);
+
+		AddProcessor.Builder second(Processor processor);
+	}
+
+	interface Serializer extends Processor.Serializer<AddProcessor> {
+	}
 }

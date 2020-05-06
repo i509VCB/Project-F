@@ -24,29 +24,17 @@
 
 package me.i509.fabric.projectf.registry;
 
+import me.i509.fabric.projectf.util.PFUtils;
+
 public final class PFRegistries {
 	/**
 	 * Loads all objects to be registered. This can be ran as many times as you wish but will have no effect once loaded the first time.
 	 */
 	public static void init() {
-		PFArticles.init();
-		PFFluids.init();
 		PFItemGroups.init();
-		PFItemSettings.init();
-		PFBlocks.init();
-		PFBlockEntities.init();
-		PFItems.init();
-		PFMaterials.init();
-		PFPointOfInterestTypes.init();
-		PFVillagers.init();
-		PFTradeOffers.init();
-		PFContainers.init();
-		PFRecipeTypes.init();
-		PFRecipeSerializers.init();
 	}
 
-	// Suppress default constructor to ensure non-instantiability.
 	private PFRegistries() {
-		throw new AssertionError("You should not be attempting to instantiate this class.");
+		throw PFUtils.BOSS_MUSIC;
 	}
 }

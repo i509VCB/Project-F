@@ -25,62 +25,18 @@
 package me.i509.fabric.projectf.api.processor;
 
 import me.i509.fabric.projectf.ProjectF;
-import me.i509.fabric.projectf.api.processor.factory.AddProcessorBuilder;
-import me.i509.fabric.projectf.api.processor.factory.ConstantProcessorBuilder;
-import me.i509.fabric.projectf.api.processor.factory.PercentageOfProcessorBuilder;
-import me.i509.fabric.projectf.api.processor.factory.MaxProcessorBuilder;
-import me.i509.fabric.projectf.api.processor.factory.MinProcessorBuilder;
-import me.i509.fabric.projectf.api.processor.factory.MultiplyProcessorBuilder;
-import me.i509.fabric.projectf.api.processor.factory.OfItemsProcessorBuilder;
-import me.i509.fabric.projectf.api.processor.type.AddProcessor;
-import me.i509.fabric.projectf.api.processor.type.ConstantProcessor;
-import me.i509.fabric.projectf.api.processor.type.PercentageOfProcessor;
-import me.i509.fabric.projectf.api.processor.type.MaxProcessor;
-import me.i509.fabric.projectf.api.processor.type.MinProcessor;
-import me.i509.fabric.projectf.api.processor.type.MultiplyProcessor;
-import me.i509.fabric.projectf.api.processor.type.OfItemsProcessor;
-import me.i509.fabric.projectf.api.processor.type.Processor;
+import me.i509.fabric.projectf.util.PFUtils;
 
-/**
- * Represents an enumeration of all builtin processor builders.
- */
 public final class Processors {
-	/**
-	 * Represents a {@link Processor} whose value is a combination of two {@link Processor}s.
-	 */
-	public static final AddProcessorBuilder ADD = ProjectF.getInstance().getProcessorRegistry().get(AddProcessor.class);
+	private Processors() {
+		throw PFUtils.BOSS_MUSIC;
+	}
 
-	/**
-	 * Represents a {@link Processor} which has a constant value.
-	 */
-	public static final ConstantProcessorBuilder CONSTANT = ProjectF.getInstance().getProcessorRegistry().get(ConstantProcessor.class);
+	public static <P extends Processor, B extends Processor.Builder<P>> B supplyBuilder(Class<P> processorClass) {
+		return ProjectF.getInstance().supplyBuilder(processorClass);
+	}
 
-	/**
-	 * Represents a {@link Processor} whose value is the {@link Processor}s of other items.
-	 *
-	 * <p>Note this processor will be ignored if it is detected to be recursive.</p>
-	 */
-	public static final OfItemsProcessorBuilder OF_ITEMS = ProjectF.getInstance().getProcessorRegistry().get(OfItemsProcessor.class);
-
-	/**
-	 * Represents a {@link Processor} whose value is the maximum of two {@link Processor}s.
-	 */
-	public static final MaxProcessorBuilder MAX = ProjectF.getInstance().getProcessorRegistry().get(MaxProcessor.class);
-
-	/**
-	 * Represents a {@link Processor} whose value is the minumum of two {@link Processor}s.
-	 */
-	public static final MinProcessorBuilder MIN = ProjectF.getInstance().getProcessorRegistry().get(MinProcessor.class);
-
-	/**
-	 * Represents a {@link Processor} whose value is another {@link Processor} multiplied by a value.
-	 */
-	public static final MultiplyProcessorBuilder MULTIPLY = ProjectF.getInstance().getProcessorRegistry().get(MultiplyProcessor.class);
-
-	/**
-	 * Represents a {@link Processor} whose value a percentage of an item's durability.
-	 *
-	 * <p>Likely you will want to {@link MultiplyProcessor multiply} this value since this is a direct scaling of the item's durability.</p>
-	 */
-	public static final PercentageOfProcessorBuilder PERCENTAGE_OF = ProjectF.getInstance().getProcessorRegistry().get(PercentageOfProcessor.class);
+	public static <P extends Processor, S extends Processor.Serializer<P>> S supplySerializer(Class<P> processorClass) {
+		return ProjectF.getInstance().supplySerializer(processorClass);
+	}
 }

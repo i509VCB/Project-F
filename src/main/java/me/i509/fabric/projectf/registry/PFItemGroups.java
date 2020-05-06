@@ -25,6 +25,7 @@
 package me.i509.fabric.projectf.registry;
 
 import me.i509.fabric.projectf.ProjectF;
+import me.i509.fabric.projectf.util.PFUtils;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -39,8 +40,7 @@ public final class PFItemGroups {
 		// NO-OP
 	}
 
-	// Suppress default constructor to ensure non-instantiability.
 	private PFItemGroups() {
-		throw new AssertionError("You should not be attempting to instantiate this class.");
+		throw PFUtils.BOSS_MUSIC;
 	}
 }

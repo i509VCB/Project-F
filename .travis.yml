@@ -3,9 +3,13 @@ language: java
 notifications:
   email: false
 before_install: chmod +x gradlew
-script: ./gradlew build -s
+script:
+  - ./gradlew checkLicense
+  - ./gradlew checkstyleMain
+  - ./gradlew build
 jdk:
   - oraclejdk8
+  - oraclejdk11
 # Caching for Gradle files, prevents hitting Maven too much.
 before_cache:
   - find $HOME/.gradle/ -name '*.lock' -print -exec rm -f {} \;

@@ -24,10 +24,28 @@
 
 package me.i509.fabric.projectf.api.processor.type;
 
-import me.i509.fabric.projectf.api.processor.factory.MultiplyProcessorBuilder;
+import me.i509.fabric.projectf.api.processor.Processor;
+import me.i509.fabric.projectf.api.processor.Processors;
 
-public interface MultiplyProcessor extends Processor<MultiplyProcessorBuilder> {
-	Processor<?> processor();
+public interface MultiplyProcessor extends Processor {
+	Processor processor();
 
-	double multiplier();
+	long multiplier();
+
+	static MultiplyProcessor.Builder builder() {
+		return Processors.supplyBuilder(MultiplyProcessor.class);
+	}
+
+	static MultiplyProcessor.Serializer serializer() {
+		return Processors.supplySerializer(MultiplyProcessor.class);
+	}
+
+	interface Builder extends Processor.Builder<MultiplyProcessor> {
+		MultiplyProcessor.Builder processor();
+
+		MultiplyProcessor.Builder multiplier(long multiplier);
+	}
+
+	interface Serializer extends Processor.Serializer<MultiplyProcessor> {
+	}
 }

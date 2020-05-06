@@ -1,0 +1,21 @@
+ext {
+    fabric = [
+            // Minecraft
+            minecraft: "com.mojang:minecraft:$project.minecraft",
+            yarn: "net.fabricmc:yarn:$project.minecraft+build.$project.yarn_build:v2",
+            fabric_loader: "net.fabricmc:fabric-loader:$project.fabric_loader"
+    ]
+    mods = [
+            fabric_api: "net.fabricmc.fabric-api:fabric-api:$project.fabric_api",
+            cardinal_components: "com.github.OnyxStudios.Cardinal-Components-API:Cardinal-Components-API:$project.cardinal_components"
+    ]
+    libs = [
+            // Annotations
+            checker_qual: "org.checkerframework:checker-qual:$project.checker_qual",
+    ]
+    optional = [
+            // Misc
+            modmenu: "io.github.prospector:modmenu:$project.modmenu",
+            rei: "me.shedaniel:RoughlyEnoughItems:$project.rei"
+    ]
+}

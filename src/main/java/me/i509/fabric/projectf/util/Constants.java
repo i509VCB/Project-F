@@ -25,24 +25,5 @@
 package me.i509.fabric.projectf.util;
 
 public final class Constants {
-	public static final class Nbt {
-		public static final class PlayerEntity {
-			public static final String ALCHEMICAL_BAG_TAG = "pfAlchemicalBags";
 
-			// Suppress default constructor to ensure non-instantiability.
-			private PlayerEntity() {
-				throw new AssertionError("You should not be attempting to instantiate this class.");
-			}
-		}
-
-		// Suppress default constructor to ensure non-instantiability.
-		private Nbt() {
-			throw new AssertionError("You should not be attempting to instantiate this class.");
-		}
-	}
-
-	// Suppress default constructor to ensure non-instantiability.
-	private Constants() {
-		throw new AssertionError("You should not be attempting to instantiate this class.");
-	}
 }

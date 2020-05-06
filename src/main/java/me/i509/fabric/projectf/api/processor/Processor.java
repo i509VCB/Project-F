@@ -22,26 +22,30 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.api.processor.type;
+package me.i509.fabric.projectf.api.processor;
 
-import me.i509.fabric.projectf.api.processor.Processor;
-import me.i509.fabric.projectf.api.processor.Processors;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.Identifier;
 
-public interface ConstantProcessor extends Processor {
-	long getValue();
+public interface Processor {
+	Identifier getId();
 
-	static ConstantProcessor.Builder builder() {
-		return Processors.supplyBuilder(ConstantProcessor.class);
+	long process(ItemStack stack);
+
+	interface Builder<P extends Processor> {
+		P build();
 	}
 
-	static ConstantProcessor.Serializer serializer() {
-		return Processors.supplySerializer(ConstantProcessor.class);
-	}
+	interface Serializer<P extends Processor> {
+		P deserialize(JsonElement element) throws JsonParseException;
 
-	interface Builder extends Processor.Builder<ConstantProcessor> {
-		ConstantProcessor.Builder value(long value);
-	}
+		JsonElement serialize(P processor);
 
-	interface Serializer extends Processor.Serializer<ConstantProcessor> {
+		PacketByteBuf toPacket(P processor, PacketByteBuf buf);
+
+		P fromPacket(PacketByteBuf buf);
 	}
 }

@@ -24,54 +24,31 @@
 
 package me.i509.fabric.projectf;
 
-import java.util.List;
-import me.i509.fabric.projectf.api.processor.type.Processor;
-import me.i509.fabric.projectf.config.PFConfig;
-import me.i509.fabric.projectf.processor.ProcessorRegistry;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import me.i509.fabric.projectf.api.processor.Processor;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.message.AbstractMessageFactory;
-import org.apache.logging.log4j.message.Message;
-import org.apache.logging.log4j.message.ParameterizedMessage;
+
+import java.util.IdentityHashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 public class ProjectF {
-	public static final String MODID = "projectf";
+	public static final String MOD_ID = "projectf";
+	public static final ModContainer MOD_CONTAINER = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(
+			() -> new RuntimeException("Failed to get ProjectF's mod container. This is a bug and should be reported"));
 	private static final ProjectF INSTANCE = new ProjectF();
-	private static final Logger LOGGER = LogManager.getLogger(ProjectF.class, new AbstractMessageFactory() {
-		@Override
-		public Message newMessage(String message, Object... params) {
-			return new ParameterizedMessage("[ProjectF] " + message, params);
-		}
-	});
+	private static final Logger LOGGER = LogManager.getLogger(ProjectF.class);
 
-	private PFConfig config = new PFConfig(); // TODO Impl config loading
+	private final Map<Class<? extends Processor>, Supplier<? extends Processor.Builder<?>>> builders
+			= new IdentityHashMap<>();
+	private final Map<Class<? extends Processor>, Supplier<? extends Processor.Serializer<?>>> serializers
+			= new IdentityHashMap<>();
 
 	private ProjectF() {
 		// NO-OP
-	}
-
-	final void init() {
-		processorRegistry = new ProcessorRegistry();
-		fmcManager = new FMCManager(this);
-	}
-
-	private ProcessorRegistry processorRegistry;
-	private FMCManager fmcManager;
-
-	public FMCManager getFMCManager() {
-		return this.fmcManager;
-	}
-
-	public ProcessorRegistry getProcessorRegistry() {
-		return this.processorRegistry;
 	}
 
 	public static ProjectF getInstance() {
@@ -83,27 +60,18 @@ public class ProjectF {
 	}
 
 	public static Identifier id(String path) {
-		return new Identifier(MODID, path);
+		return new Identifier(MOD_ID, path);
 	}
 
-	@Environment(EnvType.CLIENT)
-	public void addFMCTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
-		Processor processor = this.getFMCManager().getProcessor(stack.getItem());
-
-		long fmcValue = processor.process(stack);
-
-		if (fmcValue <= 0) {
-			return;
-		}
-
-		tooltip.add(new TranslatableText("fmc.amount.each", fmcValue));
-
-		if (stack.getCount() > 1) {
-			tooltip.add(new TranslatableText("fmc.amount.total", fmcValue * stack.getCount()));
-		}
+	private static void initProcessors() {
+		// TODO: Setup
 	}
 
-	public PFConfig getConfig() {
-		return this.config;
+	public <B extends Processor.Builder<P>, P extends Processor> B supplyBuilder(Class<P> processorClass) {
+		return (B) ProjectF.getInstance().serializers.get(processorClass).get();
+	}
+
+	public <S extends Processor.Serializer<P>, P extends Processor> S supplySerializer(Class<P> processorClass) {
+		return (S) ProjectF.getInstance().builders.get(processorClass).get();
 	}
 }

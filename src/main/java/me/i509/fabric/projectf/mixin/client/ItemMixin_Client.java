@@ -41,9 +41,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(Item.class)
 public abstract class ItemMixin_Client {
-	@Environment(EnvType.CLIENT)
 	@Inject(at = @At("HEAD"), method = "appendTooltip")
 	private void pf_appendItemTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context, CallbackInfo ci) {
-		ProjectF.getInstance().addFMCTooltip(stack, world, tooltip, context);
 	}
 }

@@ -24,10 +24,28 @@
 
 package me.i509.fabric.projectf.api.processor.type;
 
-import me.i509.fabric.projectf.api.processor.factory.MinProcessorBuilder;
+import me.i509.fabric.projectf.api.processor.Processor;
+import me.i509.fabric.projectf.api.processor.Processors;
 
-public interface MinProcessor extends Processor<MinProcessorBuilder> {
-	Processor<?> first();
+public interface MinProcessor extends Processor {
+	Processor first();
 
-	Processor<?> second();
+	Processor second();
+
+	static MinProcessor.Builder builder() {
+		return Processors.supplyBuilder(MinProcessor.class);
+	}
+
+	static MinProcessor.Serializer serializer() {
+		return Processors.supplySerializer(MinProcessor.class);
+	}
+
+	interface Builder extends Processor.Builder<MinProcessor> {
+		MinProcessor.Builder first(Processor processor);
+
+		MinProcessor.Builder second(Processor processor);
+	}
+
+	interface Serializer extends Processor.Serializer<MinProcessor> {
+	}
 }

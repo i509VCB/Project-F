@@ -24,10 +24,28 @@
 
 package me.i509.fabric.projectf.api.processor.type;
 
-import me.i509.fabric.projectf.api.processor.factory.MaxProcessorBuilder;
+import me.i509.fabric.projectf.api.processor.Processor;
+import me.i509.fabric.projectf.api.processor.Processors;
 
-public interface MaxProcessor extends Processor<MaxProcessorBuilder> {
-	Processor<?> first();
+public interface MaxProcessor extends Processor {
+	Processor first();
 
-	Processor<?> second();
+	Processor second();
+
+	static MaxProcessor.Builder builder() {
+		return Processors.supplyBuilder(MaxProcessor.class);
+	}
+
+	static MaxProcessor.Serializer serializer() {
+		return Processors.supplySerializer(MaxProcessor.class);
+	}
+
+	interface Builder extends Processor.Builder<MaxProcessor> {
+		MaxProcessor.Builder first(Processor processor);
+
+		MaxProcessor.Builder second(Processor processor);
+	}
+
+	interface Serializer extends Processor.Serializer<MaxProcessor> {
+	}
 }

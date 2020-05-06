@@ -27,7 +27,11 @@ package me.i509.fabric.projectf.util;
 import net.minecraft.util.Unit;
 
 public interface PFUtils {
-	static Unit dummyRegister(Runnable runnable) {
+	AssertionError BOSS_MUSIC = new AssertionError("**boss music** No instance for you!");
+
+	AssertionError UNTRANSFORMED_MIXIN = new AssertionError("Untransformed Accessor!");
+
+	static Unit dummyRegister(final Runnable runnable) {
 		runnable.run();
 		return Unit.INSTANCE;
 	}

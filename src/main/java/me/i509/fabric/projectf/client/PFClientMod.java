@@ -22,26 +22,15 @@
  * SOFTWARE.
  */
 
-package me.i509.fabric.projectf.api.processor.type;
+package me.i509.fabric.projectf.client;
 
-import me.i509.fabric.projectf.api.processor.Processor;
-import me.i509.fabric.projectf.api.processor.Processors;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
-public interface ConstantProcessor extends Processor {
-	long getValue();
-
-	static ConstantProcessor.Builder builder() {
-		return Processors.supplyBuilder(ConstantProcessor.class);
-	}
-
-	static ConstantProcessor.Serializer serializer() {
-		return Processors.supplySerializer(ConstantProcessor.class);
-	}
-
-	interface Builder extends Processor.Builder<ConstantProcessor> {
-		ConstantProcessor.Builder value(long value);
-	}
-
-	interface Serializer extends Processor.Serializer<ConstantProcessor> {
+@Environment(EnvType.CLIENT)
+public class PFClientMod implements ClientModInitializer {
+	@Override
+	public void onInitializeClient() {
 	}
 }

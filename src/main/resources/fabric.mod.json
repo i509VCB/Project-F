@@ -1,43 +1,36 @@
 {
   "schemaVersion": 1,
-  "id": "projectf",
-  "version": "${version}",
-
-  "name": "Project F",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "${description}",
   "authors": [
-    ""
+    {
+      "name": "i509VCB"
+    }
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "sources": "https://github.com/${repo_owner}/${repo_name}",
+    "issues": "https://github.com/${repo_owner}/${repo_name}/issues"
   },
-
-  "license": "MIT",
-  "icon": "assets/projf/icon.png",
-
+  "license": "${license}",
+  "icon": "assets/${mod_id}/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "me.i509.fabric.projectf.ProjectFMod"
+      "me.i509.fabric.projectf.PFMod"
     ],
     "client": [
-      "me.i509.fabric.projectf.client.ProjectFClient"
+      "me.i509.fabric.projectf.client.PFClientMod"
     ]
   },
   "mixins": [
-    "mixins.projectf.accessors.json",
-    "mixins.projectf.client.json",
-    "mixins.projectf.compat.json",
-    "mixins.projectf.json"
+    "mixins.accessors.${mod_id}.json",
+    "mixins.client.${mod_id}.json",
+    "mixins.${mod_id}.json"
   ],
-
   "depends": {
-    "fabricloader": ">=0.4.0",
-    "fabric": "*",
-    "minecraft": ">=1.15.2"
-  },
-  "suggests": {
-    "flamingo": "*"
+    "fabricloader": ">=0.8.2",
+    "fabric": ">=0.9.0"
   }
 }
